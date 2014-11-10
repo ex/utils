@@ -943,7 +943,7 @@ CSS 3.0;CSS 3.0</PropertyValue>
 			<PropertyValue name="ErrorListShowsMessages">true</PropertyValue>
 			<PropertyValue name="ErrorListScopeFilteringActive">false</PropertyValue>
 			<PropertyValue name="ErrorListFilterScope">3</PropertyValue>
-			<PropertyValue name="ActiveProvider">{7E5BB8D2-57E5-4FA9-9542-3870395C16A1}</PropertyValue>
+			<PropertyValue name="ActiveProvider">{00000000-0000-0000-0000-000000000000}</PropertyValue>
 			<TaskProviders>
 				<Provider GUID="{7E5BB8D2-57E5-4FA9-9542-3870395C16A1}">
 					<Columns>
@@ -1038,6 +1038,7 @@ CSS 3.0;CSS 3.0</PropertyValue>
 							<Item Name="CppMemberFieldSemanticTokenFormat" Foreground="0x00FFFFFF" Background="0x02000000" BoldFont="No"/>
 							<Item Name="CppEventSemanticTokenFormat" Foreground="0x00FFFFFF" Background="0x02000000" BoldFont="No"/>
 							<Item Name="CppClassTemplateSemanticTokenFormat" Foreground="0x00B8CE5E" Background="0x02000000" BoldFont="No"/>
+							<Item Name="RegularExpressionClassificationFormat" Foreground="0x00597AC8" Background="0x01000001" BoldFont="No"/>
 						</Items>
 					</Category>
 					<Category GUID="{9973EFDF-317D-431C-8BC1-5E88CBFD4F7F}" FontName="Lucida Console Ex" FontSize="9" CharSet="1" FontIsDefault="No">
@@ -1615,20 +1616,6 @@ CSS 3.0;CSS 3.0</PropertyValue>
 						<Column Name="Subcategory" Width="0" Visibility="Invisible" SortPriority="3" SortDirection="Up"/>
 					</Columns>
 				</Provider>
-				<Provider GUID="{00000000-0000-0000-0000-000000000000}">
-					<Columns>
-						<Column Name="Priority" Width="20" Visibility="Visible" SortPriority="0" SortDirection="Up"/>
-						<Column Name="Bitmap" Width="17" Visibility="Visible" SortPriority="-1" SortDirection="Up"/>
-						<Column Name="ProviderKnowsOrder" Width="17" Visibility="Invisible" SortPriority="2" SortDirection="Up"/>
-						<Column Name="Checked" Width="28" Visibility="Visible" SortPriority="-1" SortDirection="Up"/>
-						<Column Name="Description" Width="250" Visibility="Visible" SortPriority="7" SortDirection="Up"/>
-						<Column Name="File" Width="120" Visibility="Visible" SortPriority="4" SortDirection="Up"/>
-						<Column Name="Line" Width="70" Visibility="Visible" SortPriority="5" SortDirection="Up"/>
-						<Column Name="Column" Width="70" Visibility="Invisible" SortPriority="6" SortDirection="Up"/>
-						<Column Name="Category" Width="0" Visibility="Invisible" SortPriority="1" SortDirection="Up"/>
-						<Column Name="Subcategory" Width="0" Visibility="Invisible" SortPriority="3" SortDirection="Up"/>
-					</Columns>
-				</Provider>
 			</TaskProviders>
 		</Category>
 		<Category name="Environment_Toolbox" Category="{481999F2-7479-4e03-83D5-BE808BA142DF}" Package="{DA9FB551-C724-11d0-AE1F-00A0C90FFFC3}" RegisteredName="Environment_Toolbox" PackageName="Visual Studio Environment Package">
@@ -1801,11 +1788,11 @@ CSS 3.0;CSS 3.0</PropertyValue>
 													<wm:ToolWindowView ForceCreate="DontForceCreate" Name="ST:0:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}" FloatingTop="100" FloatingLeft="100" FloatingHeight="450" FloatingWidth="450"/>
 													<wm:ToolWindowView ForceCreate="ForceCreate" Name="ST:0:0:{2553315d-efa1-4d33-9ed6-ffe62257ca21}" FloatingTop="0" FloatingLeft="0" FloatingHeight="600" FloatingWidth="800"/>
 													<wm:ToolWindowView ForceCreate="DontForceCreate" Name="ST:0:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}" FloatingTop="100" FloatingLeft="100" FloatingHeight="400" FloatingWidth="400"/>
-													<wm:ToolWindowView ForceCreate="DontForceCreate" Name="ST:0:0:{387cb18d-6153-4156-9257-9ac3f9207bbe}" FloatingTop="100" FloatingLeft="100" FloatingHeight="450" FloatingWidth="450"/>
 													<ViewBookmark Name="D:0:0:{01FCA642-D593-4B9E-A448-823AA6F3FB07}|Game.csproj|d:\bamtang\html5\ozcircus\build\rp1_13_2\assets\sources\js\components\rpjs.component.camera.js||{8B382828-6202-11D1-8870-0000F87579D2}" ViewBookmarkType="DocumentWell"/>
 													<ViewBookmark Name="ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}" ViewBookmarkType="DocumentWell"/>
 													<ViewBookmark Name="ST:0:0:{131369f2-062d-44a2-8671-91ff31efb4f4}" ViewBookmarkType="DocumentWell"/>
 													<ViewBookmark Name="ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}" ViewBookmarkType="DocumentWell"/>
+													<wm:ToolWindowView ForceCreate="DontForceCreate" Name="ST:0:0:{387cb18d-6153-4156-9257-9ac3f9207bbe}" FloatingTop="100" FloatingLeft="100" FloatingHeight="450" FloatingWidth="450"/>
 												</wm:WMDocumentGroup>
 											</DocumentGroupContainer>
 										</DockGroup>
@@ -1837,7 +1824,7 @@ CSS 3.0;CSS 3.0</PropertyValue>
 						<wm:ToolWindowView ContextVisibilityEnabled="False" ForceCreate="ForceCreate" Name="ST:0:0:{e830ec50-c2b5-11d2-9375-0080c747d9a0}" DockedHeight="192" DockedWidth="1024" FloatingHeight="76.8" FloatingWidth="337.92"/>
 					</wm:WMFloatSite>
 					<wm:WMFloatSite Id="7d3ed5f5-0790-4418-b975-1fa9a94e2e75" FloatingTop="200" FloatingLeft="795" FloatingHeight="428" FloatingWidth="379">
-						<wm:ToolWindowView ContextVisibilityEnabled="False" ForceCreate="DontForceCreate" IconIndex="7" IconResourceID="6650" IconResourcePackage="da9fb551-c724-11d0-ae1f-00a0c90fffc3" Name="ST:0:0:{cf2ddc32-8cad-11d2-9302-005345000000}" IsSelected="True" DockedHeight="192" DockedWidth="1024" FloatingTop="200" FloatingLeft="795" FloatingHeight="428" FloatingWidth="379"/>
+						<wm:ToolWindowView ContextVisibilityEnabled="False" ForceCreate="ForceCreate" IconIndex="7" IconResourceID="6650" IconResourcePackage="da9fb551-c724-11d0-ae1f-00a0c90fffc3" Name="ST:0:0:{cf2ddc32-8cad-11d2-9302-005345000000}" IsSelected="True" DockedHeight="192" DockedWidth="1024" FloatingTop="200" FloatingLeft="795" FloatingHeight="428" FloatingWidth="379"/>
 					</wm:WMFloatSite>
 					<wm:WMFloatSite Id="534ecd1b-bc9f-4484-958a-caccf70a41b9" FloatingHeight="76.8" FloatingWidth="337.92">
 						<wm:ToolWindowView ContextVisibilityEnabled="False" ForceCreate="ForceCreate" Name="ST:0:0:{53024d34-0ef5-11d3-87e0-00c04f7971a5}" DockedHeight="192" DockedWidth="1024" FloatingHeight="76.8" FloatingWidth="337.92"/>
