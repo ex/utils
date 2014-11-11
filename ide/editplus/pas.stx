@@ -1,0 +1,216 @@
+#TITLE=Pascal
+
+;-------------------------------------------------------------------------------
+; Syntax highlighting for Pascal and Delphi source files.
+;
+; Copyright (c) 2000 by Micha³ Jaz³owiecki
+; michalj@prioris.mini.pw.edu.pl
+; http://prioris.mini.pw.edu.pl/~michalj                  (Polish language only)
+;
+; Supported dialects:
+;  - Borland Turbo Pascal 6.0 with Objects
+;  - Borland Turbo Pascal 7.0 with Objects
+;  - Borland Pascal 7.0 with Objects
+; All reserved words mentioned here are from Borland Pascal 7.0 with Objects,
+; but they work with other Borland Turbo Pascal versions and other Pascal
+; versions. However some words mentioned here as reserved may not be reserved in
+; those Pascal dialects (like in Watcom Pascal or GNU Pascal in ANSI/ISO Pascal
+; mode). Should work with Delphi files, too.
+;
+; Known bugs:
+;  - Compiler directives are shown as comments, because they are placed in
+;    comments. Even original IDE's (editors) for Borland Pascal 7 and Turbo
+;    Pascal 7 display compiler directives as comments! Compiler directives 
+;    are listed for completness.
+;  - Only five predefined symbols are listed, because other, like VER60 and
+;    VER70 are defined in some versions only (because they are determined by
+;    those versions; VER60 is defined in Turbo Pascal version 6.0, VER70 is
+;    defined in Borland Pascal and Turbo Pascal versions 7.0; Delphi 1.0 is
+;    Pascal version 8.0 with VER80 defined and so on).
+;  - There are no Delphi-specific or Pascal-for-Windows-specific types (like
+;    PStr or PBool), because there are too many of them.
+;
+;------------------------------------------------------------------------------
+
+#DELIMITER=,{}()[]*%/="'~!&|<>?:;.#
+#QUOTATION1='
+#QUOTATION2=
+#CONTINUE_QUOTE=n
+#LINECOMMENT=//
+#LINECOMMENT2=
+#COMMENTON={
+#COMMENTOFF=}
+#COMMENTON2=(*
+#COMMENTOFF2=*)
+#ESCAPE=
+#CASE=n
+#PREFIX1=
+#PREFIX2=
+#PREFIX3=
+#PREFIX4=
+#PREFIX5=
+#SUFFIX1=
+#SUFFIX2=
+#SUFFIX3=
+#SUFFIX4=
+#SUFFIX5=
+
+#KEYWORD=Borland Pascal 7.0 reserved words
+absolute
+and
+array
+asm
+assembler
+begin
+case
+const
+constructor
+destructor
+div
+do
+downto
+else
+end
+export
+exports
+external
+far
+file
+for
+forward
+function
+goto
+if
+implementation
+in
+index
+inherited
+inline
+interface
+interrupt
+label
+library
+mod
+name
+near
+nil
+not
+object
+of
+or
+packed
+private
+procedure
+program
+public
+record
+repeat
+resident
+set
+shl
+shr
+string
+then
+to
+type
+unit
+until
+uses
+var
+virtual
+while
+with
+xor
+
+#KEYWORD=Borland Pascal 7.0 compiler directives
+; They still don't work as they should - compiler directives in Pascal MUST be placed in
+; comments. The first sign after symbol opening comment MUST be dollar sign ($).
+; Currently they are shown as comment.
+$a-
+$a+
+$b-
+$b+
+$c
+$d-
+$d+
+$d
+$define
+define
+$e-
+$e-
+$e+
+$else
+$endif
+$f-
+$f+
+$g-
+$g+
+$g
+$i-
+$i+
+$ifdef
+$ifndef
+$ifopt
+$i
+$k-
+$k+
+$l-
+$l+
+$l
+$m
+$n-
+$n+
+$o-
+$o+
+$o
+$p-
+$p+
+$q-
+$q+
+$r-
+$r+
+$r
+$s-
+$s+
+$s
+$t-
+$t+
+$undef
+$v-
+$v+
+$w-
+$w+
+$x-
+$x+
+$y-
+$y+
+
+#KEYWORD=Borland Pascal predefined symbolic names
+cpu86
+cpu87
+dpmi
+msdos
+windows
+
+#KEYWORD=Borlan Pascal Types
+; ANSI/ISO Pascal types
+boolean
+char
+integer
+pointer
+real
+; Borland Pascal extended types
+byte
+comp
+double
+extended
+longbool
+longint
+pchar
+shortbool
+shortint
+single
+word
+wordbool
+
+#
