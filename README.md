@@ -3,6 +3,9 @@ Utils
 
 crontab
 -------
+
+http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
+
     $ sudo crontab -e
     
     ## minute : hour : day_of_month : month : day_of_week : command
