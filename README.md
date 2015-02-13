@@ -16,3 +16,8 @@ http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
 ####Making file executable: chmod
 
     $ chmod +x script.pl
+
+####Disk usage: du
+
+    $ du -sk /path/* | sort -nr | while read size fname; do for unit in k M G T P E Z Y; do if [ $size -lt 1024 ]; then echo -e "${size}${unit}\t${fname}"; break; fi; size=$((size/1024)); done; done
+    
