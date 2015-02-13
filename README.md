@@ -1,8 +1,7 @@
 Utils
 =====
 
-crontab
--------
+####Scheduling: crontab
 
 http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
 
@@ -14,4 +13,6 @@ http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
     30 2 1 * * /usr/svn/backold.pl > /usr/svn/backold.log 2>&1
     @reboot /usr/svn/utils/rebootmail.pl
 
+####Making file executable: chmod
 
+    $ chmod +x script.pl
