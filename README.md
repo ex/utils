@@ -24,3 +24,7 @@ http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
 ####Change user and group owner (recursive)
 
     $ chown -R username:group /path/directory/
+
+####Send file by FTP
+
+    $ curl -T my-local-file.txt ftp://ftp.example.com --user user:secret
