@@ -1,0 +1,1 @@
+{"description": "A package to add support for the Rust programming language to Sublime Text 3", "url": "https://github.com/jhasse/sublime-rust", "platforms": ["*"], "version": "2015.01.15.21.35.08", "sublime_text": "*", "dependencies": []}

@@ -1,0 +1,5 @@
+{
+    "cmd": ["cgc", "-noentry", "$file"],
+    "file_regex": "(.*)\\(([0-9]*)\\) : (warning|error) C([0-9]*): (.*)$",
+    "selector": "source.cg"
+}
