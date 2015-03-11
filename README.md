@@ -28,3 +28,10 @@ http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
 ####Send file by FTP
 
     $ curl -T my-local-file.txt ftp://ftp.example.com --user user:secret
+
+####Log into remote Samba directory and mount remote disk
+
+    $ smbclient -L 192.168.98.253 -Uuser%password
+    $ mount -t cifs "//192.168.98.253/svn" "/mnt/svn" -ouser=USER,pass=PASSWORD,domain=YUMI,rw
+
+
