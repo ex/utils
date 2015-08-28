@@ -40,4 +40,11 @@ http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
 
     $ curl --user username:password 'ftp://ftp.host.com/file' -o '/path/to/download'
 
+####Simlinks
+#####Windows
 
+    $ mklink /D C:\xampp\htdocs\www C:\dev\html\project\build
+
+#####Linux
+    $ ln -s /path/target /path/symlink
+    
