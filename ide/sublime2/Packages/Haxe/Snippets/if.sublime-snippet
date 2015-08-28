@@ -1,7 +1,7 @@
 <snippet>
-    <content><![CDATA[if(${1:true}){
-      ${0:$TM_SELECTED_TEXT}
-}]]></content>
+    <content><![CDATA[if$HX_K_W_ORB($HX_ORB_W${1:condition}$HX_W_CRB)${2:$HX_W_OCB{
+	${3:$TM_SELECTED_TEXT}$0
+\}}]]></content>
     <tabTrigger>if</tabTrigger>
     <scope>source.haxe.2</scope>
     <description>if</description>

@@ -1,0 +1,8 @@
+<snippet>
+	<content><![CDATA[for$HX_K_W_ORB($HX_ORB_W${1:i} in ${2:${3:0}$HX_W_TD...$HX_TD_W${4:n}}$HX_W_CRB)${5:$HX_W_OCB{
+	${6:$TM_SELECTED_TEXT}$0
+\}}]]></content>
+	<tabTrigger>for</tabTrigger>
+	<scope>source.haxe.2</scope>
+	<description>for</description>
+</snippet>

@@ -1,3 +1,4 @@
 *.cache
 *.pyc
 .DS_Store
+tests/result.txt

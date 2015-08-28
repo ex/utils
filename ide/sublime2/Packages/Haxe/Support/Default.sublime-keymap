@@ -1,7 +1,147 @@
 [
     {
+        "keys": ["ctrl+space"], 
+        "command": "haxe_display_completion", 
+        "args": {
+            "hide": true
+        },
+        "context":
+        [
+            {
+                "key": "auto_complete_visible", 
+                "operator": "equal", 
+                "operand": true 
+            },
+            {
+                "key": "selector",
+                "operator": "equal",
+                "operand": "source.haxe.2,source.hxml,source.nmml,source.erazor"
+            }
+        ]
+    },
+    {
+        "keys": ["ctrl+space"], 
+        "command": "haxe_display_completion", 
+        "context":
+        [
+            {
+                "key": "auto_complete_visible", 
+                "operator": "equal", 
+                "operand": false 
+            },
+            {
+                "key": "selector",
+                "operator": "equal",
+                "operand": "source.haxe.2,source.hxml,source.nmml,source.erazor"
+            }
+        ]
+    },
+    {
+        "keys": ["ctrl+alt+space"], 
+        "command": "haxe_display_completion", 
+        "args": {
+            "hide": true,
+            "type_completion": true
+        },
+        "context":
+        [
+            {
+                "key": "auto_complete_visible", 
+                "operator": "equal", 
+                "operand": true 
+            },
+            {
+                "key": "selector",
+                "operator": "equal",
+                "operand": "source.haxe.2,source.hxml,source.nmml,source.erazor"
+            }
+        ]
+    },
+    {
+        "keys": ["ctrl+alt+space"], 
+        "command": "haxe_display_completion", 
+        "args": {
+            "type_completion": true
+        },
+        "context":
+        [
+            {
+                "key": "auto_complete_visible", 
+                "operator": "equal", 
+                "operand": false 
+            },
+            {
+                "key": "selector",
+                "operator": "equal",
+                "operand": "source.haxe.2,source.hxml,source.nmml,source.erazor"
+            }
+        ]
+    },
+    {
+        "keys": ["ctrl+shift+space"],
+        "command": "haxe_hint",
+        "context": [
+            {
+                "key": "selector",
+                "operator": "equal",
+                "operand": "source.haxe.2 meta.parameters.haxe.2"
+            }
+        ]
+    },
+    {
+        "keys": ["ctrl+shift+space"],
+        "command": "haxe_show_type",
+        "context": [
+            {
+                "key": "selector",
+                "operator": "not_equal",
+                "operand": "source.haxe.2 meta.parameters.haxe.2"
+            }
+        ]
+    },
+    {
+        "keys": ["ctrl+shift+1"],
+        "command": "haxe_generate_code",
+        "context":
+        [
+            {
+                "key": "selector",
+                "operator": "equal",
+                "operand": "source.haxe.2,source.hxml,source.nmml,source.erazor"
+            }
+        ]
+    },
+    {
+        "keys": ["ctrl+shift+2"],
+        "command": "haxe_refactoring",
+        "context":
+        [
+            {
+                "key": "selector",
+                "operator": "equal",
+                "operand": "source.haxe.2,source.hxml,source.nmml,source.erazor"
+            }
+        ]
+    },
+    {
         "keys": ["ctrl+shift+b"],
         "command": "haxe_select_build",
+        "context":
+        [
+            {
+                "key": "selector",
+                "operator": "equal",
+                "operand": "source.haxe.2,source.hxml,source.nmml,source.erazor"
+            }
+        ]
+    },
+    {
+        "keys": ["ctrl+shift+alt+b"],
+        "command": "haxe_select_build",
+        "args":
+        {
+            "all_views": true
+        },
         "context":
         [
             {
@@ -134,6 +274,11 @@
         ]
     },
     {
+        "keys": ["ctrl+shift+h","ctrl+shift+a"],
+        "command": "haxe_create_type",
+        "args" : {"t" : "abstract"}
+    },
+    {
         "keys": ["ctrl+shift+h","ctrl+shift+c"],
         "command": "haxe_create_type",
         "args" : {"t" : "class"}
@@ -152,6 +297,11 @@
         "keys": ["ctrl+shift+h","ctrl+shift+e"],
         "command": "haxe_create_type",
         "args" : {"t" : "enum"}
+    },
+    {
+        "keys": ["ctrl+shift+h","ctrl+shift+o"],
+        "command": "haxe_organize_imports",
+        "args" : {"add" : true, "sort" : true, "remove" : true, "auto_remove" : true}
     },
     {
         "keys": ["ctrl+shift+f1"],

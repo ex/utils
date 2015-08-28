@@ -5,9 +5,9 @@ import sublime_plugin
 import re
 
 try: # Python 3
-    from ..HaxeHelper import HaxeComplete_inst
+    from .haxe_helper import HaxeComplete_inst
 except (ValueError): # Python 2
-    from HaxeHelper import HaxeComplete_inst
+    from haxe_helper import HaxeComplete_inst
 
 posRe = re.compile("^(.*):(\\d+):\\ (lines|characters)\\ (\\d+)-(\\d+)$")
 

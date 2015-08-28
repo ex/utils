@@ -1,9 +1,8 @@
 <snippet>
-    <content><![CDATA[enum ${1:enum_name}
-{
+	<content><![CDATA[enum ${1:name}$HX_W_OCB{
 	${0:$TM_SELECTED_TEXT}
 }]]></content>
-    <tabTrigger>enum</tabTrigger>
-    <scope>source.haxe.2</scope>
-    <description>Enum</description>
+	<tabTrigger>enum</tabTrigger>
+	<scope>source.haxe.2</scope>
+	<description>Enum</description>
 </snippet>

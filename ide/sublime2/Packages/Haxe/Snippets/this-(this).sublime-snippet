@@ -1,5 +1,5 @@
 <snippet>
-    <content><![CDATA[this.${1:property} = ${1:arg};]]></content>
+    <content><![CDATA[this.${1:property}$HX_W_A=$HX_A_W$1;]]></content>
     <tabTrigger>this</tabTrigger>
     <scope>source.haxe.2</scope>
     <description>Constructor Property (this)</description>

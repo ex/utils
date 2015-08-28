@@ -5,17 +5,22 @@
 	<key>name</key>
 	<string>Symbol List: Show</string>
 	<key>scope</key>
-	<string>source.haxe.2 entity.name.function.haxe.2</string>
+	<string>source.haxe.2 meta.static,source.haxe.2 meta.method.name.haxe.2,source.haxe.2 meta.variable.haxe.2,source.haxe.2 meta.type.name.haxe.2</string>
 	<key>settings</key>
 	<dict>
 		<key>showInSymbolList</key>
 		<integer>1</integer>
 		<key>symbolTransformation</key>
 		<string>
-			s/(.*)/$1 \(\)/;
+			s/[\(\{].*//;
+			s/^(abstract|class|enum|interface|typedef)\s+/▼ $2 /;
+			s/^static\s+(inline\s+)?function\s+/   ⚪ /;
+			s/^(function)\s+/   ⚫ /;
+			s/^static.*(var)\s+(\w+).*/   ▫ $2/;
+			s/^(var)\s+(\w+).*/   ▪ $2/;
 		</string>
 	</dict>
 	<key>uuid</key>
-	<string>005BE156-8D74-4036-AF38-283708645115</string>
+	<string>a330e44b-5054-4ccb-b943-322864defaca</string>
 </dict>
 </plist>

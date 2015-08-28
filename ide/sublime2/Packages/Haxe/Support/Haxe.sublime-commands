@@ -1,4 +1,5 @@
 [
+    { "caption": "Haxe: New Abstract", "command": "haxe_create_type" , "args" : { "t" : "abstract"} },
     { "caption": "Haxe: New Class", "command": "haxe_create_type" , "args" : { "t" : "class"} },
     { "caption": "Haxe: New Interface", "command": "haxe_create_type" , "args" : { "t" : "interface"} },
     { "caption": "Haxe: New Enum", "command": "haxe_create_type" , "args" : { "t" : "enum"} },
@@ -6,7 +7,7 @@
     { "caption": "Haxe: Restart Server", "command": "haxe_restart_server" },
     { "caption": "Haxe: Run build", "command": "haxe_run_build" },
     { "caption": "Haxe: Choose Build Target", "command": "haxe_select_build" },
-    { "caption": "Haxe: Organize Imports", "command": "haxe_organize_imports" },
+    { "caption": "Haxe: Organize Imports", "command": "haxe_organize_imports", "args" : { "add" : true, "sort" : true, "remove" : true, "auto_remove" : true} },
 	{ "caption": "Haxelib: List Installed", "command": "haxelib_list_installed", "args" : { "t" : "list"} },    
 	{ "caption": "Haxelib: Install library", "command": "haxelib_install_lib" },
 	{ "caption": "Haxelib: Remove library", "command": "haxelib_list_installed", "args" : { "t" : "remove"}  },    

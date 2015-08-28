@@ -1,0 +1,22 @@
+version: "{build}"
+
+environment:
+    global:
+        PACKAGE: "Haxe"
+        HAXELIB_ROOT: C:\projects\haxelib
+    matrix:
+        # - SUBLIME_TEXT_VERSION : "2"
+        - SUBLIME_TEXT_VERSION : "3"
+
+install:
+    - ps: Start-FileDownload "https://raw.githubusercontent.com/randy3k/UnitTesting/master/sbin/appveyor.ps1"
+    - ps: .\appveyor.ps1 "bootstrap" -verbose
+    - cinst haxe -y
+    - RefreshEnv
+    - mkdir "%HAXELIB_ROOT%"
+    - haxelib setup "%HAXELIB_ROOT%"
+
+build: off
+
+test_script:
+    - ps: .\appveyor.ps1 "run_tests" -verbose

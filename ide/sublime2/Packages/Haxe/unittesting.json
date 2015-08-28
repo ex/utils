@@ -1,0 +1,4 @@
+{
+    "deferred": true,
+    "output": "tests/result.txt"
+}

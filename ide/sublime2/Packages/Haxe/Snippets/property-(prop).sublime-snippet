@@ -1,12 +1,14 @@
 <snippet>
-    <content><![CDATA[public var ${1:var_name}(get_${1:var_name}, set_${1:var_name}):${2:var_type};
-private var _${1:var_name}:${2:var_type};
+	<content><![CDATA[public var ${1:name}$HX_W_ORB(${HX_ORB_W}get_${1:name}$HX_W_CM,${HX_CM_W}set_${1:name}$HX_W_CRB)$HX_CRB_C:$HX_C_W${2:type};
+private var _$1$HX_W_C:$HX_C_W$2;
 
-function get_${1:var_name}():${2:var_type} { return _${1:var_name}; }
-function set_${1:var_name}(value:${2:var_type}):${2:var_type}$TM_CSLB{
-	return _${1:var_name} = value;
+function get_$1$HX_W_ORB()$HX_CRB_W_C:$HX_C_W$2$HX_W_OCB{
+	return _$1;
+}
+function set_$1(value$HX_W_C:$HX_C_W$2)$HX_CRB_W_C:$HX_C_W$2$HX_W_OCB{
+	return _$1$HX_W_A=${HX_A_W}value;
 }]]></content>
-    <tabTrigger>prop</tabTrigger>
-    <scope>source.haxe.2</scope>
-    <description>Property with getter/setter (prop)</description>
+	<tabTrigger>prop</tabTrigger>
+	<scope>source.haxe.2</scope>
+	<description>Property with getter/setter (prop)</description>
 </snippet>

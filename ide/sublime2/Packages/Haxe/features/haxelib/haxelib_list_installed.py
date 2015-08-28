@@ -2,15 +2,15 @@ import sublime
 import sublime_plugin
 
 try: # Python 3
-    from ...HaxeHelper import runcmd, show_quick_panel
+    from ..haxe_helper import runcmd, show_quick_panel
 except (ValueError): # Python 2
-    from HaxeHelper import runcmd, show_quick_panel
-   
+    from haxe_helper import runcmd, show_quick_panel
+
 print("HAXE : haxelib list ")
 
 class HaxelibListInstalled( sublime_plugin.WindowCommand ):
     def run(self, paths = [] , t = "list"):
-        
+
         self.action = t
 
         settings = self.window.active_view().settings()
@@ -19,8 +19,8 @@ class HaxelibListInstalled( sublime_plugin.WindowCommand ):
         out,err = runcmd([haxelib_path , "list"]);
 
         libs = out.splitlines()
-        
-        self.libs = []        
+
+        self.libs = []
         menu = []
         for _lib in libs :
             libname,libcurrent,libversions = self.haxelib_parse_libversions(_lib)
@@ -39,7 +39,7 @@ class HaxelibListInstalled( sublime_plugin.WindowCommand ):
             self.do_update(self.libs[index])
 
     def do_remove(self,library):
-    
+
         sublime.status_message("Please wait, removing haxelib " + library);
 
         settings = self.window.active_view().settings()
@@ -50,19 +50,19 @@ class HaxelibListInstalled( sublime_plugin.WindowCommand ):
         show_quick_panel(self.window, out.splitlines(), None)
 
     def do_update(self,library):
-    
+
         sublime.status_message("Please wait, updating haxelib " + library);
 
         settings = self.window.active_view().settings()
         haxelib_path = settings.get("haxelib_path","haxelib")
 
         out,err = runcmd([haxelib_path , "update", library]);
-        sublime.status_message(str(out))        
+        sublime.status_message(str(out))
         show_quick_panel(self.window, out.splitlines(), None)
 
     def haxelib_parse_libversions( self, libinfo ):
         # the info comes in along these lines format: 3.0.2 [3.0.4]
-        # so first : is the lib name, the ones inside of [ ] is active and 
+        # so first : is the lib name, the ones inside of [ ] is active and
         # the rest are installed but not active.
         first_colon = libinfo.find(':');
         libname = ''

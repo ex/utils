@@ -2,9 +2,9 @@ import sublime
 import sublime_plugin
 
 try: # Python 3
-    from ...HaxeHelper import runcmd
+    from ..haxe_helper import runcmd
 except (ValueError): # Python 2
-    from HaxeHelper import runcmd
+    from haxe_helper import runcmd
 
 # from .haxelib_list_libs import HaxelibListLibs
 
@@ -17,7 +17,7 @@ class HaxelibInstallLib( sublime_plugin.WindowCommand ):
         menu.append(["Install by name", "Manually enter a library name"])
         menu.append(["Install from list", "Show a big list of libraries"])
         self.window.show_quick_panel(menu, self.on_select)
-        
+
     def on_select(self,index):
         if(index < 0):
             return
@@ -30,7 +30,7 @@ class HaxelibInstallLib( sublime_plugin.WindowCommand ):
         settings = self.window.active_view().settings()
         haxelib_path = settings.get("haxelib_path","haxelib")
 
-        if(value != ""):            
+        if(value != ""):
             out,err = runcmd([haxelib_path , "install", value]);
             outlines = out.splitlines()
             sublime.status_message(str(outlines));

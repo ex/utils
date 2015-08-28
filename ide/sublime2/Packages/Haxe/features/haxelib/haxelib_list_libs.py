@@ -3,9 +3,9 @@ import sublime_plugin
 import textwrap
 
 try: # Python 3
-    from ...HaxeHelper import runcmd, show_quick_panel
+    from ..haxe_helper import runcmd, show_quick_panel
 except (ValueError): # Python 2
-    from HaxeHelper import runcmd, show_quick_panel
+    from haxe_helper import runcmd, show_quick_panel
 
 print("HAXE : haxelib search ")
 
@@ -40,7 +40,7 @@ class HaxelibListLibs( sublime_plugin.WindowCommand ):
         self.selected = name
 
         menu = []
-        menu.append( ["Info", "haxelib info " + name] ) 
+        menu.append( ["Info", "haxelib info " + name] )
         menu.append( ["Install", "haxelib install " + name] )
 
         show_quick_panel(self.window, menu, self.on_action_selected)
@@ -77,10 +77,10 @@ class HaxelibListLibs( sublime_plugin.WindowCommand ):
             #store the desc
             desc = lines[2]
             #remove it from the list
-            del lines[2]            
-            
+            del lines[2]
+
             #wrap it neatly
-            descsplit = textwrap.wrap(desc,max_length) 
+            descsplit = textwrap.wrap(desc,max_length)
 
             #now replace the Desc: into it's own line
             descsplit[0] = descsplit[0].replace('Desc: ','')
@@ -99,5 +99,5 @@ class HaxelibListLibs( sublime_plugin.WindowCommand ):
             if(length > max_length):
                 split_lines = textwrap.wrap(line,max_length)
                 lines[index] = split_lines[0] + ' ...'
-        
+
         show_quick_panel(self.window,lines,None)

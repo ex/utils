@@ -1,0 +1,8 @@
+<snippet>
+	<content><![CDATA[do${2:$HX_W_OCB{
+	${3:$TM_SELECTED_TEXT}$0
+\}}${HX_CCB_W}while$HX_K_W_ORB(${1:condition});]]></content>
+	<tabTrigger>do</tabTrigger>
+	<scope>source.haxe.2</scope>
+	<description>do while</description>
+</snippet>

@@ -2,9 +2,9 @@ import sublime_plugin
 import sublime
 
 try: # Python 3
-    from ..HaxeHelper import HaxeComplete_inst
+    from .haxe_helper import HaxeComplete_inst
 except (ValueError): # Python 2
-    from HaxeHelper import HaxeComplete_inst
+    from haxe_helper import HaxeComplete_inst
 
 class HaxeRestartServer( sublime_plugin.WindowCommand ):
 

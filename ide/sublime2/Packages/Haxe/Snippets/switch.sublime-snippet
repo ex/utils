@@ -1,8 +1,8 @@
 <snippet>
-    <content><![CDATA[switch (${1:$TM_SELECTED_TEXT}) {
-	case:
+	<content><![CDATA[switch$HX_K_W_ORB(${1:$TM_SELECTED_TEXT})$HX_W_OCB{
+	case ${2:pattern}$HX_W_C:$HX_C_W$0
 }]]></content>
-    <tabTrigger>switch</tabTrigger>
-    <scope>source.haxe.2</scope>
-    <description>switch</description>
+	<tabTrigger>switch</tabTrigger>
+	<scope>source.haxe.2</scope>
+	<description>switch</description>
 </snippet>

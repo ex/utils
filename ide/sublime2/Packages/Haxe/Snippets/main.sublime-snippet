@@ -1,16 +1,15 @@
 <snippet>
-    <content><![CDATA[class ${1:class_name}
-{
-	public function new()$TM_CSLB{
-		${0}
+	<content><![CDATA[class ${1:name}$HX_W_OCB{
+	
+	public function new$HX_W_ORB()$HX_W_OCB{
+		$0
 	}
 
-	static public function main()
-  {
-		var app = new ${1:class_name}();
+	static public function main$HX_W_ORB()$HX_W_OCB{
+		var app$HX_W_A=${HX_A_W}new $1$HX_W_ORB()$HX_W_SC;
 	}
 }]]></content>
-    <tabTrigger>main</tabTrigger>
-    <scope>source.haxe.2</scope>
-    <description>Main class</description>
+	<tabTrigger>main</tabTrigger>
+	<scope>source.haxe.2</scope>
+	<description>Main class</description>
 </snippet>

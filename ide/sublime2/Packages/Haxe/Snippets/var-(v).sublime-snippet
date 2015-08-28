@@ -1,6 +1,6 @@
 <snippet>
-    <content><![CDATA[var ${1:var_name}${2::${3:Void}}${4: = ${5:value}};]]></content>
-    <tabTrigger>v</tabTrigger>
-    <scope>source.haxe.2</scope>
-    <description>Variable</description>
+	<content><![CDATA[var ${1:name}${2:$HX_W_C:$HX_C_W${3:Dynamic}}${4:$HX_W_A=$HX_A_W${5:value}};]]></content>
+	<tabTrigger>v</tabTrigger>
+	<scope>source.haxe.2</scope>
+	<description>Variable</description>
 </snippet>
