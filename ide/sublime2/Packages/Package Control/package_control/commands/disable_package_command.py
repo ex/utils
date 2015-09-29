@@ -1,13 +1,15 @@
 import sublime
 import sublime_plugin
 
-from ..show_error import show_error
+from .. import text
+from ..show_quick_panel import show_quick_panel
 from ..package_manager import PackageManager
 from ..settings import preferences_filename
 from ..package_disabler import PackageDisabler
 
 
 class DisablePackageCommand(sublime_plugin.WindowCommand, PackageDisabler):
+
     """
     A command that adds a package to Sublime Text's ignored packages list
     """
@@ -20,11 +22,17 @@ class DisablePackageCommand(sublime_plugin.WindowCommand, PackageDisabler):
         if not ignored:
             ignored = []
         self.package_list = list(set(packages) - set(ignored))
-        self.package_list.sort()
+        self.package_list = sorted(self.package_list, key=lambda s: s.lower())
         if not self.package_list:
-            show_error('There are no enabled packages to disable.')
+            sublime.message_dialog(text.format(
+                u'''
+                Package Control
+
+                There are no enabled packages to disable
+                '''
+            ))
             return
-        self.window.show_quick_panel(self.package_list, self.on_done)
+        show_quick_panel(self.window, self.package_list, self.on_done)
 
     def on_done(self, picked):
         """

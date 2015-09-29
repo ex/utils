@@ -88,10 +88,17 @@
 	// with the current version.
 	"user_agent": "Package Control v%s",
 
-	// Setting this to true will cause Package Control to ignore all git
-	// and hg repositories - this may help if trying to list packages to install
-	// hangs
-	"ignore_vcs_packages": false,
+	// A list of package names to ignore when performing operations. This will
+	// only affect packages that appear to be a git or hg repository, but will
+	// be especially useful for package developers who manually deal with the
+	// repository and don't want Package Control touching it.
+	//
+	// It can help if trying to list packages to install hangs, possibly due
+	// to an interactive prompt.
+	//
+	// The setting can also be set to the boolean true to ignore all git and hg
+	// repositories, no matter what the name.
+	"ignore_vcs_packages": [],
 
 	// Custom path(s) to "git" binary for when it can't be automatically
 	// found on the system and a package includes a .git metadata directory.
@@ -115,6 +122,24 @@
 
 	// Additional packages to ignore when listing unmanaged packages.
 	"unmanaged_packages_ignore": [],
+
+	// The downloader backends that should be used for HTTP(S) requests, split
+	// by operating system to allow for configuration to be shared.
+	//
+	// Valid options include: "urllib", "curl", "wget", (Windows-only) "wininet"
+	//
+	// This setting allows Windows users to bypass wininet and use urllib
+	// instead if they machine or network presents trouble to wininet. Some
+	// OS X and Linux users have also reported better luck with certain proxies
+	// using curl or wget instead of urllib.
+	//
+	// The "curl" and "wget" options require the command line "curl" or "wget"
+	// program installed and present in the PATH.
+	"downloader_precedence": {
+		"windows": ["wininet"],
+		"osx": ["urllib"],
+		"linux": ["urllib", "curl", "wget"]
+	},
 
 	// Directories to ignore when creating a package
 	"dirs_to_ignore": [

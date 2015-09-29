@@ -1,11 +1,20 @@
-import sys
 import json
 
 import sublime
 
-from .settings import preferences_filename, pc_settings_filename, load_list_setting
+from .settings import preferences_filename, pc_settings_filename, load_list_setting, save_list_setting
 from .package_io import package_file_exists, read_package_file
-from . import events
+from . import text
+
+# This has to be imported this way for consistency with the public API,
+# otherwise this code and packages will each load a different instance of the
+# module, and the event tracking won't work. However, upon initial install,
+# when running ST3, the module will not yet be imported, and the cwd will not
+# be Packages/Package Control/ so we need to patch it into sys.modules.
+try:
+    from package_control import events
+except (ImportError):
+    events = None
 
 
 class PackageDisabler():
@@ -28,12 +37,15 @@ class PackageDisabler():
             The string version
         """
 
-        metadata_json = read_package_file(package, 'package-metadata.json')
-        if metadata_json:
-            metadata = json.loads(metadata_json)
-            return metadata.get('version', 'unknown')
+        if package_file_exists(package, 'package-metadata.json'):
+            metadata_json = read_package_file(package, 'package-metadata.json')
+            if metadata_json:
+                try:
+                    return json.loads(metadata_json).get('version', 'unknown version')
+                except (ValueError):
+                    pass
 
-        return 'unknown'
+        return 'unknown version'
 
     def disable_packages(self, packages, type='upgrade'):
         """
@@ -51,7 +63,15 @@ class PackageDisabler():
              - "install"
              - "disable"
              - "loader"
+
+        :return:
+            A list of package names that were disabled
         """
+
+        global events
+
+        if events is None:
+            from package_control import events
 
         if not isinstance(packages, list):
             packages = [packages]
@@ -68,7 +88,7 @@ class PackageDisabler():
         self.old_color_schemes = {}
 
         for package in packages:
-            if not package in ignored:
+            if package not in ignored:
                 in_process.append(package)
                 ignored.append(package)
                 disabled.append(package)
@@ -109,11 +129,9 @@ class PackageDisabler():
         # We don't mark a package as in-process when disabling it, otherwise
         # it automatically gets re-enabled the next time Sublime Text starts
         if type != 'disable':
-            pc_settings.set('in_process_packages', in_process)
-            sublime.save_settings(pc_settings_filename())
+            save_list_setting(pc_settings, pc_settings_filename(), 'in_process_packages', in_process)
 
-        settings.set('ignored_packages', ignored)
-        sublime.save_settings(preferences_filename())
+        save_list_setting(settings, preferences_filename(), 'ignored_packages', ignored)
 
         return disabled
 
@@ -133,6 +151,11 @@ class PackageDisabler():
              - "loader"
         """
 
+        global events
+
+        if events is None:
+            from package_control import events
+
         settings = sublime.load_settings(preferences_filename())
         ignored = load_list_setting(settings, 'ignored_packages')
 
@@ -149,15 +172,19 @@ class PackageDisabler():
             elif type == 'remove':
                 events.clear('remove', package)
 
-            settings.set('ignored_packages',
-                list(set(ignored) - set([package])))
-            sublime.save_settings(preferences_filename())
+            ignored = list(set(ignored) - set([package]))
+            save_list_setting(settings, preferences_filename(), 'ignored_packages', ignored)
 
             if type == 'remove' and self.old_theme_package == package:
-                sublime.message_dialog(u"Package Control\n\n" +
-                    u"Your active theme was just removed and the Default " +
-                    u"theme was enabled in its place. You may see some " +
-                    u"graphical corruption until you restart Sublime Text.")
+                sublime.message_dialog(text.format(
+                    u'''
+                    Package Control
+
+                    Your active theme was just removed and the Default theme was
+                    enabled in its place. You may see some graphical corruption
+                    until you restart Sublime Text.
+                    '''
+                ))
 
             # By delaying the restore, we give Sublime Text some time to
             # re-enable the package, making errors less likely
@@ -174,9 +201,14 @@ class PackageDisabler():
 
                 if type == 'upgrade' and self.old_theme_package == package:
                     settings.set('theme', self.old_theme)
-                    sublime.message_dialog(u"Package Control\n\n" +
-                        u"Your active theme was just upgraded. You may see some " +
-                        u"graphical corruption until you restart Sublime Text.")
+                    sublime.message_dialog(text.format(
+                        u'''
+                        Package Control
+
+                        Your active theme was just upgraded. You may see some
+                        graphical corruption until you restart Sublime Text.
+                        '''
+                    ))
 
                 if type == 'upgrade' and self.old_color_scheme_package == package:
                     settings.set('color_scheme', self.old_color_scheme)
@@ -190,5 +222,4 @@ class PackageDisabler():
 
         if package in in_process:
             in_process.remove(package)
-            pc_settings.set('in_process_packages', in_process)
-            sublime.save_settings(pc_settings_filename())
+            save_list_setting(pc_settings, pc_settings_filename(), 'in_process_packages', in_process)

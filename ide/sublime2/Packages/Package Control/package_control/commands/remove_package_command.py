@@ -4,7 +4,8 @@ import time
 import sublime
 import sublime_plugin
 
-from ..show_error import show_error
+from .. import text
+from ..show_quick_panel import show_quick_panel
 from .existing_packages_command import ExistingPackagesCommand
 from ..thread_progress import ThreadProgress
 from ..package_disabler import PackageDisabler
@@ -13,6 +14,7 @@ from ..package_manager import PackageManager
 
 class RemovePackageCommand(sublime_plugin.WindowCommand,
         ExistingPackagesCommand, PackageDisabler):
+
     """
     A command that presents a list of installed packages, allowing the user to
     select one to remove
@@ -31,9 +33,15 @@ class RemovePackageCommand(sublime_plugin.WindowCommand,
     def run(self):
         self.package_list = self.make_package_list('remove')
         if not self.package_list:
-            show_error('There are no packages that can be removed.')
+            sublime.message_dialog(text.format(
+                u'''
+                Package Control
+
+                There are no packages that can be removed
+                '''
+            ))
             return
-        self.window.show_quick_panel(self.package_list, self.on_done)
+        show_quick_panel(self.window, self.package_list, self.on_done)
 
     def on_done(self, picked):
         """
@@ -57,6 +65,7 @@ class RemovePackageCommand(sublime_plugin.WindowCommand,
 
 
 class RemovePackageThread(threading.Thread, PackageDisabler):
+
     """
     A thread to run the remove package operation in so that the Sublime Text
     UI does not become frozen
@@ -72,6 +81,9 @@ class RemovePackageThread(threading.Thread, PackageDisabler):
         time.sleep(0.7)
         self.result = self.manager.remove_package(self.package)
 
-        def unignore_package():
-            self.reenable_package(self.package, 'remove')
-        sublime.set_timeout(unignore_package, 200)
+        # Do not reenable if removing deferred until next restart
+        if self.result is not None:
+            def unignore_package():
+                self.reenable_package(self.package, 'remove')
+
+            sublime.set_timeout(unignore_package, 200)

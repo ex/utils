@@ -1,4 +1,3 @@
-import os
 import re
 import threading
 import time
@@ -8,12 +7,11 @@ import sublime
 from .thread_progress import ThreadProgress
 from .package_manager import PackageManager
 from .package_disabler import PackageDisabler
-from .upgraders.git_upgrader import GitUpgrader
-from .upgraders.hg_upgrader import HgUpgrader
 from .versions import version_comparable
 
 
 class PackageInstaller(PackageDisabler):
+
     """
     Provides helper functionality related to installing packages
     """
@@ -84,7 +82,6 @@ class PackageInstaller(PackageDisabler):
             new_version = 'v' + release['version']
 
             vcs = None
-            package_dir = self.manager.get_package_dir(package)
             settings = self.manager.settings
 
             if override_action:
@@ -92,22 +89,15 @@ class PackageInstaller(PackageDisabler):
                 extra = ''
 
             else:
-                if os.path.exists(os.path.join(package_dir, '.git')):
-                    if settings.get('ignore_vcs_packages'):
+                if self.manager.is_vcs_package(package):
+                    to_ignore = settings.get('ignore_vcs_packages')
+                    if to_ignore is True:
                         continue
-                    vcs = 'git'
-                    incoming = GitUpgrader(settings.get('git_binary'),
-                        settings.get('git_update_command'), package_dir,
-                        settings.get('cache_length'), settings.get('debug')
-                        ).incoming()
-                elif os.path.exists(os.path.join(package_dir, '.hg')):
-                    if settings.get('ignore_vcs_packages'):
+                    if isinstance(to_ignore, list) and package in to_ignore:
                         continue
-                    vcs = 'hg'
-                    incoming = HgUpgrader(settings.get('hg_binary'),
-                        settings.get('hg_update_command'), package_dir,
-                        settings.get('cache_length'), settings.get('debug')
-                        ).incoming()
+                    upgrader = self.manager.instantiate_upgrader(package)
+                    vcs = upgrader.cli_name
+                    incoming = upgrader.incoming()
 
                 if installed:
                     if vcs:
@@ -167,7 +157,8 @@ class PackageInstaller(PackageDisabler):
         name = self.package_list[picked][0]
 
         if name in self.disable_packages(name, 'install'):
-            on_complete = lambda: self.reenable_package(name, 'install')
+            def on_complete():
+                self.reenable_package(name, 'install')
         else:
             on_complete = None
 
@@ -178,6 +169,7 @@ class PackageInstaller(PackageDisabler):
 
 
 class PackageInstallerThread(threading.Thread):
+
     """
     A thread to run package install/upgrade operations in so that the main
     Sublime Text thread does not get blocked and freeze the UI
@@ -210,6 +202,10 @@ class PackageInstallerThread(threading.Thread):
             time.sleep(0.7)
         try:
             self.result = self.manager.install_package(self.package)
+        except (Exception):
+            self.result = False
+            raise
         finally:
-            if self.on_complete:
+            # Do not reenable if deferred until next restart
+            if self.on_complete and self.result is not None:
                 sublime.set_timeout(self.on_complete, 700)

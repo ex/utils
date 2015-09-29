@@ -4,12 +4,14 @@ import os
 import sublime
 import sublime_plugin
 
-from ..show_error import show_error
+from .. import text
+from ..show_quick_panel import show_quick_panel
 from ..package_manager import PackageManager
 from .existing_packages_command import ExistingPackagesCommand
 
 
 class ListPackagesCommand(sublime_plugin.WindowCommand):
+
     """
     A command that shows a list of all installed packages in the quick panel
     """
@@ -19,6 +21,7 @@ class ListPackagesCommand(sublime_plugin.WindowCommand):
 
 
 class ListPackagesThread(threading.Thread, ExistingPackagesCommand):
+
     """
     A thread to prevent the listing of existing packages from freezing the UI
     """
@@ -50,12 +53,18 @@ class ListPackagesThread(threading.Thread, ExistingPackagesCommand):
         if self.filter_function:
             self.package_list = list(filter(self.filter_function, self.package_list))
 
-        def show_quick_panel():
+        def show_panel():
             if not self.package_list:
-                show_error('There are no packages to list')
+                sublime.message_dialog(text.format(
+                    u'''
+                    Package Control
+
+                    There are no packages to list
+                    '''
+                ))
                 return
-            self.window.show_quick_panel(self.package_list, self.on_done)
-        sublime.set_timeout(show_quick_panel, 10)
+            show_quick_panel(self.window, self.package_list, self.on_done)
+        sublime.set_timeout(show_panel, 10)
 
     def on_done(self, picked):
         """
@@ -72,6 +81,8 @@ class ListPackagesThread(threading.Thread, ExistingPackagesCommand):
         package_name = self.package_list[picked][0]
 
         def open_dir():
-            self.window.run_command('open_dir',
-                {"dir": os.path.join(sublime.packages_path(), package_name)})
+            package_dir = self.manager.get_package_dir(package_name)
+            if not os.path.exists(package_dir):
+                package_dir = self.manager.settings['installed_packages_path']
+            self.window.run_command('open_dir', {"dir": package_dir})
         sublime.set_timeout(open_dir, 10)

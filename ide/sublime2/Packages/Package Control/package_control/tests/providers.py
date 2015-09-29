@@ -26,12 +26,12 @@ class GitHubRepositoryProviderTests(unittest.TestCase):
         }
 
     def test_match_url(self):
-        self.assertEqual(True, GitHubRepositoryProvider.match_url('https://github.com/packagecontrol/package_control-tester'))
-        self.assertEqual(True, GitHubRepositoryProvider.match_url('https://github.com/packagecontrol/package_control-tester/tree/master'))
-        self.assertEqual(False, GitHubRepositoryProvider.match_url('https://github.com/packagecontrol'))
+        self.assertEqual(True, GitHubRepositoryProvider.match_url('https://github.com/packagecontrol-test/package_control-tester'))
+        self.assertEqual(True, GitHubRepositoryProvider.match_url('https://github.com/packagecontrol-test/package_control-tester/tree/master'))
+        self.assertEqual(False, GitHubRepositoryProvider.match_url('https://github.com/packagecontrol-test'))
 
     def test_get_packages(self):
-        provider = GitHubRepositoryProvider('https://github.com/packagecontrol/package_control-tester', self.github_settings())
+        provider = GitHubRepositoryProvider('https://github.com/packagecontrol-test/package_control-tester', self.github_settings())
         packages = [package for package in provider.get_packages()]
         self.assertEqual(
             [(
@@ -39,20 +39,20 @@ class GitHubRepositoryProviderTests(unittest.TestCase):
                 {
                     'name': 'package_control-tester',
                     'description': 'A test of Package Control upgrade messages with explicit versions, but date-based releases.',
-                    'homepage': 'https://github.com/packagecontrol/package_control-tester',
-                    'author': 'packagecontrol',
-                    'readme': 'https://raw.githubusercontent.com/packagecontrol/package_control-tester/master/readme.md',
-                    'issues': 'https://github.com/packagecontrol/package_control-tester/issues',
-                    'donate': 'https://gratipay.com/on/github/packagecontrol/',
+                    'homepage': 'https://github.com/packagecontrol-test/package_control-tester',
+                    'author': 'packagecontrol-test',
+                    'readme': 'https://raw.githubusercontent.com/packagecontrol-test/package_control-tester/master/readme.md',
+                    'issues': 'https://github.com/packagecontrol-test/package_control-tester/issues',
+                    'donate': None,
                     'buy': None,
-                    'sources': ['https://github.com/packagecontrol/package_control-tester'],
+                    'sources': ['https://github.com/packagecontrol-test/package_control-tester'],
                     'labels': [],
                     'previous_names': [],
                     'releases': [
                         {
                             'date': LAST_COMMIT_TIMESTAMP,
                             'version': LAST_COMMIT_VERSION,
-                            'url': 'https://codeload.github.com/packagecontrol/package_control-tester/zip/master',
+                            'url': 'https://codeload.github.com/packagecontrol-test/package_control-tester/zip/master',
                             'sublime_text': '*',
                             'platforms': ['*']
                         }
@@ -64,23 +64,23 @@ class GitHubRepositoryProviderTests(unittest.TestCase):
         )
 
     def test_get_sources(self):
-        provider = GitHubRepositoryProvider('https://github.com/packagecontrol/package_control-tester', self.github_settings())
-        self.assertEqual(['https://github.com/packagecontrol/package_control-tester'], provider.get_sources())
+        provider = GitHubRepositoryProvider('https://github.com/packagecontrol-test/package_control-tester', self.github_settings())
+        self.assertEqual(['https://github.com/packagecontrol-test/package_control-tester'], provider.get_sources())
 
     def test_get_renamed_packages(self):
-        provider = GitHubRepositoryProvider('https://github.com/packagecontrol/package_control-tester', self.github_settings())
+        provider = GitHubRepositoryProvider('https://github.com/packagecontrol-test/package_control-tester', self.github_settings())
         self.assertEqual({}, provider.get_renamed_packages())
 
     def test_get_broken_packages(self):
-        provider = GitHubRepositoryProvider('https://github.com/packagecontrol/package_control-tester', self.github_settings())
+        provider = GitHubRepositoryProvider('https://github.com/packagecontrol-test/package_control-tester', self.github_settings())
         self.assertEqual(list(), list(provider.get_broken_packages()))
 
     def test_get_dependencies(self):
-        provider = GitHubRepositoryProvider('https://github.com/packagecontrol/package_control-tester', self.github_settings())
+        provider = GitHubRepositoryProvider('https://github.com/packagecontrol-test/package_control-tester', self.github_settings())
         self.assertEqual(list(), list(provider.get_dependencies()))
 
     def test_get_broken_dependencies(self):
-        provider = GitHubRepositoryProvider('https://github.com/packagecontrol/package_control-tester', self.github_settings())
+        provider = GitHubRepositoryProvider('https://github.com/packagecontrol-test/package_control-tester', self.github_settings())
         self.assertEqual(list(), list(provider.get_broken_dependencies()))
 
 
@@ -100,12 +100,12 @@ class GitHubUserProviderTests(unittest.TestCase):
         }
 
     def test_match_url(self):
-        self.assertEqual(True, GitHubUserProvider.match_url('https://github.com/packagecontrol'))
-        self.assertEqual(False, GitHubUserProvider.match_url('https://github.com/packagecontrol/package_control-tester/tree/master'))
+        self.assertEqual(True, GitHubUserProvider.match_url('https://github.com/packagecontrol-test'))
+        self.assertEqual(False, GitHubUserProvider.match_url('https://github.com/packagecontrol-test/package_control-tester/tree/master'))
         self.assertEqual(False, GitHubUserProvider.match_url('https://bitbucket.org/packagecontrol'))
 
     def test_get_packages(self):
-        provider = GitHubUserProvider('https://github.com/packagecontrol', self.github_settings())
+        provider = GitHubUserProvider('https://github.com/packagecontrol-test', self.github_settings())
         packages = [package for package in provider.get_packages()]
         self.assertEqual(
             [(
@@ -113,20 +113,20 @@ class GitHubUserProviderTests(unittest.TestCase):
                 {
                     'name': 'package_control-tester',
                     'description': 'A test of Package Control upgrade messages with explicit versions, but date-based releases.',
-                    'homepage': 'https://github.com/packagecontrol/package_control-tester',
-                    'author': 'packagecontrol',
-                    'readme': 'https://raw.githubusercontent.com/packagecontrol/package_control-tester/master/readme.md',
-                    'issues': 'https://github.com/packagecontrol/package_control-tester/issues',
-                    'donate': 'https://gratipay.com/on/github/packagecontrol/',
+                    'homepage': 'https://github.com/packagecontrol-test/package_control-tester',
+                    'author': 'packagecontrol-test',
+                    'readme': 'https://raw.githubusercontent.com/packagecontrol-test/package_control-tester/master/readme.md',
+                    'issues': 'https://github.com/packagecontrol-test/package_control-tester/issues',
+                    'donate': None,
                     'buy': None,
-                    'sources': ['https://github.com/packagecontrol'],
+                    'sources': ['https://github.com/packagecontrol-test'],
                     'labels': [],
                     'previous_names': [],
                     'releases': [
                         {
                             'date': LAST_COMMIT_TIMESTAMP,
                             'version': LAST_COMMIT_VERSION,
-                            'url': 'https://codeload.github.com/packagecontrol/package_control-tester/zip/master',
+                            'url': 'https://codeload.github.com/packagecontrol-test/package_control-tester/zip/master',
                             'sublime_text': '*',
                             'platforms': ['*']
                         }
@@ -138,23 +138,23 @@ class GitHubUserProviderTests(unittest.TestCase):
         )
 
     def test_get_sources(self):
-        provider = GitHubUserProvider('https://github.com/packagecontrol', self.github_settings())
-        self.assertEqual(['https://github.com/packagecontrol'], provider.get_sources())
+        provider = GitHubUserProvider('https://github.com/packagecontrol-test', self.github_settings())
+        self.assertEqual(['https://github.com/packagecontrol-test'], provider.get_sources())
 
     def test_get_renamed_packages(self):
-        provider = GitHubUserProvider('https://github.com/packagecontrol', self.github_settings())
+        provider = GitHubUserProvider('https://github.com/packagecontrol-test', self.github_settings())
         self.assertEqual({}, provider.get_renamed_packages())
 
     def test_get_broken_packages(self):
-        provider = GitHubUserProvider('https://github.com/packagecontrol', self.github_settings())
+        provider = GitHubUserProvider('https://github.com/packagecontrol-test', self.github_settings())
         self.assertEqual(list(), list(provider.get_broken_packages()))
 
     def test_get_dependencies(self):
-        provider = GitHubUserProvider('https://github.com/packagecontrol', self.github_settings())
+        provider = GitHubUserProvider('https://github.com/packagecontrol-test', self.github_settings())
         self.assertEqual(list(), list(provider.get_dependencies()))
 
     def test_get_broken_dependencies(self):
-        provider = GitHubUserProvider('https://github.com/packagecontrol', self.github_settings())
+        provider = GitHubUserProvider('https://github.com/packagecontrol-test', self.github_settings())
         self.assertEqual(list(), list(provider.get_broken_dependencies()))
 
 
@@ -185,7 +185,7 @@ class BitBucketRepositoryProviderTests(unittest.TestCase):
                     'author': 'wbond',
                     'readme': 'https://bitbucket.org/wbond/package_control-tester/raw/master/readme.md',
                     'issues': 'https://bitbucket.org/wbond/package_control-tester/issues',
-                    'donate': 'https://gratipay.com/on/bitbucket/wbond/',
+                    'donate': None,
                     'buy': None,
                     'sources': ['https://bitbucket.org/wbond/package_control-tester'],
                     'labels': [],
@@ -232,7 +232,13 @@ class RepositoryProviderTests(unittest.TestCase):
     def settings(self):
         return {
             'debug': True,
-            'cache': HttpCache(604800)
+            'cache': HttpCache(604800),
+            'query_string_params': {
+                'api.github.com': {
+                    'client_id': CLIENT_ID,
+                    'client_secret': CLIENT_SECRET
+                }
+            }
         }
 
     def test_get_packages_10(self):
@@ -245,7 +251,7 @@ class RepositoryProviderTests(unittest.TestCase):
                     "name": "package_control-tester-1.0",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
                     "issues": None,
                     "donate": None,
                     "buy": None,
@@ -258,21 +264,21 @@ class RepositoryProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2011-08-01 00:00:00",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2011-08-01 00:00:00",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2011-08-01 00:00:00",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -297,7 +303,7 @@ class RepositoryProviderTests(unittest.TestCase):
                     "name": "package_control-tester-1.2",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
                     "issues": None,
                     "donate": None,
                     "buy": None,
@@ -310,21 +316,21 @@ class RepositoryProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -349,7 +355,7 @@ class RepositoryProviderTests(unittest.TestCase):
                     "name": "package_control-tester-2.0",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
                     "issues": None,
                     "donate": None,
                     "buy": "https://example.com",
@@ -362,28 +368,28 @@ class RepositoryProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "*",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:14:23",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "*",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:14:13",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         },
                         {
                             "version": "0.9.0",
                             "date": "2014-11-12 02:02:22",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/0.9.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/0.9.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -406,43 +412,43 @@ class RepositoryProviderTests(unittest.TestCase):
                 'package_control-tester-2.0-gh',
                 {
                     "name": "package_control-tester-2.0-gh",
-                    "author": "packagecontrol",
+                    "author": "packagecontrol-test",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
-                    "issues": "https://github.com/packagecontrol/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/github/packagecontrol/",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
+                    "issues": "https://github.com/packagecontrol-test/package_control-tester/issues",
+                    "donate": None,
                     "buy": None,
-                    "readme": "https://raw.githubusercontent.com/packagecontrol/package_control-tester/master/readme.md",
+                    "readme": "https://raw.githubusercontent.com/packagecontrol-test/package_control-tester/master/readme.md",
                     "previous_names": [],
                     "labels": [],
-                    "sources": ['https://raw.githubusercontent.com/wbond/package_control-json/master/repository-2.0-github_details.json', "https://github.com/packagecontrol/package_control-tester"],
+                    "sources": ['https://raw.githubusercontent.com/wbond/package_control-json/master/repository-2.0-github_details.json', "https://github.com/packagecontrol-test/package_control-tester"],
                     "last_modified": "2014-11-12 15:52:35",
                     "releases": [
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:14:23",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:14:13",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         },
                         {
                             "version": "0.9.0",
                             "date": "2014-11-12 02:02:22",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/0.9.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/0.9.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -464,7 +470,7 @@ class RepositoryProviderTests(unittest.TestCase):
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
                     "homepage": "https://bitbucket.org/wbond/package_control-tester",
                     "issues": "https://bitbucket.org/wbond/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/bitbucket/wbond/",
+                    "donate": None,
                     "buy": None,
                     "readme": "https://bitbucket.org/wbond/package_control-tester/raw/master/readme.md",
                     "previous_names": [],
@@ -516,9 +522,9 @@ class RepositoryProviderTests(unittest.TestCase):
                     "name": "package_control-tester-3.0.0",
                     "author": ["packagecontrol", "wbond"],
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
                     "issues": None,
-                    "donate": None,
+                    "donate": "https://gratipay.com/wbond/",
                     "buy": "https://example.com",
                     "readme": None,
                     "previous_names": [],
@@ -529,7 +535,7 @@ class RepositoryProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "*",
                             "platforms": ["windows"],
                             "dependencies": ["bz2"]
@@ -537,21 +543,21 @@ class RepositoryProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:14:23",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "*",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:14:13",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         },
                         {
                             "version": "0.9.0",
                             "date": "2014-11-12 02:02:22",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/0.9.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/0.9.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -635,43 +641,43 @@ class RepositoryProviderTests(unittest.TestCase):
                 'package_control-tester-3.0.0-gh-tags',
                 {
                     "name": "package_control-tester-3.0.0-gh-tags",
-                    "author": "packagecontrol",
+                    "author": "packagecontrol-test",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
-                    "issues": "https://github.com/packagecontrol/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/github/packagecontrol/",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
+                    "issues": "https://github.com/packagecontrol-test/package_control-tester/issues",
+                    "donate": None,
                     "buy": None,
-                    "readme": "https://raw.githubusercontent.com/packagecontrol/package_control-tester/master/readme.md",
+                    "readme": "https://raw.githubusercontent.com/packagecontrol-test/package_control-tester/master/readme.md",
                     "previous_names": [],
                     "labels": [],
-                    "sources": ['https://raw.githubusercontent.com/wbond/package_control-json/master/repository-3.0.0-github_releases.json', "https://github.com/packagecontrol/package_control-tester"],
+                    "sources": ['https://raw.githubusercontent.com/wbond/package_control-json/master/repository-3.0.0-github_releases.json', "https://github.com/packagecontrol-test/package_control-tester"],
                     "last_modified": "2014-11-12 15:52:35",
                     "releases": [
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:14:23",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:14:13",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         },
                         {
                             "version": "0.9.0",
                             "date": "2014-11-12 02:02:22",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/0.9.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/0.9.0",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         }
@@ -684,7 +690,7 @@ class RepositoryProviderTests(unittest.TestCase):
                     "name": "package_control-tester-3.0.0-gh-tags_base",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
                     "issues": None,
                     "donate": None,
                     "buy": None,
@@ -697,28 +703,28 @@ class RepositoryProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:14:23",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:14:13",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         },
                         {
                             "version": "0.9.0",
                             "date": "2014-11-12 02:02:22",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/0.9.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/0.9.0",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         }
@@ -729,22 +735,22 @@ class RepositoryProviderTests(unittest.TestCase):
                 'package_control-tester-3.0.0-gh-tags_prefix',
                 {
                     "name": "package_control-tester-3.0.0-gh-tags_prefix",
-                    "author": "packagecontrol",
+                    "author": "packagecontrol-test",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
-                    "issues": "https://github.com/packagecontrol/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/github/packagecontrol/",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
+                    "issues": "https://github.com/packagecontrol-test/package_control-tester/issues",
+                    "donate": None,
                     "buy": None,
-                    "readme": "https://raw.githubusercontent.com/packagecontrol/package_control-tester/master/readme.md",
+                    "readme": "https://raw.githubusercontent.com/packagecontrol-test/package_control-tester/master/readme.md",
                     "previous_names": [],
                     "labels": [],
-                    "sources": ['https://raw.githubusercontent.com/wbond/package_control-json/master/repository-3.0.0-github_releases.json', "https://github.com/packagecontrol/package_control-tester"],
+                    "sources": ['https://raw.githubusercontent.com/wbond/package_control-json/master/repository-3.0.0-github_releases.json', "https://github.com/packagecontrol-test/package_control-tester"],
                     "last_modified": "2014-11-28 20:54:15",
                     "releases": [
                         {
                             "version": "1.0.2",
                             "date": "2014-11-28 20:54:15",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/win-1.0.2",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/win-1.0.2",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         }
@@ -755,22 +761,22 @@ class RepositoryProviderTests(unittest.TestCase):
                 'package_control-tester-3.0.0-gh-branch',
                 {
                     "name": "package_control-tester-3.0.0-gh-branch",
-                    "author": "packagecontrol",
+                    "author": "packagecontrol-test",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
-                    "issues": "https://github.com/packagecontrol/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/github/packagecontrol/",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
+                    "issues": "https://github.com/packagecontrol-test/package_control-tester/issues",
+                    "donate": None,
                     "buy": None,
-                    "readme": "https://raw.githubusercontent.com/packagecontrol/package_control-tester/master/readme.md",
+                    "readme": "https://raw.githubusercontent.com/packagecontrol-test/package_control-tester/master/readme.md",
                     "previous_names": [],
                     "labels": [],
-                    "sources": ['https://raw.githubusercontent.com/wbond/package_control-json/master/repository-3.0.0-github_releases.json', "https://github.com/packagecontrol/package_control-tester"],
+                    "sources": ['https://raw.githubusercontent.com/wbond/package_control-json/master/repository-3.0.0-github_releases.json', "https://github.com/packagecontrol-test/package_control-tester"],
                     "last_modified": LAST_COMMIT_TIMESTAMP,
                     "releases": [
                         {
                             "version": LAST_COMMIT_VERSION,
                             "date": LAST_COMMIT_TIMESTAMP,
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/master",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/master",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         }
@@ -792,7 +798,7 @@ class RepositoryProviderTests(unittest.TestCase):
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
                     "homepage": "https://bitbucket.org/wbond/package_control-tester",
                     "issues": "https://bitbucket.org/wbond/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/bitbucket/wbond/",
+                    "donate": None,
                     "buy": None,
                     "readme": "https://bitbucket.org/wbond/package_control-tester/raw/master/readme.md",
                     "previous_names": [],
@@ -839,7 +845,7 @@ class RepositoryProviderTests(unittest.TestCase):
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
                     "homepage": "https://bitbucket.org/wbond/package_control-tester",
                     "issues": "https://bitbucket.org/wbond/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/bitbucket/wbond/",
+                    "donate": None,
                     "buy": None,
                     "readme": "https://bitbucket.org/wbond/package_control-tester/raw/master/readme.md",
                     "previous_names": [],
@@ -865,7 +871,7 @@ class RepositoryProviderTests(unittest.TestCase):
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
                     "homepage": "https://bitbucket.org/wbond/package_control-tester",
                     "issues": "https://bitbucket.org/wbond/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/bitbucket/wbond/",
+                    "donate": None,
                     "buy": None,
                     "readme": "https://bitbucket.org/wbond/package_control-tester/raw/master/readme.md",
                     "previous_names": [],
@@ -938,7 +944,7 @@ class ChannelProviderTests(unittest.TestCase):
                     "name": "package_control-tester-1.0",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
                     "issues": None,
                     "donate": None,
                     "buy": None,
@@ -950,21 +956,21 @@ class ChannelProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2011-08-01 00:00:00",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2011-08-01 00:00:00",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2011-08-01 00:00:00",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -979,7 +985,7 @@ class ChannelProviderTests(unittest.TestCase):
                     "name": "package_control-tester-1.2",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
                     "issues": None,
                     "donate": None,
                     "buy": None,
@@ -991,21 +997,21 @@ class ChannelProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -1064,7 +1070,7 @@ class ChannelProviderTests(unittest.TestCase):
                     "name": "package_control-tester-1.0",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
                     "issues": None,
                     "donate": None,
                     "buy": None,
@@ -1076,21 +1082,21 @@ class ChannelProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2011-08-01 00:00:00",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2011-08-01 00:00:00",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2011-08-01 00:00:00",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -1105,7 +1111,7 @@ class ChannelProviderTests(unittest.TestCase):
                     "name": "package_control-tester-1.2",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
                     "issues": None,
                     "donate": None,
                     "buy": None,
@@ -1117,21 +1123,21 @@ class ChannelProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -1146,7 +1152,7 @@ class ChannelProviderTests(unittest.TestCase):
                     "name": "package_control-tester-2.0",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
                     "issues": None,
                     "donate": None,
                     "buy": "https://example.com",
@@ -1158,28 +1164,28 @@ class ChannelProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "*",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:14:23",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "*",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:14:13",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         },
                         {
                             "version": "0.9.0",
                             "date": "2014-11-12 02:02:22",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/0.9.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/0.9.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -1194,11 +1200,11 @@ class ChannelProviderTests(unittest.TestCase):
                     "name": "package_control-tester-2.0-gh",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
-                    "issues": "https://github.com/packagecontrol/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/github/packagecontrol/",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
+                    "issues": "https://github.com/packagecontrol-test/package_control-tester/issues",
+                    "donate": None,
                     "buy": None,
-                    "readme": "https://raw.githubusercontent.com/packagecontrol/package_control-tester/master/readme.md",
+                    "readme": "https://raw.githubusercontent.com/packagecontrol-test/package_control-tester/master/readme.md",
                     "previous_names": [],
                     "labels": [],
                     "last_modified": "2014-11-12 15:52:35",
@@ -1206,28 +1212,28 @@ class ChannelProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:14:23",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:14:13",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         },
                         {
                             "version": "0.9.0",
                             "date": "2014-11-12 02:02:22",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/0.9.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/0.9.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -1244,7 +1250,7 @@ class ChannelProviderTests(unittest.TestCase):
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
                     "homepage": "https://bitbucket.org/wbond/package_control-tester",
                     "issues": "https://bitbucket.org/wbond/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/bitbucket/wbond/",
+                    "donate": None,
                     "buy": None,
                     "readme": "https://bitbucket.org/wbond/package_control-tester/raw/master/readme.md",
                     "previous_names": [],
@@ -1330,9 +1336,9 @@ class ChannelProviderTests(unittest.TestCase):
                     "name": "package_control-tester-3.0.0",
                     "author": ["packagecontrol", "wbond"],
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
                     "issues": None,
-                    "donate": None,
+                    "donate": "https://gratipay.com/wbond/",
                     "buy": "https://example.com",
                     "readme": None,
                     "previous_names": [],
@@ -1342,7 +1348,7 @@ class ChannelProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "*",
                             "platforms": ["windows"],
                             "dependencies": ["bz2"]
@@ -1350,21 +1356,21 @@ class ChannelProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:14:23",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "*",
                             "platforms": ["windows"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:14:13",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         },
                         {
                             "version": "0.9.0",
                             "date": "2014-11-12 02:02:22",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/0.9.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/0.9.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -1379,11 +1385,11 @@ class ChannelProviderTests(unittest.TestCase):
                     "name": "package_control-tester-3.0.0-gh-tags",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
-                    "issues": "https://github.com/packagecontrol/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/github/packagecontrol/",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
+                    "issues": "https://github.com/packagecontrol-test/package_control-tester/issues",
+                    "donate": None,
                     "buy": None,
-                    "readme": "https://raw.githubusercontent.com/packagecontrol/package_control-tester/master/readme.md",
+                    "readme": "https://raw.githubusercontent.com/packagecontrol-test/package_control-tester/master/readme.md",
                     "previous_names": [],
                     "labels": [],
                     "last_modified": "2014-11-12 15:52:35",
@@ -1391,28 +1397,28 @@ class ChannelProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:14:23",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:14:13",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         },
                         {
                             "version": "0.9.0",
                             "date": "2014-11-12 02:02:22",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/0.9.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/0.9.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -1422,11 +1428,11 @@ class ChannelProviderTests(unittest.TestCase):
                     "name": "package_control-tester-3.0.0-gh-tags_base",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
-                    "issues": "https://github.com/packagecontrol/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/github/packagecontrol/",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
+                    "issues": "https://github.com/packagecontrol-test/package_control-tester/issues",
+                    "donate": None,
                     "buy": None,
-                    "readme": "https://raw.githubusercontent.com/packagecontrol/package_control-tester/master/readme.md",
+                    "readme": "https://raw.githubusercontent.com/packagecontrol-test/package_control-tester/master/readme.md",
                     "previous_names": [],
                     "labels": [],
                     "last_modified": "2014-11-12 15:52:35",
@@ -1434,28 +1440,28 @@ class ChannelProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.1",
                             "date": "2014-11-12 15:52:35",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         },
                         {
                             "version": "1.0.1-beta",
                             "date": "2014-11-12 15:14:23",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.1-beta",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.1-beta",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         },
                         {
                             "version": "1.0.0",
                             "date": "2014-11-12 15:14:13",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/1.0.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/1.0.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         },
                         {
                             "version": "0.9.0",
                             "date": "2014-11-12 02:02:22",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/0.9.0",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/0.9.0",
                             "sublime_text": "<3000",
                             "platforms": ["*"]
                         }
@@ -1465,11 +1471,11 @@ class ChannelProviderTests(unittest.TestCase):
                     "name": "package_control-tester-3.0.0-gh-tags_prefix",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
-                    "issues": "https://github.com/packagecontrol/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/github/packagecontrol/",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
+                    "issues": "https://github.com/packagecontrol-test/package_control-tester/issues",
+                    "donate": None,
                     "buy": None,
-                    "readme": "https://raw.githubusercontent.com/packagecontrol/package_control-tester/master/readme.md",
+                    "readme": "https://raw.githubusercontent.com/packagecontrol-test/package_control-tester/master/readme.md",
                     "previous_names": [],
                     "labels": [],
                     "last_modified": "2014-11-28 20:54:15",
@@ -1477,7 +1483,7 @@ class ChannelProviderTests(unittest.TestCase):
                         {
                             "version": "1.0.2",
                             "date": "2014-11-28 20:54:15",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/win-1.0.2",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/win-1.0.2",
                             "sublime_text": "<3000",
                             "platforms": ["windows"]
                         }
@@ -1487,11 +1493,11 @@ class ChannelProviderTests(unittest.TestCase):
                     "name": "package_control-tester-3.0.0-gh-branch",
                     "author": "packagecontrol",
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
-                    "homepage": "https://github.com/packagecontrol/package_control-tester",
-                    "issues": "https://github.com/packagecontrol/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/github/packagecontrol/",
+                    "homepage": "https://github.com/packagecontrol-test/package_control-tester",
+                    "issues": "https://github.com/packagecontrol-test/package_control-tester/issues",
+                    "donate": None,
                     "buy": None,
-                    "readme": "https://raw.githubusercontent.com/packagecontrol/package_control-tester/master/readme.md",
+                    "readme": "https://raw.githubusercontent.com/packagecontrol-test/package_control-tester/master/readme.md",
                     "previous_names": [],
                     "labels": [],
                     "last_modified": "2014-11-28 20:54:15",
@@ -1499,7 +1505,7 @@ class ChannelProviderTests(unittest.TestCase):
                         {
                             "version": "2014.11.28.20.54.15",
                             "date": "2014-11-28 20:54:15",
-                            "url": "https://codeload.github.com/packagecontrol/package_control-tester/zip/master",
+                            "url": "https://codeload.github.com/packagecontrol-test/package_control-tester/zip/master",
                             "sublime_text": "*",
                             "platforms": ["*"]
                         }
@@ -1516,7 +1522,7 @@ class ChannelProviderTests(unittest.TestCase):
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
                     "homepage": "https://bitbucket.org/wbond/package_control-tester",
                     "issues": "https://bitbucket.org/wbond/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/bitbucket/wbond/",
+                    "donate": None,
                     "buy": None,
                     "readme": "https://bitbucket.org/wbond/package_control-tester/raw/master/readme.md",
                     "previous_names": [],
@@ -1559,7 +1565,7 @@ class ChannelProviderTests(unittest.TestCase):
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
                     "homepage": "https://bitbucket.org/wbond/package_control-tester",
                     "issues": "https://bitbucket.org/wbond/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/bitbucket/wbond/",
+                    "donate": None,
                     "buy": None,
                     "readme": "https://bitbucket.org/wbond/package_control-tester/raw/master/readme.md",
                     "previous_names": [],
@@ -1581,7 +1587,7 @@ class ChannelProviderTests(unittest.TestCase):
                     "description": "A test of Package Control upgrade messages with explicit versions, but date-based releases.",
                     "homepage": "https://bitbucket.org/wbond/package_control-tester",
                     "issues": "https://bitbucket.org/wbond/package_control-tester/issues",
-                    "donate": "https://gratipay.com/on/bitbucket/wbond/",
+                    "donate": None,
                     "buy": None,
                     "readme": "https://bitbucket.org/wbond/package_control-tester/raw/master/readme.md",
                     "previous_names": [],

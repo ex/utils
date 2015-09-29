@@ -3,13 +3,15 @@ import threading
 import sublime
 import sublime_plugin
 
-from ..show_error import show_error
+from .. import text
+from ..show_quick_panel import show_quick_panel
 from ..thread_progress import ThreadProgress
 from ..package_installer import PackageInstaller, PackageInstallerThread
 from ..package_renamer import PackageRenamer
 
 
 class UpgradePackageCommand(sublime_plugin.WindowCommand):
+
     """
     A command that presents the list of installed packages that can be upgraded
     """
@@ -24,6 +26,7 @@ class UpgradePackageCommand(sublime_plugin.WindowCommand):
 
 
 class UpgradePackageThread(threading.Thread, PackageInstaller):
+
     """
     A thread to run the action of retrieving upgradable packages in.
     """
@@ -49,12 +52,18 @@ class UpgradePackageThread(threading.Thread, PackageInstaller):
         self.package_list = self.make_package_list(['install', 'reinstall',
             'none'])
 
-        def show_quick_panel():
+        def show_panel():
             if not self.package_list:
-                show_error('There are no packages ready for upgrade')
+                sublime.message_dialog(text.format(
+                    u'''
+                    Package Control
+
+                    There are no packages ready for upgrade
+                    '''
+                ))
                 return
-            self.window.show_quick_panel(self.package_list, self.on_done)
-        sublime.set_timeout(show_quick_panel, 10)
+            show_quick_panel(self.window, self.package_list, self.on_done)
+        sublime.set_timeout(show_panel, 10)
 
     def on_done(self, picked):
         """
@@ -71,7 +80,8 @@ class UpgradePackageThread(threading.Thread, PackageInstaller):
         name = self.package_list[picked][0]
 
         if name in self.disable_packages(name, 'upgrade'):
-            on_complete = lambda: self.reenable_package(name)
+            def on_complete():
+                self.reenable_package(name)
         else:
             on_complete = None
 

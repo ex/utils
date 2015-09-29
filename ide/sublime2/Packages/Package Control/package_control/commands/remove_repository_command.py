@@ -1,11 +1,13 @@
 import sublime
 import sublime_plugin
 
-from ..show_error import show_error
+from .. import text
+from ..show_quick_panel import show_quick_panel
 from ..settings import pc_settings_filename
 
 
 class RemoveRepositoryCommand(sublime_plugin.WindowCommand):
+
     """
     A command to remove a repository from the user's Package Control settings
     """
@@ -14,10 +16,16 @@ class RemoveRepositoryCommand(sublime_plugin.WindowCommand):
         self.settings = sublime.load_settings(pc_settings_filename())
         self.repositories = self.settings.get('repositories')
         if not self.repositories:
-            show_error(u'There are no repositories to remove.')
+            sublime.message_dialog(text.format(
+                u'''
+                Package Control
+
+                There are no repositories to remove
+                '''
+            ))
             return
 
-        self.window.show_quick_panel(self.repositories, self.on_done)
+        show_quick_panel(self.window, self.repositories, self.on_done)
 
     def on_done(self, index):
         """

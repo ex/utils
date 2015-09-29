@@ -7,6 +7,7 @@ from .vcs_upgrader import VcsUpgrader
 
 
 class GitUpgrader(VcsUpgrader):
+
     """
     Allows upgrading a local git-repository-based package
     """
@@ -26,10 +27,19 @@ class GitUpgrader(VcsUpgrader):
         binary = self.find_binary(name)
 
         if not binary:
-            show_error((u'Unable to find %s. Please set the git_binary setting by accessing the ' +
-                u'Preferences > Package Settings > Package Control > Settings \u2013 User menu entry. ' +
-                u'The Settings \u2013 Default entry can be used for reference, but changes to that will be ' +
-                u'overwritten upon next upgrade.') % name)
+            show_error(
+                u'''
+                Unable to find %s.
+
+                Please set the "git_binary" setting by accessing the
+                Preferences > Package Settings > Package Control > Settings
+                \u2013 User menu entry.
+
+                The Settings \u2013 Default entry can be used for reference,
+                but changes to that will be overwritten upon next upgrade.
+                ''',
+                name
+            )
             return False
 
         if os.name == 'nt':
@@ -75,7 +85,7 @@ class GitUpgrader(VcsUpgrader):
         args = [binary]
         args.extend(self.update_command)
         args.extend([info['remote'], info['remote_branch']])
-        self.execute(args, self.working_copy)
+        self.execute(args, self.working_copy, meaningful_output=True)
         return True
 
     def incoming(self):
@@ -83,7 +93,7 @@ class GitUpgrader(VcsUpgrader):
 
         cache_key = self.working_copy + '.incoming'
         incoming = get_cache(cache_key)
-        if incoming != None:
+        if incoming is not None:
             return incoming
 
         binary = self.retrieve_binary()
@@ -93,13 +103,30 @@ class GitUpgrader(VcsUpgrader):
         info = self.get_working_copy_info()
 
         res = self.execute([binary, 'fetch', info['remote']], self.working_copy)
-        if res == False:
+        if res is False:
             return False
 
         args = [binary, 'log']
         args.append('..%s/%s' % (info['remote'], info['remote_branch']))
-        output = self.execute(args, self.working_copy)
+        output = self.execute(args, self.working_copy, meaningful_output=True)
         incoming = len(output) > 0
 
         set_cache(cache_key, incoming, self.cache_length)
         return incoming
+
+    def latest_commit(self):
+        """
+        :return:
+            The latest commit hash
+        """
+
+        binary = self.retrieve_binary()
+        if not binary:
+            return False
+
+        args = [binary, 'rev-parse', '--short', 'HEAD']
+        output = self.execute(args, self.working_copy)
+        if output is False:
+            return False
+
+        return output.strip()

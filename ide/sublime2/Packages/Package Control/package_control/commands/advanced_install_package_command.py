@@ -1,6 +1,7 @@
 import threading
 import re
 import time
+import functools
 
 import sublime
 import sublime_plugin
@@ -19,6 +20,7 @@ except (NameError):
 
 
 class AdvancedInstallPackageCommand(sublime_plugin.WindowCommand):
+
     """
     A command that accepts a comma-separated list of packages to install, or
     prompts the user to paste a comma-separated list
@@ -39,7 +41,7 @@ class AdvancedInstallPackageCommand(sublime_plugin.WindowCommand):
 
     def split(self, packages):
         if isinstance(packages, bytes_cls):
-            packages = package.decode('utf-8')
+            packages = packages.decode('utf-8')
         return re.split(u'\s*,\s*', packages)
 
     def on_done(self, input):
@@ -53,7 +55,11 @@ class AdvancedInstallPackageCommand(sublime_plugin.WindowCommand):
         input = input.strip()
 
         if not input:
-            show_error(u"No package names were entered" % input)
+            show_error(
+                u'''
+                No package names were entered
+                '''
+            )
             return
 
         self.start(self.split(input))
@@ -68,6 +74,7 @@ class AdvancedInstallPackageCommand(sublime_plugin.WindowCommand):
 
 
 class AdvancedInstallPackageThread(threading.Thread, PackageDisabler):
+
     """
     A thread to run the installation of one or more packages in
     """
@@ -82,8 +89,11 @@ class AdvancedInstallPackageThread(threading.Thread, PackageDisabler):
         self.manager = PackageManager()
         self.packages = packages
 
-        self.disabled = self.disable_packages(packages, 'install')
         self.installed = self.manager.list_packages()
+        self.disabled = []
+        for package_name in packages:
+            operation_type = 'install' if package_name not in self.installed else 'upgrade'
+            self.disabled.extend(self.disable_packages(package_name, operation_type))
 
         threading.Thread.__init__(self)
 
@@ -91,15 +101,15 @@ class AdvancedInstallPackageThread(threading.Thread, PackageDisabler):
         # Allow packages to properly disable
         time.sleep(0.7)
 
-        for package in self.packages:
-            self.manager.install_package(package)
+        def do_reenable_package(package_name):
+            operation_type = 'install' if package_name not in self.installed else 'upgrade'
+            self.reenable_package(package_name, operation_type)
 
-            # We use a wrapper function since this call is in a loop, so
-            # directly using the "package" variable would cause the value to
-            # change between when we set the callback and executed it.
-            def reenable_package(package_name):
-                def do_reenable_package():
-                    type_ = 'install' if package_name not in self.installed else 'upgrade'
-                    self.reenable_package(package_name, type_)
-                return do_reenable_package
-            sublime.set_timeout(reenable_package(package), 700)
+        for package in self.packages:
+            result = self.manager.install_package(package)
+
+            # Do not reenable if installation deferred until next restart
+            if result is not None and package in self.disabled:
+                # We use a functools.partial to generate the on-complete callback in
+                # order to bind the current value of the parameters, unlike lambdas.
+                sublime.set_timeout(functools.partial(do_reenable_package, package), 700)

@@ -1,8 +1,9 @@
 import threading
-import re
 import os
 import datetime
+import locale  # To prevent import errors in thread with datetime
 import time
+import functools
 
 import sublime
 
@@ -10,11 +11,12 @@ from .show_error import show_error
 from .console_write import console_write
 from .package_installer import PackageInstaller
 from .package_renamer import PackageRenamer
-from .open_compat import open_compat, read_compat
+from .open_compat import open_compat, read_compat, write_compat
 from .settings import pc_settings_filename, load_list_setting
 
 
 class AutomaticUpgrader(threading.Thread):
+
     """
     Automatically checks for updated packages and installs them. controlled
     by the `auto_upgrade`, `auto_upgrade_ignore`, and `auto_upgrade_frequency`
@@ -96,7 +98,7 @@ class AutomaticUpgrader(threading.Thread):
         """
 
         with open_compat(self.last_run_file, 'w') as fobj:
-            fobj.write(str(int(last_run)))
+            write_compat(fobj, int(last_run))
 
     def load_settings(self):
         """
@@ -130,24 +132,31 @@ class AutomaticUpgrader(threading.Thread):
         if self.missing_dependencies:
             total_missing_dependencies = len(self.missing_dependencies)
             dependency_s = 'ies' if total_missing_dependencies != 1 else 'y'
-            console_write(u'Installing %s missing dependenc%s' %
-                (total_missing_dependencies, dependency_s), True)
+            console_write(
+                u'''
+                Installing %s missing dependenc%s
+                ''',
+                (total_missing_dependencies, dependency_s)
+            )
 
             dependencies_installed = 0
 
             for dependency in self.missing_dependencies:
                 if self.installer.manager.install_package(dependency, is_dependency=True):
-                    console_write(u'Installed missing dependency %s' % dependency, True)
+                    console_write(u'Installed missing dependency %s', dependency)
                     dependencies_installed += 1
 
             if dependencies_installed:
                 def notify_restart():
                     dependency_was = 'ies were' if dependencies_installed != 1 else 'y was'
-                    message = (u'%s missing dependenc%s just ' +
-                        u'installed. Sublime Text should be restarted, otherwise ' +
-                        u'one or more of the installed packages may not function ' +
-                        u'properly.') % (dependencies_installed, dependency_was)
-                    show_error(message)
+                    show_error(
+                        u'''
+                        %s missing dependenc%s just installed. Sublime Text
+                        should be restarted, otherwise one or more of the
+                        installed packages may not function properly.
+                        ''',
+                        (dependencies_installed, dependency_was)
+                    )
                 sublime.set_timeout(notify_restart, 1000)
 
         # Missing package installs are controlled by a setting
@@ -158,12 +167,27 @@ class AutomaticUpgrader(threading.Thread):
 
         if total_missing_packages > 0:
             package_s = 's' if total_missing_packages != 1 else ''
-            console_write(u'Installing %s missing package%s' %
-                (total_missing_packages, package_s), True)
+            console_write(
+                u'''
+                Installing %s missing package%s
+                ''',
+                (total_missing_packages, package_s)
+            )
 
         # Fetching the list of packages also grabs the renamed packages
         self.manager.list_available_packages()
         renamed_packages = self.manager.settings.get('renamed_packages', {})
+
+        # Disabling a package means changing settings, which can only be done
+        # in the main thread. We just sleep in this thread for a bit to ensure
+        # that the packages have been disabled and are ready to be installed.
+        disabled_packages = []
+
+        def disable_packages():
+            disabled_packages.extend(self.installer.disable_packages(self.missing_packages, 'install'))
+        sublime.set_timeout(disable_packages, 1)
+
+        time.sleep(0.7)
 
         for package in self.missing_packages:
 
@@ -172,16 +196,29 @@ class AutomaticUpgrader(threading.Thread):
             if package in renamed_packages:
                 old_name = package
                 new_name = renamed_packages[old_name]
+
                 def update_installed_packages():
                     self.installed_packages.remove(old_name)
                     self.installed_packages.append(new_name)
                     self.settings.set('installed_packages', self.installed_packages)
                     sublime.save_settings(pc_settings_filename())
+
                 sublime.set_timeout(update_installed_packages, 10)
                 package = new_name
 
             if self.installer.manager.install_package(package):
-                console_write(u'Installed missing package %s' % package, True)
+                if package in disabled_packages:
+                    # We use a functools.partial to generate the on-complete callback in
+                    # order to bind the current value of the parameters, unlike lambdas.
+                    on_complete = functools.partial(self.installer.reenable_package, package, 'install')
+                    sublime.set_timeout(on_complete, 700)
+
+                console_write(
+                    u'''
+                    Installed missing package %s
+                    ''',
+                    package
+                )
 
     def print_skip(self):
         """
@@ -193,9 +230,12 @@ class AutomaticUpgrader(threading.Thread):
         last_run = datetime.datetime.fromtimestamp(self.last_run)
         next_run = datetime.datetime.fromtimestamp(self.next_run)
         date_format = '%Y-%m-%d %H:%M:%S'
-        message_string = u'Skipping automatic upgrade, last run at %s, next run at %s or after' % (
-            last_run.strftime(date_format), next_run.strftime(date_format))
-        console_write(message_string, True)
+        console_write(
+            u'''
+            Skipping automatic upgrade, last run at %s, next run at %s or after
+            ''',
+            (last_run.strftime(date_format), next_run.strftime(date_format))
+        )
 
     def upgrade_packages(self):
         """
@@ -226,45 +266,47 @@ class AutomaticUpgrader(threading.Thread):
             break
 
         if not package_list:
-            console_write(u'No updated packages', True)
+            console_write(
+                u'''
+                No updated packages
+                '''
+            )
             return
 
-        console_write(u'Installing %s upgrades' % len(package_list), True)
+        console_write(
+            u'''
+            Installing %s upgrades
+            ''',
+            len(package_list)
+        )
 
         disabled_packages = []
 
-        def do_upgrades():
-            # Wait so that the ignored packages can be "unloaded"
-            time.sleep(0.7)
-
-            # We use a function to generate the on-complete lambda because if
-            # we don't, the lambda will bind to info at the current scope, and
-            # thus use the last value of info from the loop
-            def make_on_complete(name):
-                return lambda: self.installer.reenable_package(name)
-
-            for info in package_list:
-                if info[0] in disabled_packages:
-                    on_complete = make_on_complete(info[0])
-                else:
-                    on_complete = None
-
-                self.installer.manager.install_package(info[0])
-
-                version = re.sub('^.*?(v[\d\.]+).*?$', '\\1', info[2])
-                if version == info[2] and version.find('pull with') != -1:
-                    vcs = re.sub('^pull with (\w+).*?$', '\\1', version)
-                    version = 'latest %s commit' % vcs
-                message_string = u'Upgraded %s to %s' % (info[0], version)
-                console_write(message_string, True)
-                if on_complete:
-                    sublime.set_timeout(on_complete, 700)
-
         # Disabling a package means changing settings, which can only be done
-        # in the main thread. We then create a new background thread so that
-        # the upgrade process does not block the UI.
+        # in the main thread. We then then wait a bit and continue with the
+        # upgrades.
         def disable_packages():
             packages = [info[0] for info in package_list]
             disabled_packages.extend(self.installer.disable_packages(packages, 'upgrade'))
-            threading.Thread(target=do_upgrades).start()
         sublime.set_timeout(disable_packages, 1)
+
+        # Wait so that the ignored packages can be "unloaded"
+        time.sleep(0.7)
+
+        for info in package_list:
+            package_name = info[0]
+
+            if self.installer.manager.install_package(package_name):
+                if package_name in disabled_packages:
+                    # We use a functools.partial to generate the on-complete callback in
+                    # order to bind the current value of the parameters, unlike lambdas.
+                    on_complete = functools.partial(self.installer.reenable_package, package_name, 'upgrade')
+                    sublime.set_timeout(on_complete, 700)
+
+                version = self.installer.manager.get_version(package_name)
+                console_write(
+                    u'''
+                    Upgraded %s to %s
+                    ''',
+                    (package_name, version)
+                )

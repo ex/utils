@@ -18,31 +18,21 @@ if sys.version_info < (3,):
     if os.path.exists(installed_file):
         os.remove(installed_file)
 
-# Make sure we have recent code in memory
-reloader_name = 'package_control.reloader'
-if sys.version_info >= (3,):
-    reloader_name = 'Package Control.' + reloader_name
-    from imp import reload
-if reloader_name in sys.modules:
-    reload(sys.modules[reloader_name])
-
 if sys.version_info < (3,):
-    from package_control.bootstrap import bootstrap_dependency
+    from package_control.bootstrap import bootstrap_dependency, mark_bootstrapped
     from package_control.package_manager import PackageManager
-    from package_control import loader
-    from package_control.settings import pc_settings_filename, load_list_setting, save_list_setting
+    from package_control import loader, text
 else:
-    from .package_control.bootstrap import bootstrap_dependency
+    from .package_control.bootstrap import bootstrap_dependency, mark_bootstrapped
     from .package_control.package_manager import PackageManager
-    from .package_control import loader
-    from .package_control.settings import pc_settings_filename, load_list_setting, save_list_setting
+    from .package_control import loader, text
 
 
 def plugin_loaded():
     manager = PackageManager()
     settings = manager.settings.copy()
 
-    if not os.path.exists(loader.loader_package_path):
+    if not loader.exists('package_control'):
         base_loader_code = """
             import sys
             import os
@@ -109,22 +99,8 @@ def plugin_loaded():
             else:
                 print(u'Package Control: Error finding main directory from loader')
         """
-        base_loader_code = dedent(base_loader_code)
+        base_loader_code = dedent(base_loader_code).lstrip()
         loader.add('00', 'package_control', base_loader_code)
-
-    pc_settings = sublime.load_settings(pc_settings_filename())
-
-    # Make sure we are track Package Control itself
-    installed_packages = load_list_setting(pc_settings, 'installed_packages')
-    if 'Package Control' not in installed_packages:
-        installed_packages.append('Package Control')
-        save_list_setting(pc_settings, pc_settings_filename(), 'installed_packages', installed_packages)
-
-    # We no longer use the installed_dependencies setting because it is not
-    # necessary and created issues with settings shared across operating systems
-    if pc_settings.get('installed_dependencies'):
-        pc_settings.erase('installed_dependencies')
-        sublime.save_settings(pc_settings_filename())
 
     # SSL support fo Linux
     if sublime.platform() == 'linux':
@@ -134,35 +110,64 @@ def plugin_loaded():
         linux_ssl_version = '1.0.1'
 
         def linux_ssl_show_restart():
-            sublime.message_dialog(u'Package Control\n\n'
-                u'Package Control just installed or upgraded the missing ' + \
-                u'Python _ssl module for Linux since Sublime Text does not ' + \
-                u'include it.\n\n' + \
-                u'Please restart Sublime Text to make SSL available to all ' + \
-                u'packages.')
+            sublime.message_dialog(text.format(
+                u'''
+                Package Control
 
-        linux_ssl_args = (settings, linux_ssl_url,
-            linux_ssl_hash, linux_ssl_priority, linux_ssl_version, linux_ssl_show_restart)
-        threading.Thread(target=bootstrap_dependency, args=linux_ssl_args).start()
+                Package Control just installed or upgraded the missing Python
+                _ssl module for Linux since Sublime Text does not include it.
 
+                Please restart Sublime Text to make SSL available to all
+                packages.
+                '''
+            ))
+
+        threading.Thread(
+            target=bootstrap_dependency,
+            args=(
+                settings,
+                linux_ssl_url,
+                linux_ssl_hash,
+                linux_ssl_priority,
+                linux_ssl_version,
+                linux_ssl_show_restart,
+            )
+        ).start()
 
     # SSL support for SHA-2 certificates with ST2 on Windows
-    if sublime.platform() == 'windows' and sys.version_info < (3,):
+    elif sublime.platform() == 'windows' and sys.version_info < (3,):
         win_ssl_url = u'http://packagecontrol.io/ssl/1.0.0/ssl-windows.sublime-package'
         win_ssl_hash = u'3c28982eb400039cfffe53d38510556adead39ba7321f2d15a6770d3ebc75030'
         win_ssl_priority = u'01'
         win_ssl_version = u'1.0.0'
 
         def win_ssl_show_restart():
-            sublime.message_dialog(u'Package Control\n\n'
-                u'Package Control just upgraded the Python _ssl module for ' + \
-                u'ST2 on Windows because the bundled one does not include ' + \
-                u'support for modern SSL certificates.\n\n' + \
-                u'Please restart Sublime Text to complete the upgrade.')
+            sublime.message_dialog(text.format(
+                u'''
+                Package Control
 
-        win_ssl_args = (settings, win_ssl_url, win_ssl_hash,
-            win_ssl_priority, win_ssl_version, win_ssl_show_restart)
-        threading.Thread(target=bootstrap_dependency, args=win_ssl_args).start()
+                Package Control just upgraded the Python _ssl module for ST2 on
+                Windows because the bundled one does not include support for
+                modern SSL certificates.
+
+                Please restart Sublime Text to complete the upgrade.
+                '''
+            ))
+
+        threading.Thread(
+            target=bootstrap_dependency,
+            args=(
+                settings,
+                win_ssl_url,
+                win_ssl_hash,
+                win_ssl_priority,
+                win_ssl_version,
+                win_ssl_show_restart,
+            )
+        ).start()
+
+    else:
+        mark_bootstrapped()
 
 # ST2 compat
 if sys.version_info < (3,):

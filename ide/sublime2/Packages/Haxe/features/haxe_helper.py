@@ -158,25 +158,20 @@ def parse_sig(sig):
 
     for t in spl :
         currentType.append( t )
-        if "(" in t :
-            pars += 1
-        if "{" in t :
-            pars += 1
-        if "<" in t :
-            pars += 1
-        if ")" in t :
-            pars -= 1
-        if "}" in t :
-            pars -= 1
-        if ">" in t :
-            pars -= 1
+        for ch in t:
+            if ch in "({<" :
+                pars += 1
+            if ch in ")}>" :
+                pars -= 1
 
         if pars == 0 :
             params.append(
                 " -> ".join(currentType).replace('(', '').replace(')', ''))
             currentType = []
 
-    ret = params.pop()
+    ret = 'haxe-sublime-bundle-bug'
+    if params:
+        ret = params.pop()
 
     if not params:
         params = None

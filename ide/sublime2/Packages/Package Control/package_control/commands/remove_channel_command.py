@@ -1,11 +1,13 @@
 import sublime
 import sublime_plugin
 
-from ..show_error import show_error
+from ..show_quick_panel import show_quick_panel
 from ..settings import pc_settings_filename
+from .. import text
 
 
 class RemoveChannelCommand(sublime_plugin.WindowCommand):
+
     """
     A command to remove a channel from the user's Package Control settings
     """
@@ -14,21 +16,33 @@ class RemoveChannelCommand(sublime_plugin.WindowCommand):
         self.settings = sublime.load_settings(pc_settings_filename())
         self.channels = self.settings.get('channels')
         if not self.channels:
-            show_error(u'There are no channels to remove.')
+            sublime.message_dialog(test.format(
+                u'''
+                Package Control
+
+                There are no channels to remove
+                '''
+            ))
             return
 
         run = False
         if len(self.channels) == 1:
-            message = u"Package Control\n\nYou are about to remove the " + \
-                u"only channel in your settings. This will mean you will " + \
-                u"no longer be able to install or update packages."
+            message = text.format(
+                u'''
+                Package Control
+
+                You are about to remove the only channel in your settings. This
+                will mean you will no longer be able to install or update
+                packages.
+                '''
+            )
             if sublime.ok_cancel_dialog(message, 'Ok'):
                 run = True
         else:
             run = True
 
         if run:
-            self.window.show_quick_panel(self.channels, self.on_done)
+            show_quick_panel(self.window, self.channels, self.on_done)
 
     def on_done(self, index):
         """

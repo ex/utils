@@ -8,6 +8,7 @@ from ..settings import pc_settings_filename
 
 
 class AddRepositoryCommand(sublime_plugin.WindowCommand):
+
     """
     A command to add a new repository to the user's Package Control settings
     """
@@ -28,7 +29,13 @@ class AddRepositoryCommand(sublime_plugin.WindowCommand):
         input = input.strip()
 
         if re.match('https?://', input, re.I) == None:
-            show_error(u"Unable to add the repository \"%s\" since it does not appear to be served via HTTP (http:// or https://)." % input)
+            show_error(
+                u'''
+                Unable to add the repository "%s" since it does not appear to
+                be served via HTTP (http:// or https://).
+                ''',
+                input
+            )
             return
 
         settings = sublime.load_settings(pc_settings_filename())

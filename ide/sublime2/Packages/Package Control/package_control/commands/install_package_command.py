@@ -3,12 +3,14 @@ import threading
 import sublime
 import sublime_plugin
 
-from ..show_error import show_error
+from .. import text
+from ..show_quick_panel import show_quick_panel
 from ..package_installer import PackageInstaller
 from ..thread_progress import ThreadProgress
 
 
 class InstallPackageCommand(sublime_plugin.WindowCommand):
+
     """
     A command that presents the list of available packages and allows the
     user to pick one to install.
@@ -21,6 +23,7 @@ class InstallPackageCommand(sublime_plugin.WindowCommand):
 
 
 class InstallPackageThread(threading.Thread, PackageInstaller):
+
     """
     A thread to run the action of retrieving available packages in. Uses the
     default PackageInstaller.on_done quick panel handler.
@@ -42,9 +45,16 @@ class InstallPackageThread(threading.Thread, PackageInstaller):
         self.package_list = self.make_package_list(['upgrade', 'downgrade',
             'reinstall', 'pull', 'none'])
 
-        def show_quick_panel():
+        def show_panel():
             if not self.package_list:
-                show_error('There are no packages available for installation')
+                sublime.message_dialog(text.format(
+                    u'''
+                    Package Control
+
+                    There are no packages available for installation
+                    '''
+                ))
                 return
-            self.window.show_quick_panel(self.package_list, self.on_done)
-        sublime.set_timeout(show_quick_panel, 10)
+            show_quick_panel(self.window, self.package_list, self.on_done)
+
+        sublime.set_timeout(show_panel, 10)

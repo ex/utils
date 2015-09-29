@@ -1,6 +1,7 @@
 import os
 import subprocess
 import re
+import sys
 
 if os.name == 'nt':
     from ctypes import windll, create_unicode_buffer
@@ -15,6 +16,7 @@ except (ImportError):
 from .console_write import console_write
 from .unicode import unicode_from_os
 from .show_error import show_error
+from . import text
 
 try:
     # Python 2
@@ -54,6 +56,7 @@ def create_cmd(args, basename_binary=False):
 
 
 class Cli(object):
+
     """
     Base class for running command line apps
 
@@ -73,7 +76,7 @@ class Cli(object):
         self.binary_locations = binary_locations
         self.debug = debug
 
-    def execute(self, args, cwd, input=None, encoding='utf-8'):
+    def execute(self, args, cwd, input=None, encoding='utf-8', meaningful_output=False, ignore_errors=None):
         """
         Creates a subprocess with the executable/args
 
@@ -86,6 +89,13 @@ class Cli(object):
         :param input:
             The input text to send to the program
 
+        :param meaningful_output:
+            If the output from the command is possibly meaningful and should
+            be displayed if in debug mode
+
+        :param ignore_errors:
+            A regex of errors to ignore
+
         :return: A string of the executable output
         """
 
@@ -96,19 +106,26 @@ class Cli(object):
 
             # Make sure the cwd is ascii
             try:
-                cwd.encode('ascii')
+                cwd.encode('mbcs')
             except UnicodeEncodeError:
                 buf = create_unicode_buffer(512)
                 if windll.kernel32.GetShortPathNameW(cwd, buf, len(buf)):
                     cwd = buf.value
 
         if self.debug:
-            console_write(u"Trying to execute command %s" % create_cmd(args), True)
+            console_write(
+                u'''
+                Executing %s [%s]
+                ''',
+                (create_cmd(args), cwd)
+            )
 
         try:
+            if sys.platform == 'win32' and sys.version_info < (3,):
+                cwd = cwd.encode('mbcs')
             proc = subprocess.Popen(args, stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                startupinfo=startupinfo, cwd=cwd)
+                startupinfo=startupinfo, cwd=cwd, env=os.environ)
 
             if input and isinstance(input, str_cls):
                 input = input.encode(encoding)
@@ -126,13 +143,22 @@ class Cli(object):
                         is_vcs = True
                     elif re.search('hg', binary_name):
                         is_vcs = True
-                    message = (u'The process %s seems to have gotten stuck.') % binary_name
+
+                    message = u'The process %s seems to have gotten stuck.' % binary_name
                     if is_vcs:
-                        message +=(u' This is likely due to a password or ' + \
-                            u'passphrase prompt. Please ensure %s works without ' + \
-                            u'a prompt, or change the "ignore_vcs_packages" ' + \
-                            u'Package Control setting to true. Sublime Text will ' + \
-                            u'need to be restarted once these changes are made.') % binary_name
+                        message += text.format(
+                            u'''
+
+                            This is likely due to a password or passphrase
+                            prompt. Please ensure %s works without a prompt, or
+                            change the "ignore_vcs_packages" Package Control
+                            setting to true.
+
+                            Sublime Text will need to be restarted once these
+                            changes are made.
+                            ''',
+                            binary_name
+                        )
                     show_error(message)
                 sublime.set_timeout(kill_proc, 60000)
 
@@ -143,13 +169,37 @@ class Cli(object):
             output = output.decode(encoding)
             output = output.replace('\r\n', '\n').rstrip(' \n\r')
 
+            if proc.returncode != 0:
+                if not ignore_errors or re.search(ignore_errors, output) is None:
+                    show_error(
+                        u'''
+                        Error executing: %s
+
+                        %s
+
+                        VCS-based packages can be ignored with the
+                        "ignore_vcs_packages" setting.
+                        ''',
+                        (create_cmd(args), output)
+                    )
+                    return False
+
+            if meaningful_output and self.debug and len(output) > 0:
+                console_write(output, indent='  ', prefix=False)
+
             return output
 
         except (OSError) as e:
-            cmd = create_cmd(args)
-            error = unicode_from_os(e)
-            message = u"Error executing: %s\n%s\n\nTry checking your \"%s_binary\" setting?" % (cmd, error, self.cli_name)
-            show_error(message)
+            show_error(
+                u'''
+                Error executing: %s
+
+                %s
+
+                Try checking your "%s_binary" setting?
+                ''',
+                (create_cmd(args), unicode_from_os(e), self.cli_name)
+            )
             return False
 
     def find_binary(self, name):
@@ -198,15 +248,30 @@ class Cli(object):
             check_binaries.append(os.path.join(dir_, name))
 
         if self.debug:
-            console_write(u'Looking for %s at: "%s"' % (self.cli_name, '", "'.join(check_binaries)), True)
+            console_write(
+                u'''
+                Looking for %s at: "%s"
+                ''',
+                (self.cli_name, '", "'.join(check_binaries))
+            )
 
         for path in check_binaries:
             if os.path.exists(path) and not os.path.isdir(path) and os.access(path, os.X_OK):
                 if self.debug:
-                    console_write(u"Found %s at \"%s\"" % (self.cli_name, path), True)
+                    console_write(
+                        u'''
+                        Found %s at "%s"
+                        ''',
+                        (self.cli_name, path)
+                    )
                 Cli.binary_paths[self.cli_name] = path
                 return path
 
         if self.debug:
-            console_write(u"Could not find %s on your machine" % self.cli_name, True)
+            console_write(
+                u'''
+                Could not find %s on your machine
+                ''',
+                self.cli_name
+            )
         return None

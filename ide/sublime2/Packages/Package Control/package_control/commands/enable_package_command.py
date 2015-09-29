@@ -1,12 +1,14 @@
 import sublime
 import sublime_plugin
 
-from ..show_error import show_error
+from .. import text
+from ..show_quick_panel import show_quick_panel
 from ..settings import preferences_filename
 from ..package_disabler import PackageDisabler
 
 
 class EnablePackageCommand(sublime_plugin.WindowCommand, PackageDisabler):
+
     """
     A command that removes a package from Sublime Text's ignored packages list
     """
@@ -16,9 +18,15 @@ class EnablePackageCommand(sublime_plugin.WindowCommand, PackageDisabler):
         self.disabled_packages = self.settings.get('ignored_packages')
         self.disabled_packages.sort()
         if not self.disabled_packages:
-            show_error('There are no disabled packages to enable.')
+            sublime.message_dialog(text.format(
+                u'''
+                Package Control
+
+                There are no disabled packages to enable
+                '''
+            ))
             return
-        self.window.show_quick_panel(self.disabled_packages, self.on_done)
+        show_quick_panel(self.window, self.disabled_packages, self.on_done)
 
     def on_done(self, picked):
         """
