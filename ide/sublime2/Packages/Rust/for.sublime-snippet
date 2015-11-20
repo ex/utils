@@ -1,8 +1,0 @@
-<snippet>
-	<content><![CDATA[for ${1} {
-	${2:// Add code here}
-}]]></content>
-	<tabTrigger>for</tabTrigger>
-	<scope>source.rust</scope>
-	<description>for … { … }</description>
-</snippet>

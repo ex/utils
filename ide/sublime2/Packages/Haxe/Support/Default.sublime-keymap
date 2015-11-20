@@ -192,32 +192,6 @@
         ]
     },
     {
-        "keys": ["-"],
-        "command": "run_macro_file",
-        "args":
-        {
-            "file": "Packages/Haxe/Macros/input/Hyphen.sublime-macro"
-        },
-        "context":
-        [
-            {
-                "key": "auto_complete_visible",
-                "operator": "equal",
-                "operand": false
-            },
-            {
-                "key": "selector",
-                "operator": "equal",
-                "operand": "source.hxml"
-            },
-            {
-                "key": "selector",
-                "operator": "not_equal",
-                "operand": "string,comment"
-            }
-        ]
-    },
-    {
         "keys": ["("],
         "command": "haxe_hint",
         "args" : { "input" : "(" },

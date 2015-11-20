@@ -1,6 +1,0 @@
-<snippet>
-	<content><![CDATA[type ${1:typ_alias} = ${2:typ}]]></content>
-	<tabTrigger>type</tabTrigger>
-	<scope>source.rust</scope>
-	<description>type … = …</description>
-</snippet>

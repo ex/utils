@@ -1,8 +1,8 @@
 {
     "cmd": ["cargo", "build"],
+    "selector": "source.rust",
     "file_regex": "^(.*?):([0-9]+):([0-9]+):\\s[0-9]+:[0-9]+\\s(.*)$",
     "syntax": "Packages/Makefile/Make.build-language",
-    "selector": "source.rust",
 
     "variants": [
         {
@@ -12,6 +12,10 @@
         {
             "cmd": ["cargo", "test"],
             "name": "Test"
+        },
+        {
+            "cmd": ["cargo", "bench"],
+            "name": "Bench"
         },
         {
             "cmd": ["cargo", "clean"],

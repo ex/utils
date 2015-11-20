@@ -1434,7 +1434,7 @@ class HaxeComplete( sublime_plugin.EventListener ):
             build.args.append( ("--no-output",) )
             #build.args.append( ("-main" , build.main ) )
 
-            build.args.append( ( build.target , build.output ) )
+            build.args.append( ( "-" + build.target , build.output ) )
             #build.args.append( ("--no-output" , "-v" ) )
 
             build.hxml = os.path.join( src_dir , "build.hxml")
@@ -1919,10 +1919,13 @@ class HaxeComplete( sublime_plugin.EventListener ):
         return ( err, comps, status, hints, fields )
 
     def on_query_completions(self, view, prefix, locations):
+        
         scope = view.scope_name(locations[0])
         is_haxe = 'source.haxe.2' in scope
         is_hxml = 'source.hxml' in scope
         comps = []
+
+        #print(scope)
 
         if not self.force_display_completion and \
                 not view.settings().get('haxe_auto_complete', True):
@@ -1937,6 +1940,7 @@ class HaxeComplete( sublime_plugin.EventListener ):
             return comps
 
         if 'keyword.control.directive.conditional.haxe.2' in scope or \
+                'meta.control.directive.conditional.haxe.2' in scope or \
                 'string' in scope or \
                 'comment' in scope:
             return comps

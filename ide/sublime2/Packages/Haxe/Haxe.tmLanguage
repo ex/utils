@@ -203,6 +203,10 @@
 				</dict>
 				<dict>
 					<key>include</key>
+					<string>#conditional-compilation</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>#operator-assignment</string>
 				</dict>
 				<dict>
@@ -393,16 +397,67 @@
 				</dict>
 			</array>
 		</dict>
-		<key>keywords</key>
+		<key>conditional-compilation</key>
 		<dict>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>match</key>
-					<string>(#(if|elseif|else|end)\b)</string>
+					<string>(#(end|else))</string>
 					<key>name</key>
 					<string>keyword.control.directive.conditional.haxe.2</string>
 				</dict>
+				<dict>
+					<key>match</key>
+					<string>((#(if|elseif))\s+([a-zA-Z0-9_]*)\s)</string>
+					<key>captures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>meta.control.directive.conditional.haxe.2</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.directive.conditional.haxe.2</string>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>((#(if|elseif))\s*?\()</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>meta.control.directive.conditional.haxe.2</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.directive.conditional.haxe.2</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(\))</string>
+					<key>name</key>
+					<string>meta.control.directive.conditional.haxe.2</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(#([a-zA-Z0-9_]*))\s</string>
+					<key>name</key>
+					<string>meta.control.directive.conditional.haxe.2</string>
+				</dict>
+			</array>
+		</dict>
+		<key>keywords</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				
 				<dict>
 					<key>match</key>
 					<string>\b(try|catch|throw)\b</string>
