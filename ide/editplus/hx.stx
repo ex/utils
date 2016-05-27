@@ -47,6 +47,7 @@ extern
 enum
 in
 interface
+override
 untyped
 
 
@@ -74,6 +75,7 @@ StringTools
 true
 XmlParser
 Void
+null
 #
 
 #KEYWORD=Operators
