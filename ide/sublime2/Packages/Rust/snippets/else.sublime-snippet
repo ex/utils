@@ -1,6 +1,6 @@
 <snippet>
     <content><![CDATA[else {
-    ${1:// add code here}
+    ${1:unimplemented!();}
 }]]></content>
     <tabTrigger>else</tabTrigger>
     <scope>source.rust</scope>

@@ -14,7 +14,25 @@ instructions.
 
 Open the palette (`control+shift+P` or `command+shift+P`) in Sublime Text
 and select `Package Control: Install Package` and then select `Rust` from
-the list. That's it.
+the list. That's it.  
+
+## Syntax Checking
+The sublime-rust package now comes with syntax checking.  
+This relies on Cargo and Rust (>= 1.8.0) being installed and on your system path.
+Once installed sublime will make a call to cargo to syntax check the project you're on then will feedback any line numbers which are failing by displaying a dot within the gutter of the editor. By clicking the dot you should get a tooltip of the error displayed.  
+This feature is in Alpha stage and not on by default, so you will need to change the value of ```rust_syntax_checking``` to true within your settings (see Settings).   
+```json
+{
+	"rust_syntax_checking": true
+}
+```
+Here is an example:   
+![preview](https://cloud.githubusercontent.com/assets/936006/15657328/b90c2636-26a7-11e6-8c35-ff6dcd880bac.gif)
+
+## Settings
+You can customize the behaviour of sublime-rust by creating a settings file in your User package. This can be accessed from within SublimeText by going to the menu Preferences > Browse Packages.... Create a file named Rust.sublime-settings or alternatively copy the default settings file Packages/sublime-rust/Rust.sublime-settings to your User package and edit it to your liking.
+
+Note: File names are case-sensitive on some platforms (e.g. Linux) so the file name should be exactly Rust.sublime-settings with capitalization preserved.
 
 ## Development
 

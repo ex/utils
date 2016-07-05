@@ -27,7 +27,7 @@ An Haxe Bundle for [Sublime Text 2](http://www.sublimetext.com/2) and [Sublime T
 
 ### Reviews
 
-- [SublimeText Editor Video Tutorial](http://haxe.org/doc/videos/editors/Sublimetext) 
-- [Haxe workflow with Sublime Text 2, Php & nme examples](http://www.aymericlamboley.fr/blog/haxe-workflow-with-sublime-text-2-php-and-nme-examples/)
-- [Haxe IDE Choices for Mac OS X](http://sambrick.wordpress.com/2012/03/23/haxe-ide-choices-for-mac/)
-- [Haxe + lime + openFL](https://medium.com/programming-ideas-tutorial-and-experience/haxe-lime-openfl-ec9c2784aaa8)
+- [Setting Up the Haxe plugin in Sublime Text](https://www.youtube.com/watch?v=ePO1Rjv7HNs) by @varomix
+- [Haxe workflow with Sublime Text 2, Php & nme examples](http://www.aymericlamboley.fr/blog/haxe-workflow-with-sublime-text-2-php-and-nme-examples/) by @alamboley
+- [Haxe IDE Choices for Mac OS X](http://sambrick.wordpress.com/2012/03/23/haxe-ide-choices-for-mac/) by SamBrick
+- [Haxe + lime + openFL](https://medium.com/programming-ideas-tutorial-and-experience/haxe-lime-openfl-ec9c2784aaa8) by Premith
