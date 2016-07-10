@@ -1,6 +1,6 @@
 <snippet>
     <content><![CDATA[for ${1:pat} in ${2:expr} {
-    ${3:// add code here}
+    ${3:unimplemented!();}
 }]]></content>
     <tabTrigger>for</tabTrigger>
     <scope>source.rust</scope>
