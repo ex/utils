@@ -10,3 +10,6 @@ Links
 
 ####Management
   * http://www.slideshare.net/reed2001/culture-1798664/105-When_Top_of_Market_CompDone
+
+####Windows
+  * https://support.microsoft.com/en-us/kb/192806
