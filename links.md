@@ -1,6 +1,9 @@
 Links
 =====
 
+####Programming
+  * https://blog.codinghorror.com/separating-programming-sheep-from-non-programming-goats/
+
 ####Gamedev
   * https://channel9.msdn.com/Shows/Level-Up/Episode-18-Xbox-Dev-Kit-Mode
 
