@@ -17,3 +17,6 @@ Links
 
 ####Windows
   * https://support.microsoft.com/en-us/kb/192806
+
+####Web
+  * http://mlitzinger.com/blog/simple-to-do-list/
