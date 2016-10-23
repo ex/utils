@@ -20,3 +20,6 @@ Links
 
 ####Web
   * http://mlitzinger.com/blog/simple-to-do-list/
+
+####Social
+  * http://theoilcurse.blogspot.pe/2016/05/the-last-thing-venezuela-needs-is-to.html
