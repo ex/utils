@@ -23,3 +23,8 @@ Links
 
 ####Social
   * http://theoilcurse.blogspot.pe/2016/05/the-last-thing-venezuela-needs-is-to.html
+
+####Linux
+  * http://askubuntu.com/questions/415023/connect-network-is-unreachable-ping
+  * http://askubuntu.com/questions/91815/how-to-install-software-or-upgrade-from-an-old-unsupported-release
+
