@@ -40,6 +40,10 @@ http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
 
     $ curl --user username:password 'ftp://ftp.host.com/file' -o '/path/to/download'
 
+####Backup
+
+    $ rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/usr/svn","/backup/*","/www/deploy/debug/*" } /* /backup/
+
 ####Simlinks
 #####Windows
 
