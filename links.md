@@ -27,4 +27,6 @@ Links
 ####Linux
   * http://askubuntu.com/questions/415023/connect-network-is-unreachable-ping
   * http://askubuntu.com/questions/91815/how-to-install-software-or-upgrade-from-an-old-unsupported-release
-
+  * http://serverfault.com/questions/321520/ssh-connection-lost-during-server-upgrade-how-to-reconnect-to-process
+  * https://www.digitalocean.com/community/tutorials/how-to-upgrade-ubuntu-12-04-lts-to-ubuntu-14-04-lts
+  * http://askubuntu.com/questions/511518/fstab-wont-mount-smb-cifs-share-in-ubuntu-14-04-after-upgrade-from-12-04-lts
