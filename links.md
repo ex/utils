@@ -34,3 +34,5 @@ Links
 
 ####Unity
   * http://catlikecoding.com/unity/tutorials/
+  * http://darkgenesis.zenithmoon.com/so-you-want-to-be-a-unity3d-game-developer/
+  * http://www.leerichardson.com/2007/01/parameter-passing-in-c.html
