@@ -3,6 +3,7 @@ Links
 
 ####Programming
   * https://blog.codinghorror.com/separating-programming-sheep-from-non-programming-goats/
+  * http://staltz.com/unidirectional-user-interface-architectures.html
 
 ####Gamedev
   * https://jackmott.github.io/programming/2016/09/01/performance-in-the-large.html
