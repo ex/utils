@@ -61,6 +61,8 @@ class GitUpgrader(VcsUpgrader):
         # Figure out the remote and the branch name on the remote
         remote = self.execute([binary, 'config', '--get', 'branch.%s.remote' % branch], self.working_copy)
         res = self.execute([binary, 'config', '--get', 'branch.%s.merge' % branch], self.working_copy)
+        if remote is False or res is False:
+            return False
         remote_branch = res.replace('refs/heads/', '')
 
         return {
@@ -81,6 +83,8 @@ class GitUpgrader(VcsUpgrader):
             return False
 
         info = self.get_working_copy_info()
+        if info is False:
+            return False
 
         args = [binary]
         args.extend(self.update_command)
@@ -101,6 +105,8 @@ class GitUpgrader(VcsUpgrader):
             return False
 
         info = self.get_working_copy_info()
+        if info is False:
+            return False
 
         res = self.execute([binary, 'fetch', info['remote']], self.working_copy)
         if res is False:

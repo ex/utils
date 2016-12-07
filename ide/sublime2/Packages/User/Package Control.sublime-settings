@@ -2,6 +2,8 @@
 	"bootstrapped": true,
 	"in_process_packages":
 	[
+		"Rust",
+		"Rust Enhanced"
 	],
 	"installed_packages":
 	[

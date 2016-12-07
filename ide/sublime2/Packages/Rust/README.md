@@ -1,9 +1,17 @@
-# Sublime Text package for Rust
+# Rust Enhanced
 
 ## About
 
-This package supports Rust starting with version 1.0,
+This is a Sublime Text 3 package which supports Rust starting with version 1.0,
 it makes no attempt at supporting earlier incompatible versions.
+
+As of version 1.0.0 this package will no longer support Sublime Text 2. At the time of writing, ST3 is almost reaching stable, and we recommend migrating to that version if you need Rust Support.
+
+This package used to be called 'Rust', but as of version 3, Sublime now comes with Rust built-in.  The built-in version on Sublime is actually just a snapshot of this package [with some fixes](https://github.com/sublimehq/Packages/issues/178#issuecomment-197050427).
+This package is still active and will continue to update and release, so if you want up to date features, and extra tools (such as syntax checking or building) we recommend using this package. It should override the default Rust within Sublime.
+Syntax changes which happen here will eventually be pushed upstream into Sublime Core Packages repo, but extra features will stay here.
+
+For syntax highlighting for Cargo files. Its recommended installing this with the TOML package.
 
 ## Installation
 
@@ -13,21 +21,72 @@ http://wbond.net/sublime_packages/package_control/installation for
 instructions.
 
 Open the palette (`control+shift+P` or `command+shift+P`) in Sublime Text
-and select `Package Control: Install Package` and then select `Rust` from
-the list. That's it.  
+and select `Package Control: Install Package` and then select `Rust Enhanced` from
+the list. That's it.
+If you can't see `Rust Enhanced` try looking for `Rust`, we are changing names to `Rust Enhanced` but are waiting for [#5865](https://github.com/wbond/package_control_channel/pull/5865) to go through
 
-## Syntax Checking
-The sublime-rust package now comes with syntax checking.  
-This relies on Cargo and Rust (>= 1.8.0) being installed and on your system path.
-Once installed sublime will make a call to cargo to syntax check the project you're on then will feedback any line numbers which are failing by displaying a dot within the gutter of the editor. By clicking the dot you should get a tooltip of the error displayed.  
-This feature is in Alpha stage and not on by default, so you will need to change the value of ```rust_syntax_checking``` to true within your settings (see Settings).   
+## Features
+### Go To Definition
+### Build functionality
+Rust Enhanced has the following build functions:
+- Cargo Run
+- Cargo Test
+- Cargo Bench
+- Cargo Clean
+- Cargo release
+- Cargo Clippy
+- Rust
+- Rust Run
+
+
+### Cargo tests with highlighting
+Thanks to [urschrei](https://github.com/urschrei/)  we have Highlighting for:
+- passed test
+- failed test
+- failed test source line (clickable)
+- total number of passed tests
+- total number of failed tests > 0
+- total number of ignored tests > 0
+- total number of measured tests > 0
+
+Example:   
+![highlight_rust_test](https://cloud.githubusercontent.com/assets/936006/19247437/3cf6e056-8f23-11e6-9bbe-d8c542287db6.png)
+
+### Syntax Checking
+The sublime-rust package now comes with syntax checking.
+This relies on Cargo and Rust (>= 1.8.0) being installed and on your system path. Plus Sublime Text >= 3118.
+This feature is on by default, but you can adjust the the value of ```rust_syntax_checking``` within your settings (see Settings).
 ```json
 {
-	"rust_syntax_checking": true
+    "rust_syntax_checking": true
 }
 ```
-Here is an example:   
-![preview](https://cloud.githubusercontent.com/assets/936006/15657328/b90c2636-26a7-11e6-8c35-ff6dcd880bac.gif)
+Here is an example:
+![testingrust](https://cloud.githubusercontent.com/assets/936006/18091147/938cb244-6ebf-11e6-9db1-b74e5bf4eebc.gif)
+
+Projects with multiple build targets are supported too. If a cargo project has several build targets, it's possible to specify mapping of source file names to the target to enable proper cargo's build target selection during syntax checking.
+Syntax checking is accomplished by command:
+```bash
+    cargo rustc {target} -- <some options>
+```
+where `{target}` is an empty string by default (perfectly works for cargo projects with only one build target). However, one can specify a certain target by updating plugin settings with the next section:
+```
+    "projects": {
+       // One entry per project. Keys are project names.
+       "my_cool_stuff": {
+           // Path to the project root dir without trailing /src.
+           "root": "/path/to/my/cool/stuff/project",
+
+           // Targets will be used to replace {target} part in the command.
+           // If no one target matches an, empty string will be used.
+           "targets": {
+               "bin/foo.rs": "--bin foo",  // format is "source_code_filename -> target_name"
+               "bin/bar.rs": "--bin bar",
+               "_default": "--lib"         // or "--bin main"
+           }
+       }
+   }
+```
 
 ## Settings
 You can customize the behaviour of sublime-rust by creating a settings file in your User package. This can be accessed from within SublimeText by going to the menu Preferences > Browse Packages.... Create a file named Rust.sublime-settings or alternatively copy the default settings file Packages/sublime-rust/Rust.sublime-settings to your User package and edit it to your liking.
@@ -51,17 +110,14 @@ One impact of using this indirect format is that you usually have to double
 escape anything in the match patterns, ie, "\\(" has to be "\\\\(" as otherwise
 it will try to interpret '\\(' as a JSON escape code (which doesn't exist).
 
+We have just moved to the new .sublime-syntax file, which only supports ST3 and upwards. Any PR's should be updating this file and not the old tmLanguage file.
+
 ## Credits
 
 Created 2012 by [Daniel Patterson](mailto:dbp@riseup.net), as a near complete from
 scratch rewrite of a package by [Felix Martini](https://github.com/fmartini).
 
-Derived primarily from the Vim syntax file, maintained by
-[Patrick Walton](https://github.com/pcwalton) and
-[Ben Blum](https://github.com/bblum)
-
-With a little help from the (now very outdated) TextMate rust mode written
-by [Tom Ellis](https://github.com/tomgrohl).
+This project is currently maintained by [Jason Williams](https://github.com/jayflux)
 
 ## License
 

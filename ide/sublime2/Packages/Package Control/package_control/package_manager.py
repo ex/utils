@@ -7,7 +7,8 @@ import shutil
 from fnmatch import fnmatch
 import datetime
 import tempfile
-import locale  # To prevent import errors in thread with datetime
+# To prevent import errors in thread with datetime
+import locale  # noqa
 
 try:
     # Python 3
@@ -18,7 +19,7 @@ except (ImportError):
     # Python 2
     from urllib import urlencode
     from urlparse import urlparse
-    str_cls = unicode
+    str_cls = unicode  # noqa
 
 import sublime
 
@@ -43,6 +44,14 @@ from .providers import CHANNEL_PROVIDERS, REPOSITORY_PROVIDERS
 from .settings import pc_settings_filename, load_list_setting, save_list_setting
 from . import loader, text
 from . import __version__
+
+
+DEFAULT_CHANNEL = 'https://packagecontrol.io/channel_v3.json'
+OLD_DEFAULT_CHANNELS = set([
+    'https://packagecontrol.io/channel.json',
+    'https://sublime.wbond.net/channel.json',
+    'https://sublime.wbond.net/repositories.json'
+])
 
 
 class PackageManager():
@@ -97,7 +106,7 @@ class PackageManager():
             'user_agent'
         ]
         for setting in setting_names:
-            if settings.get(setting) == None:
+            if settings.get(setting) is None:
                 continue
             self.settings[setting] = settings.get(setting)
 
@@ -106,7 +115,7 @@ class PackageManager():
         no_https_proxy = self.settings.get('https_proxy') in ["", None]
         if no_https_proxy and self.settings.get('http_proxy'):
             self.settings['https_proxy'] = self.settings.get('http_proxy')
-        if self.settings.get('https_proxy') == False:
+        if self.settings.get('https_proxy') is False:
             self.settings['https_proxy'] = ''
 
         # We cache these to prevent IPC calls between plugin_host and the main
@@ -207,6 +216,61 @@ class PackageManager():
             return metadata.get('dependencies', [])
 
         return []
+
+    def get_dependency_priority_code(self, dependency):
+        """
+        Returns the priority and loader code for a dependency that is already
+        on disk.
+
+        This is primarily only useful when a package author has a
+        dependency they are developing locally and Package Control needs to
+        know how to set up a loader for it.
+
+        :param dependency:
+            A unicode string of the dependency to get the info for
+
+        :return:
+            A 2-element tuple of unicode strings (priority, python code). Return
+            value will be (None, None) if the dependency was not found on disk.
+        """
+
+        dependency_path = self.get_package_dir(dependency)
+        if not os.path.exists(dependency_path):
+            return (None, None)
+
+        dependencies = self.list_available_dependencies()
+
+        hidden_file_path = os.path.join(dependency_path, '.sublime-dependency')
+        loader_py_path = os.path.join(dependency_path, 'loader.py')
+        loader_code_path = os.path.join(dependency_path, 'loader.code')
+
+        priority = None
+
+        if dependency in dependencies:
+            priority = dependencies[dependency].get('load_order')
+
+        # Look in the .sublime-dependency file to see where in the dependency
+        # load order this dependency should be installed
+        elif os.path.exists(hidden_file_path):
+            with open(hidden_file_path, 'rb') as f:
+                data = f.read().decode('utf-8').strip()
+                if data.isdigit():
+                    priority = data
+                    if len(priority) == 1:
+                        priority = '0' + priority
+
+        if priority is None:
+            priority = '50'
+
+        code = None
+        is_py_loader = os.path.exists(loader_py_path)
+        is_code_loader = os.path.exists(loader_code_path)
+        if is_py_loader or is_code_loader:
+            loader_path = loader_code_path if is_code_loader else loader_py_path
+            with open(loader_path, 'rb') as f:
+                code = f.read()
+
+        return (priority, code)
 
     def _is_git_package(self, package):
         """
@@ -310,8 +374,11 @@ class PackageManager():
             A list of dependency names
         """
 
-        platform_selectors = [self.settings['platform'] + '-' + self.settings['arch'],
-            self.settings['platform'], '*']
+        platform_selectors = [
+            self.settings['platform'] + '-' + self.settings['arch'],
+            self.settings['platform'],
+            '*'
+        ]
 
         for platform_selector in platform_selectors:
             if platform_selector not in dependency_info:
@@ -346,7 +413,19 @@ class PackageManager():
 
         repositories = self.settings.get('repositories')[:]
         channels = self.settings.get('channels')
+
+        # Update any old default channel URLs users have in their config
+        updated_channels = []
+        found_default = False
         for channel in channels:
+            if channel in OLD_DEFAULT_CHANNELS:
+                if not found_default:
+                    updated_channels.append(DEFAULT_CHANNEL)
+                    found_default = True
+                continue
+            updated_channels.append(channel)
+
+        for channel in updated_channels:
             channel = channel.strip()
 
             # Caches various info from channels for performance
@@ -406,8 +485,22 @@ class PackageManager():
                     renamed_packages = provider.get_renamed_packages()
                     set_cache_under_settings(self, 'renamed_packages', channel, renamed_packages, cache_ttl)
 
-                    set_cache_under_settings(self, 'unavailable_packages', channel, unavailable_packages, cache_ttl, list_=True)
-                    set_cache_under_settings(self, 'unavailable_dependencies', channel, unavailable_dependencies, cache_ttl, list_=True)
+                    set_cache_under_settings(
+                        self,
+                        'unavailable_packages',
+                        channel,
+                        unavailable_packages,
+                        cache_ttl,
+                        list_=True
+                    )
+                    set_cache_under_settings(
+                        self,
+                        'unavailable_dependencies',
+                        channel,
+                        unavailable_dependencies,
+                        cache_ttl,
+                        list_=True
+                    )
 
                 except (DownloaderException, ClientException, ProviderException) as e:
                     console_write(e)
@@ -416,27 +509,32 @@ class PackageManager():
             repositories.extend(channel_repositories)
         return [repo.strip() for repo in repositories]
 
-    def list_available_packages(self, exclude_dependencies=True):
+    def _list_available(self):
         """
-        Returns a master list of every available package from all sources
-
-        :param exclude_dependencies:
-            If dependencies should be excluded from the list
+        Returns a master list of every available package and dependency from all sources
 
         :return:
-            A dict in the format:
-            {
-                'Package Name': {
-                    # Package details - see example-packages.json for format
+            A 2-element tuple, in the format:
+            (
+                {
+                    'Package Name': {
+                        # Package details - see example-repository.json for format
+                    },
+                    ...
                 },
-                ...
-            }
+                {
+                    'Dependency Name': {
+                        # Dependency details - see example-repository.json for format
+                    },
+                    ...
+                }
+            )
         """
 
         if self.settings.get('debug'):
             console_write(
                 u'''
-                Fetching list of available packages
+                Fetching list of available packages and dependencies
                   Platform: %s-%s
                   Sublime Text Version: %s
                   Package Control Version: %s
@@ -452,6 +550,7 @@ class PackageManager():
         cache_ttl = self.settings.get('cache_length')
         repositories = self.list_repositories()
         packages = {}
+        dependencies = {}
         bg_downloaders = {}
         active = []
         repos_to_download = []
@@ -465,10 +564,10 @@ class PackageManager():
 
             if repository_packages is not None:
                 packages.update(repository_packages)
-                if not exclude_dependencies:
-                    cache_key = repo + '.dependencies'
-                    repository_dependencies = get_cache(cache_key)
-                    packages.update(repository_dependencies)
+
+                cache_key = repo + '.dependencies'
+                repository_dependencies = get_cache(cache_key)
+                dependencies.update(repository_dependencies)
 
             else:
                 domain = urlparse(repo).hostname
@@ -531,24 +630,66 @@ class PackageManager():
 
             cache_key = repo + '.dependencies'
             set_cache(cache_key, repository_dependencies, cache_ttl)
-            if not exclude_dependencies:
-                packages.update(repository_dependencies)
+            dependencies.update(repository_dependencies)
 
             renamed_packages = provider.get_renamed_packages()
             set_cache_under_settings(self, 'renamed_packages', repo, renamed_packages, cache_ttl)
 
-            set_cache_under_settings(self, 'unavailable_packages', repo, unavailable_packages, cache_ttl, list_=True)
-            set_cache_under_settings(self, 'unavailable_dependencies', repo, unavailable_dependencies, cache_ttl, list_=True)
+            set_cache_under_settings(
+                self,
+                'unavailable_packages',
+                repo,
+                unavailable_packages,
+                cache_ttl,
+                list_=True
+            )
+            set_cache_under_settings(
+                self,
+                'unavailable_dependencies',
+                repo,
+                unavailable_dependencies,
+                cache_ttl,
+                list_=True
+            )
 
-        return packages
+        return (packages, dependencies)
 
-    def list_packages(self, unpacked_only=False, exclude_dependencies=True):
+    def list_available_dependencies(self):
+        """
+        Returns a master list of every available dependency from all sources
+
+        :return:
+            A dict in the format:
+            {
+                'Dependency Name': {
+                    # Dependency details - see example-repository.json for format
+                },
+                ...
+            }
+        """
+
+        return self._list_available()[1]
+
+    def list_available_packages(self):
+        """
+        Returns a master list of every available package from all sources
+
+        :return:
+            A dict in the format:
+            {
+                'Package Name': {
+                    # Package details - see example-repository.json for format
+                },
+                ...
+            }
+        """
+
+        return self._list_available()[0]
+
+    def list_packages(self, unpacked_only=False):
         """
         :param unpacked_only:
             Only list packages that are not inside of .sublime-package files
-
-        :param exclude_dependencies:
-            If dependencies should be excluded
 
         :return: A list of all installed, non-default, non-dependency, package names
         """
@@ -559,8 +700,7 @@ class PackageManager():
             packages |= self._list_sublime_package_files(self.settings['installed_packages_path'])
 
         packages -= set(self.list_default_packages())
-        if exclude_dependencies:
-            packages -= set(self.list_dependencies())
+        packages -= set(self.list_dependencies())
         packages -= set(['User', 'Default'])
         return sorted(packages, key=lambda s: s.lower())
 
@@ -598,18 +738,15 @@ class PackageManager():
                 output.append(name)
         return output
 
-    def list_all_packages(self, exclude_dependencies=True):
+    def list_all_packages(self):
         """
         Lists all packages on the machine
-
-        :param exclude_dependencies:
-            If dependencies should be excluded
 
         :return:
             A list of all installed package names, including default packages
         """
 
-        packages = self.list_default_packages() + self.list_packages(exclude_dependencies=exclude_dependencies)
+        packages = self.list_default_packages() + self.list_packages()
         return sorted(packages, key=lambda s: s.lower())
 
     def list_default_packages(self):
@@ -769,8 +906,7 @@ class PackageManager():
             return False
 
         package_filename = package_name + '.sublime-package'
-        package_path = os.path.join(package_destination,
-            package_filename)
+        package_path = os.path.join(package_destination, package_filename)
 
         if not os.path.exists(self.settings['installed_packages_path']):
             os.mkdir(self.settings['installed_packages_path'])
@@ -779,8 +915,7 @@ class PackageManager():
             os.remove(package_path)
 
         try:
-            package_file = zipfile.ZipFile(package_path, "w",
-                compression=zipfile.ZIP_DEFLATED)
+            package_file = zipfile.ZipFile(package_path, "w", compression=zipfile.ZIP_DEFLATED)
         except (OSError, IOError) as e:
             show_error(
                 u'''
@@ -813,7 +948,8 @@ class PackageManager():
         trailing_package_dir = package_dir + slash if package_dir[-1] != slash else package_dir
         package_dir_regex = re.compile('^' + re.escape(trailing_package_dir))
         for root, dirs, files in os.walk(package_dir):
-            [dirs.remove(dir_) for dir_ in dirs if dir_ in dirs_to_ignore]
+            # add "dir" to "paths" list if "dir" is not in "dirs_to_ignore"
+            dirs[:] = [x for x in dirs if x not in dirs_to_ignore]
             paths = dirs
             paths.extend(files)
             for path in paths:
@@ -860,8 +996,10 @@ class PackageManager():
                  and should not be reenabled
         """
 
-        exclude_dependencies = not is_dependency
-        packages = self.list_available_packages(exclude_dependencies=exclude_dependencies)
+        if is_dependency:
+            packages = self.list_available_dependencies()
+        else:
+            packages = self.list_available_packages()
 
         is_available = package_name in list(packages.keys())
 
@@ -889,7 +1027,7 @@ class PackageManager():
             return False
 
         if not is_available:
-            message = u'The %s specified, %s, is not available'
+            message = u"The %s '%s' is not available"
             params = (package_type, package_name)
             if is_dependency:
                 console_write(message, params)
@@ -920,10 +1058,12 @@ class PackageManager():
             tmp_package_path = os.path.join(tmp_dir, package_filename)
 
             unpacked_package_dir = self.get_package_dir(package_name)
-            package_path = os.path.join(self.settings['installed_packages_path'],
-                package_filename)
-            pristine_package_path = os.path.join(os.path.dirname(
-                self.settings['packages_path']), 'Pristine Packages', package_filename)
+            package_path = os.path.join(self.settings['installed_packages_path'], package_filename)
+            pristine_package_path = os.path.join(
+                os.path.dirname(self.settings['packages_path']),
+                'Pristine Packages',
+                package_filename
+            )
 
             if self.is_vcs_package(package_name):
                 upgrader = self.instantiate_upgrader(package_name)
@@ -949,7 +1089,13 @@ class PackageManager():
                     )
                     return False
 
-                return upgrader.run()
+                result = upgrader.run()
+
+                if result is True and is_dependency:
+                    load_order, loader_code = self.get_dependency_priority_code(package_name)
+                    loader.add_or_update(load_order, package_name, loader_code)
+
+                return result
 
             old_version = self.get_metadata(package_name, is_dependency=is_dependency).get('version')
             is_upgrade = old_version is not None
@@ -1087,8 +1233,7 @@ class PackageManager():
             # clearing if a package-metadata.json file exists, we should never
             # accidentally delete a user's customizations. However, we still
             # create a backup just in case.
-            unpacked_metadata_file = os.path.join(unpacked_package_dir,
-                metadata_filename)
+            unpacked_metadata_file = os.path.join(unpacked_package_dir, metadata_filename)
             if os.path.exists(unpacked_metadata_file) and not unpack:
                 self.backup_package_dir(package_name)
                 if not clear_directory(unpacked_package_dir):
@@ -1126,8 +1271,7 @@ class PackageManager():
                 os.mkdir(tmp_working_dir)
                 package_dir = tmp_working_dir
 
-            package_metadata_file = os.path.join(package_dir,
-                metadata_filename)
+            package_metadata_file = os.path.join(package_dir, metadata_filename)
 
             if not os.path.exists(package_dir):
                 os.mkdir(package_dir)
@@ -1158,7 +1302,7 @@ class PackageManager():
 
                 if os.name == 'nt':
                     regex = ':|\*|\?|"|<|>|\|'
-                    if re.search(regex, dest) != None:
+                    if re.search(regex, dest) is not None:
                         console_write(
                             u'''
                             Skipping file from package named %s due to an
@@ -1312,9 +1456,8 @@ class PackageManager():
                 sublime.set_timeout(save_names, 1)
 
             else:
-                if loader.exists(package_name):
-                    loader.remove(package_name)
-                loader.add(packages[package_name]['load_order'], package_name, loader_code)
+                load_order = packages[package_name]['load_order']
+                loader.add_or_update(load_order, package_name, loader_code)
 
             # If we didn't extract directly into the Packages/{package_name}/
             # folder, we need to create a .sublime-package file and install it
@@ -1322,8 +1465,7 @@ class PackageManager():
                 try:
                     # Remove the downloaded file since we are going to overwrite it
                     os.remove(tmp_package_path)
-                    package_zip = zipfile.ZipFile(tmp_package_path, "w",
-                        compression=zipfile.ZIP_DEFLATED)
+                    package_zip = zipfile.ZipFile(tmp_package_path, "w", compression=zipfile.ZIP_DEFLATED)
                 except (OSError, IOError) as e:
                     show_error(
                         u'''
@@ -1397,7 +1539,7 @@ class PackageManager():
 
         debug = self.settings.get('debug')
 
-        packages = self.list_available_packages(exclude_dependencies=False)
+        packages = self.list_available_dependencies()
 
         error = False
         for dependency in dependencies:
@@ -1420,7 +1562,7 @@ class PackageManager():
             available_version = version_comparable(available_version) if available_version else None
 
             def dependency_write(msg):
-                msg = u"The dependency {dependency} " + msg
+                msg = u"The dependency '{dependency}' " + msg
                 msg = msg.format(
                     dependency=dependency,
                     installed_version=installed_version,
@@ -1435,7 +1577,7 @@ class PackageManager():
             install_dependency = False
             if not os.path.exists(dependency_dir):
                 install_dependency = True
-                dependency_write(u'is not currently installed; installing')
+                dependency_write(u'is not currently installed; installing...')
             elif os.path.exists(dependency_git_dir):
                 dependency_write_debug(u'is installed via git; leaving alone')
             elif os.path.exists(dependency_hg_dir):
@@ -1445,13 +1587,22 @@ class PackageManager():
             elif not dependency_releases:
                 dependency_write(u'is installed, but there are no available releases; leaving alone')
             elif not available_version:
-                dependency_write(u'is installed, but the latest available release could not be determined; leaving alone')
+                dependency_write(
+                    u'is installed, but the latest available release '
+                    u'could not be determined; leaving alone'
+                )
             elif not installed_version:
                 install_dependency = True
-                dependency_write(u'is installed, but its version is not known; upgrading to latest release {available_version}')
+                dependency_write(
+                    u'is installed, but its version is not known; '
+                    u'upgrading to latest release {available_version}...'
+                )
             elif installed_version < available_version:
                 install_dependency = True
-                dependency_write(u'is installed, but out of date; upgrading to latest release {available_version} from {installed_version}')
+                dependency_write(
+                    u'is installed, but out of date; upgrading to latest '
+                    u'release {available_version} from {installed_version}...'
+                )
             else:
                 dependency_write_debug(u'is installed and up to date ({installed_version}); leaving alone')
 
@@ -1462,8 +1613,8 @@ class PackageManager():
                     if fail_early:
                         return False
                     error = True
-
-                dependency_write(u'has successfully been installed or updated')
+                else:
+                    dependency_write(u'has successfully been installed or updated')
 
         return not error
 
@@ -1716,8 +1867,10 @@ class PackageManager():
                  and should not be reenabled
         """
 
-        exclude_dependencies = not is_dependency
-        installed_packages = self.list_packages(exclude_dependencies=exclude_dependencies)
+        if not is_dependency:
+            installed_packages = self.list_packages()
+        else:
+            installed_packages = self.list_dependencies()
 
         package_type = 'package'
         if is_dependency:
@@ -1735,10 +1888,12 @@ class PackageManager():
         os.chdir(self.settings['packages_path'])
 
         package_filename = package_name + '.sublime-package'
-        installed_package_path = os.path.join(self.settings['installed_packages_path'],
-            package_filename)
-        pristine_package_path = os.path.join(os.path.dirname(
-            self.settings['packages_path']), 'Pristine Packages', package_filename)
+        installed_package_path = os.path.join(self.settings['installed_packages_path'], package_filename)
+        pristine_package_path = os.path.join(
+            os.path.dirname(self.settings['packages_path']),
+            'Pristine Packages',
+            package_filename
+        )
         package_dir = self.get_package_dir(package_name)
 
         version = self.get_metadata(package_name, is_dependency=is_dependency).get('version')

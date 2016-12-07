@@ -5,7 +5,6 @@ import sublime
 
 from .console_write import console_write
 from .open_compat import open_compat, read_compat
-from .file_not_found_error import FileNotFoundError
 
 
 def read_package_file(package, relative_path, binary=False):
@@ -87,8 +86,7 @@ def _read_regular_file(package, relative_path, binary=False):
 
 
 def _read_zip_file(package, relative_path, binary=False):
-    zip_path = os.path.join(sublime.installed_packages_path(),
-        package + '.sublime-package')
+    zip_path = os.path.join(sublime.installed_packages_path(), package + '.sublime-package')
 
     if not os.path.exists(zip_path):
         return False
@@ -114,6 +112,15 @@ def _read_zip_file(package, relative_path, binary=False):
 
     except (KeyError):
         pass
+
+    except (zipfile.BadZipfile):
+        console_write(
+            u'''
+            Unable to read file from sublime-package file for %s due to the
+            package file being corrupt
+            ''',
+            package
+        )
 
     except (IOError):
         console_write(
@@ -143,8 +150,7 @@ def _regular_file_exists(package, relative_path):
 
 
 def _zip_file_exists(package, relative_path):
-    zip_path = os.path.join(sublime.installed_packages_path(),
-        package + '.sublime-package')
+    zip_path = os.path.join(sublime.installed_packages_path(), package + '.sublime-package')
 
     if not os.path.exists(zip_path):
         return False

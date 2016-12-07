@@ -1,10 +1,14 @@
 import os
 import sys
+import sublime
 import sublime_plugin
 
 if sys.version_info >= (3,):
     import importlib
     import zipimport
+
+
+st_build = int(sublime.version())
 
 
 mod_prefix = 'package_control'
@@ -22,7 +26,7 @@ do_insert = False
 is_zipped = False
 
 commands_name = mod_prefix + '.commands'
-if commands_name in sys.modules and sys.version_info >= (3,):
+if commands_name in sys.modules and sys.version_info >= (3,) and st_build < 3112:
     # Unfortunately with ST3, the ZipLoader does not "properly"
     # implement load_module(), instead loading the code from the zip
     # file when the object is instantiated. This means that calling
@@ -80,8 +84,46 @@ mods_load_order = [
     '.semver',
     '.versions',
 
+    '.deps.asn1crypto._errors',
+    '.deps.asn1crypto._ffi',
+    '.deps.asn1crypto._int',
+    '.deps.asn1crypto._elliptic_curve',
+    '.deps.asn1crypto._types',
+    '.deps.asn1crypto._inet',
+    '.deps.asn1crypto._iri',
+    '.deps.asn1crypto._ordereddict',
+    '.deps.asn1crypto._teletex_codec',
+    '.deps.asn1crypto.util',
+    '.deps.asn1crypto.core',
+    '.deps.asn1crypto.algos',
+    '.deps.asn1crypto.keys',
+    '.deps.asn1crypto.pem',
+    '.deps.asn1crypto.x509',
+    '.deps.asn1crypto',
+
+    '.deps.oscrypto._errors',
+    '.deps.oscrypto._types',
+    '.deps.oscrypto._ffi',
+    '.deps.oscrypto.errors',
+    '.deps.oscrypto._linux_bsd.trust_list',
+    '.deps.oscrypto._linux_bsd',
+    '.deps.oscrypto._osx._core_foundation_ctypes',
+    '.deps.oscrypto._osx._core_foundation',
+    '.deps.oscrypto._osx._security_ctypes',
+    '.deps.oscrypto._osx._security',
+    '.deps.oscrypto._osx.trust_list',
+    '.deps.oscrypto._osx',
+    '.deps.oscrypto._win._decode',
+    '.deps.oscrypto._win._kernel32_ctypes',
+    '.deps.oscrypto._win._kernel32',
+    '.deps.oscrypto._win._crypt32_ctypes',
+    '.deps.oscrypto._win._crypt32',
+    '.deps.oscrypto._win.trust_list',
+    '.deps.oscrypto._win',
+    '.deps.oscrypto.trust_list',
+    '.deps.oscrypto',
+
     '.http',
-    '.http.x509',
     '.http.invalid_certificate_exception',
     '.http.debuggable_http_response',
     '.http.debuggable_https_response',
@@ -193,7 +235,8 @@ for suffix in mods_load_order:
             reload(sys.modules[mod])
         except (ImportError):
             pass  # Upgrade issues from PC 2.0 -> 3.0
-    if sys.version_info >= (3,):
+
+    if sys.version_info >= (3,) and st_build < 3112:
         bare_mod = bare_mod_prefix + suffix
         if bare_mod in reload_mods:
             bare_module = sys.modules[bare_mod]
@@ -206,7 +249,8 @@ for suffix in mods_load_order:
                 else:
                     loader_lookup = os.sep.join(bare_mod.split('.')[0:-1])
                     if loader_lookup not in loaders:
-                        loaders[loader_lookup] = zipimport.zipimporter(os.path.join(pc_package_path, loader_lookup) + os.sep)
+                        zi_path = os.path.join(pc_package_path, loader_lookup) + os.sep
+                        loaders[loader_lookup] = zipimport.zipimporter(zi_path)
                 bare_module.__loader__ = loaders[loader_lookup]
             reload(bare_module)
 

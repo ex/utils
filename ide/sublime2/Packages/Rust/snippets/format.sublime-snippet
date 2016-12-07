@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[format!("${1:\{${2::?}\}}"${1/([^\{])*(\{.*\})?.*/(?2:, :\);)/}$3${1/([^\{])*(\{.*\})?.*/(?2:\))/}]]></content>
+    <tabTrigger>format</tabTrigger>
+    <scope>source.rust</scope>
+    <description>format!(…)</description>
+</snippet>

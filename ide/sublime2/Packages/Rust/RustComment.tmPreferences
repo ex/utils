@@ -34,6 +34,18 @@
 				<key>value</key>
 				<string>no</string>
 			</dict>
+			<dict>
+	            <key>name</key>
+	            <string>TM_COMMENT_START_3</string>
+	            <key>value</key>
+	            <string>/// </string>
+	        </dict>
+	        <dict>
+	            <key>name</key>
+	            <string>TM_COMMENT_START_4</string>
+	            <key>value</key>
+	            <string>//! </string>
+	        </dict>
 		</array>
 	</dict>
 	<key>uuid</key>
