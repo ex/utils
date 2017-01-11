@@ -17,6 +17,9 @@ Links
 
 ####Graphics
   * https://pixelero.wordpress.com/
+  
+####Algorithms
+  * http://www.npr.org/sections/krulwich/2014/05/15/312537965/how-to-marry-the-right-girl-a-mathematical-solution  
 
 ####Management
   * http://www.slideshare.net/reed2001/culture-1798664/105-When_Top_of_Market_CompDone
