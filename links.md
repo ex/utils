@@ -19,6 +19,7 @@ Links
   * https://pixelero.wordpress.com/
   
 ####Algorithms
+  * http://theory.stanford.edu/~tim/f16/f16.html
   * http://www.npr.org/sections/krulwich/2014/05/15/312537965/how-to-marry-the-right-girl-a-mathematical-solution  
 
 ####Management
