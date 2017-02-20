@@ -45,3 +45,6 @@ Links
   * http://catlikecoding.com/unity/tutorials/
   * http://darkgenesis.zenithmoon.com/so-you-want-to-be-a-unity3d-game-developer/
   * http://www.leerichardson.com/2007/01/parameter-passing-in-c.html
+
+####Mobile
+  * http://discuss.cocos2d-x.org/t/a-very-long-story-about-my-optimization-of-cocos2d-x-android-apps-in-size-and-performance/319
