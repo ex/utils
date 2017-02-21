@@ -9,6 +9,7 @@ Links
   * https://jackmott.github.io/programming/2016/09/01/performance-in-the-large.html
   * https://channel9.msdn.com/Shows/Level-Up/Episode-18-Xbox-Dev-Kit-Mode
   * http://www.gamasutra.com/blogs/AAdonaac/20150903/252889/Procedural_Dungeon_Generation_Algorithm.php
+  * http://www.valvesoftware.com/publications/2009/ai_systems_of_l4d_mike_booth.pdf  
 
 ####Haxe
   * http://jcward.com/A+Beginners+Guide+To+Hacking+Haxe+Macros?utm_source=haxe.io
