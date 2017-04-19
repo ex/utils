@@ -1,0 +1,12 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"GLSL Compiler",
+		"OpenGL Shading Language (GLSL)",
+		"Package Control"
+	]
+}
