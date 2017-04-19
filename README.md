@@ -1,7 +1,7 @@
 Utils
 =====
 
-####Scheduling: crontab
+#### Scheduling: crontab
 
 http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
 
@@ -13,42 +13,42 @@ http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
     0 23 * * 7 /usr/svn/backfull.pl > /usr/svn/backfull.log 2>&1
     @reboot /home/utils/rebootmail.pl
 
-####Making file executable: chmod
+#### Making file executable: chmod
 
     $ chmod +x script.pl
 
-####Disk usage: du
+#### Disk usage: du
 
     $ du -sk /path/* | sort -nr | while read size fname; 
       do for unit in k M G T P E Z Y; do if [ $size -lt 1024 ]; 
       then echo -e "${size}${unit}\t${fname}"; break; fi; size=$((size/1024)); done; done
     
-####Change user and group owner (recursive)
+#### Change user and group owner (recursive)
 
     $ chown -R username:group /path/directory/
 
-####Send file by FTP
+#### Send file by FTP
 
     $ curl -T my-local-file.txt ftp://ftp.example.com --user username:password
 
-####Log into remote Samba directory and mount remote disk
+#### Log into remote Samba directory and mount remote disk
 
     $ smbclient -L 192.168.98.253 -Uuser%password
     $ mount -t cifs "//192.168.98.253/svn" "/mnt/svn" -ouser=USER,pass=PASSWORD,domain=YUMI,rw
 
-####Download file by FTP
+#### Download file by FTP
 
     $ curl --user username:password 'ftp://ftp.host.com/file' -o '/path/to/download'
 
-####Backup
+#### Backup
 
     $ rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/usr/svn","/backup/*","/www/deploy/debug/*" } /* /backup/
 
-####Simlinks
-#####Windows
+#### Simlinks
+##### Windows
 
     $ mklink /D C:\xampp\htdocs\www C:\dev\html\project\build
 
-#####Linux
+##### Linux
     $ ln -s /path/target /path/symlink
     
