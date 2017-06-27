@@ -1,5 +1,8 @@
 Links
 =====
+#### Webdev
+  https://medium.com/javascript-scene/native-apps-are-doomed-ac397148a2c0
+
 #### Multiplayer
   * https://blog.forrestthewoods.com/the-tech-of-planetary-annihilation-chronocam-292e3d6b169a
   
