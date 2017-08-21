@@ -1,6 +1,7 @@
 Links
 =====
 #### Webdev
+  * http://perfectionkills.com/understanding-delete/
   * http://www.beepbox.co/#5s0kbl00e03t7m2a7g0fj7i0r1w7111f3000d1111c0000h0000v0000o3210b4x8i4x8i4x8h4h4h4h4h4h4x8h4h4h4h4h4h4h4h4h4p21PFzFk1EE3g6Ud8qgQxROAaP736PbbcPcOOPcPcIIPc0zj733g6wd0q0Q1E20zjf9hO8WitdvkAQQ-gaoBkm4r0Rkl4qwWmoy0ulBlBplpllddddddd80
   * https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261
   * https://medium.com/javascript-scene/native-apps-are-doomed-ac397148a2c0
