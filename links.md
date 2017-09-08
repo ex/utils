@@ -1,7 +1,7 @@
 Links
 =====
 #### Games
-http://babarageo.com/flash/ginormo/
+  * http://babarageo.com/flash/ginormo/
 
 #### Webdev
   * http://perfectionkills.com/understanding-delete/
