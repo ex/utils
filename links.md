@@ -4,6 +4,11 @@ Links
   * http://babarageo.com/flash/ginormo/
   * http://dan-ball.jp/en/javagame/dust2/
   
+#### Graphics
+  * https://bananaft.itch.io/yedomaglobula
+  * https://pixelero.wordpress.com/
+  * http://realtech-vr.com/admin/glview
+  
 #### Webdev
   * http://perfectionkills.com/understanding-delete/
   * http://www.beepbox.co/#5s0kbl00e03t7m2a7g0fj7i0r1w7111f3000d1111c0000h0000v0000o3210b4x8i4x8i4x8h4h4h4h4h4h4x8h4h4h4h4h4h4h4h4h4p21PFzFk1EE3g6Ud8qgQxROAaP736PbbcPcOOPcPcIIPc0zj733g6wd0q0Q1E20zjf9hO8WitdvkAQQ-gaoBkm4r0Rkl4qwWmoy0ulBlBplpllddddddd80
@@ -25,20 +30,12 @@ Links
   * http://www.valvesoftware.com/publications/2009/ai_systems_of_l4d_mike_booth.pdf  
 
 #### Unity
+  * http://pixelnest.io/tutorials/2d-game-unity/animations-1/
   * http://catlikecoding.com/unity/tutorials/
   * http://darkgenesis.zenithmoon.com/so-you-want-to-be-a-unity3d-game-developer/
   * http://www.leerichardson.com/2007/01/parameter-passing-in-c.html
   * http://answers.unity3d.com/questions/17976/edit-source-prefab-change-position-or-add-new-game.html  
-  
-#### Haxe
-  * http://jcward.com/A+Beginners+Guide+To+Hacking+Haxe+Macros?utm_source=haxe.io
-  * https://nadako.github.io/rants/posts/2016-06-21_haxe-next.html?utm_source=haxe.io
-  * https://github.com/grapefrukt/openfl-psm
 
-#### Graphics
-  * https://pixelero.wordpress.com/
-  * http://realtech-vr.com/admin/glview
-  
 #### Algorithms
   * http://theory.stanford.edu/~tim/f16/f16.html
   * http://www.npr.org/sections/krulwich/2014/05/15/312537965/how-to-marry-the-right-girl-a-mathematical-solution  
@@ -61,3 +58,8 @@ Links
 
 #### Mobile
   * http://discuss.cocos2d-x.org/t/a-very-long-story-about-my-optimization-of-cocos2d-x-android-apps-in-size-and-performance/319
+  
+#### Haxe
+  * http://jcward.com/A+Beginners+Guide+To+Hacking+Haxe+Macros?utm_source=haxe.io
+  * https://nadako.github.io/rants/posts/2016-06-21_haxe-next.html?utm_source=haxe.io
+  * https://github.com/grapefrukt/openfl-psm
