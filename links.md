@@ -30,6 +30,7 @@ Links
   * http://www.valvesoftware.com/publications/2009/ai_systems_of_l4d_mike_booth.pdf  
 
 #### Unity
+  * https://forum.unity.com/threads/android-sound-latency-fix.319943/
   * http://pixelnest.io/tutorials/2d-game-unity/animations-1/
   * http://catlikecoding.com/unity/tutorials/
   * http://darkgenesis.zenithmoon.com/so-you-want-to-be-a-unity3d-game-developer/
