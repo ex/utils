@@ -9,5 +9,5 @@ Journal
 
 - For CGIs to write files, the file needs to below to the apache group: chown www-data:sambagroup file.txt
 - I Keep forgetting CGI scripts don't like PC ending lines encoding and fail on linux
-- Don't use Perl for web scrapping, wasted too much time trying to do something that trivial with Python:
-  maintain session cookies between calls. 
+- Don't use Perl for web scrapping, wasted too much time trying to do something trivial with Python:
+  maintain session cookies between calls, oh man I tryed all the cpan ppackatges in disbelief...
