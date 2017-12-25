@@ -3,6 +3,10 @@ Links
 #### Shaders
   * https://www.youtube.com/watch?v=45O7WTc6k2Y
   
+#### Audio
+  * https://ehomerecordingstudio.com/best-vocal-mics/
+  * https://www.guitarcenter.com/Shure/SM7B-Cardioid-Dynamic-Microphone.gc
+  
 #### Games
   * http://babarageo.com/flash/ginormo/
   * http://dan-ball.jp/en/javagame/dust2/
