@@ -1,5 +1,12 @@
 Links
 =====
+#### Shaders
+  * https://www.youtube.com/watch?v=45O7WTc6k2Y
+  
+#### Audio
+  * https://ehomerecordingstudio.com/best-vocal-mics/
+  * https://www.guitarcenter.com/Shure/SM7B-Cardioid-Dynamic-Microphone.gc
+  
 #### Games
   * http://babarageo.com/flash/ginormo/
   * http://dan-ball.jp/en/javagame/dust2/
@@ -10,6 +17,7 @@ Links
   * http://realtech-vr.com/admin/glview
   
 #### Webdev
+  * bloody stupid favicon: https://realfavicongenerator.net/faq
   * http://perfectionkills.com/understanding-delete/
   * http://www.beepbox.co/#5s0kbl00e03t7m2a7g0fj7i0r1w7111f3000d1111c0000h0000v0000o3210b4x8i4x8i4x8h4h4h4h4h4h4x8h4h4h4h4h4h4h4h4h4p21PFzFk1EE3g6Ud8qgQxROAaP736PbbcPcOOPcPcIIPc0zj733g6wd0q0Q1E20zjf9hO8WitdvkAQQ-gaoBkm4r0Rkl4qwWmoy0ulBlBplpllddddddd80
   * https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261
@@ -30,6 +38,7 @@ Links
   * http://www.valvesoftware.com/publications/2009/ai_systems_of_l4d_mike_booth.pdf  
 
 #### Unity
+  * https://forum.unity.com/threads/android-sound-latency-fix.319943/
   * http://pixelnest.io/tutorials/2d-game-unity/animations-1/
   * http://catlikecoding.com/unity/tutorials/
   * http://darkgenesis.zenithmoon.com/so-you-want-to-be-a-unity3d-game-developer/
