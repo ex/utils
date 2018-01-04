@@ -5,8 +5,13 @@
 	],
 	"installed_packages":
 	[
+		"EditorConfig",
 		"GLSL Compiler",
+		"HLSL Syntax",
+		"Monokai JSON+",
 		"OpenGL Shading Language (GLSL)",
-		"Package Control"
+		"Package Control",
+		"Unity Shader",
+		"Unity3D Shader Highlighter and Snippets"
 	]
 }

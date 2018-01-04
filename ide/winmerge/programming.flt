@@ -1,0 +1,38 @@
+## This is a directory/file filter for WinMerge 
+## This filter lets through only files ASP.NET developers care about 
+name: ex
+desc: Exclude Source Control files and directories
+
+## This is an inclusive (loose) filter
+## (it lets through everything not specified)
+def: include
+
+
+## Filters for filenames begin with f: 
+## Filters for directories begin with d: 
+## (Inline comments begin with " ##" and extend to the end of the line) 
+
+f: \.bzrignore$ ## Bazaar ignore file
+f: \.cvsignore$ ## CVS ignore file
+f: \.gitignore$ ## Git ignore file
+f: \.hgignore$  ## Mercurial ignore file
+f: \.svnignore$ ## Subversion ignore file
+f: \.suo$   ## VC options file (binary)
+f: \.ncb$   ## VC Intellisense file
+f: \.opt$   ## VC project options file
+f: \.ilk$   ## VC incremental linker memory file
+f: \.obj$   ## VC object module file
+f: \.pch$   ## VC precompiled header file
+f: \.pdb$   ## VC program database file (debugging symbolic information)
+f: \.sbr$   ## VC source browser file (used to create bsc file)
+f: \.aps$   ## VC Binary version of resource file, for quick loading
+f: \.o$     ## object module file
+f: \.tlog$  ## VS file
+f: \.ipch$  ## VS file
+
+d: \\\.svn$ ## Subversion working copy
+d: \\\.git$ ## Git directory
+d: \\\.bzr$ ## Bazaar branch
+d: \\\.hg$  ## Mercurial repository
+d: \\\.vs$  ## VS directory
+d: \\\obj$

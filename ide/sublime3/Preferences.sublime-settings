@@ -1,7 +1,9 @@
 {
-	"font_size": 12,
+	"color_scheme": "Packages/Monokai JSON+/Monokai JSON+.tmTheme",
+	"font_size": 13,
 	"ignored_packages":
 	[
 		"Vintage"
-	]
+	],
+    "draw_white_space": "all"	
 }
