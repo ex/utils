@@ -2,6 +2,8 @@ Links
 =====
 #### Shaders
   * https://www.youtube.com/watch?v=45O7WTc6k2Y
+  * https://www.shadertoy.com/view/lsfGzr  
+  * https://thebookofshaders.com/
   
 #### Music
   * https://tuxdoc.com/queue/randy-felts-reharmonization-techniquespdf_pdf
