@@ -1,6 +1,18 @@
 Utils
 =====
 
+#### Loggin crontab
+
+https://www.cyberciti.biz/faq/how-to-check-cron-logs-in-ubuntu-linux/
+
+    $ sudo nano /etc/rsyslog.d/50-default.conf
+
+    Uncoment the line (i.e. remove #):
+    cron.*                          /var/log/cron.log
+    
+    $ sudo service rsyslog restart
+    $ sudo service cron restart    
+
 #### Scheduling: crontab
 
 http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
