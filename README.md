@@ -1,7 +1,7 @@
 Utils
 =====
 
-#### Loggin crontab
+#### Logging crontab
 
 https://www.cyberciti.biz/faq/how-to-check-cron-logs-in-ubuntu-linux/
 
