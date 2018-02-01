@@ -54,11 +54,12 @@ Links
   * http://theory.stanford.edu/~tim/f16/f16.html
   * http://www.npr.org/sections/krulwich/2014/05/15/312537965/how-to-marry-the-right-girl-a-mathematical-solution  
 
+#### Windows
+  * https://www.lifewire.com/list-of-control-panel-applets-in-windows-2626120
+  * https://support.microsoft.com/en-us/kb/192806
+
 #### Management
   * http://www.slideshare.net/reed2001/culture-1798664/105-When_Top_of_Market_CompDone
-
-#### Windows
-  * https://support.microsoft.com/en-us/kb/192806
 
 #### Social
   * http://theoilcurse.blogspot.pe/2016/05/the-last-thing-venezuela-needs-is-to.html
