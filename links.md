@@ -4,7 +4,10 @@ Links
   * https://www.youtube.com/watch?v=45O7WTc6k2Y
   * https://www.shadertoy.com/view/lsfGzr  
   * https://thebookofshaders.com/
-  
+
+#### Math
+  * https://math.stackexchange.com/questions/65641/i-need-to-define-a-family-one-parameter-of-monotonic-curves
+
 #### Music
   * https://tuxdoc.com/queue/randy-felts-reharmonization-techniquespdf_pdf
   
