@@ -1,5 +1,10 @@
 Links
 =====
+#### Programming
+  * http://sijinjoseph.com/programmer-competency-matrix/
+  * https://blog.codinghorror.com/separating-programming-sheep-from-non-programming-goats/
+  * http://staltz.com/unidirectional-user-interface-architectures.html
+
 #### Shaders
   * https://www.youtube.com/watch?v=45O7WTc6k2Y
   * https://www.shadertoy.com/view/lsfGzr  
@@ -15,14 +20,14 @@ Links
   * https://ehomerecordingstudio.com/best-vocal-mics/
   * https://www.guitarcenter.com/Shure/SM7B-Cardioid-Dynamic-Microphone.gc
   
-#### Games
-  * http://babarageo.com/flash/ginormo/
-  * http://dan-ball.jp/en/javagame/dust2/
-  
 #### Graphics
   * https://bananaft.itch.io/yedomaglobula
   * https://pixelero.wordpress.com/
   * http://realtech-vr.com/admin/glview
+  
+#### Games
+  * http://babarageo.com/flash/ginormo/
+  * http://dan-ball.jp/en/javagame/dust2/
   
 #### Webdev
   * bloody stupid favicon: https://realfavicongenerator.net/faq
@@ -35,10 +40,6 @@ Links
 #### Multiplayer
   * https://blog.forrestthewoods.com/the-tech-of-planetary-annihilation-chronocam-292e3d6b169a
   
-#### Programming
-  * https://blog.codinghorror.com/separating-programming-sheep-from-non-programming-goats/
-  * http://staltz.com/unidirectional-user-interface-architectures.html
-
 #### Gamedev
   * https://jackmott.github.io/programming/2016/09/01/performance-in-the-large.html
   * https://channel9.msdn.com/Shows/Level-Up/Episode-18-Xbox-Dev-Kit-Mode
