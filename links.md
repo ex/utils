@@ -16,18 +16,19 @@ Links
 #### Music
   * https://tuxdoc.com/queue/randy-felts-reharmonization-techniquespdf_pdf
   
-#### Audio
-  * https://ehomerecordingstudio.com/best-vocal-mics/
-  * https://www.guitarcenter.com/Shure/SM7B-Cardioid-Dynamic-Microphone.gc
-  
 #### Graphics
   * https://bananaft.itch.io/yedomaglobula
   * https://pixelero.wordpress.com/
   * http://realtech-vr.com/admin/glview
   
 #### Multiplayer
+  * http://www.kinematicsoup.com/news/2017/5/30/multiplayerprediction
   * https://blog.photonengine.com/2017/09/28/bannermen-a-classic-rts-game-using-lockstep-with-photon-and-unreal-engine/
   * https://blog.forrestthewoods.com/the-tech-of-planetary-annihilation-chronocam-292e3d6b169a
+  
+#### Audio
+  * https://ehomerecordingstudio.com/best-vocal-mics/
+  * https://www.guitarcenter.com/Shure/SM7B-Cardioid-Dynamic-Microphone.gc
   
 #### Games
   * http://babarageo.com/flash/ginormo/
