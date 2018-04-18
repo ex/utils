@@ -43,6 +43,7 @@ Links
   * http://mlitzinger.com/blog/simple-to-do-list/
 
 #### Gamedev
+  * https://www.dualshockers.com/naughty-dogs-lead-programmer-shares-the-studios-secrets-in-a-hour-long-talk/
   * https://jackmott.github.io/programming/2016/09/01/performance-in-the-large.html
   * https://channel9.msdn.com/Shows/Level-Up/Episode-18-Xbox-Dev-Kit-Mode
   * http://www.gamasutra.com/blogs/AAdonaac/20150903/252889/Procedural_Dungeon_Generation_Algorithm.php
