@@ -1,6 +1,12 @@
 Utils
 =====
 
+#### Adding user to Samba
+
+    sudo useradd NewUser
+    sudo usermod -a -G sambagroup NewUser
+    sudo smbpasswd -a NewUser
+
 #### Logging crontab
 
 https://www.cyberciti.biz/faq/how-to-check-cron-logs-in-ubuntu-linux/
