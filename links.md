@@ -15,6 +15,9 @@ Links
 
 #### Music
   * https://tuxdoc.com/queue/randy-felts-reharmonization-techniquespdf_pdf
+
+#### Synths
+  * http://yusynth.net
   
 #### Graphics
   * https://bananaft.itch.io/yedomaglobula
