@@ -20,6 +20,7 @@ Links
   * http://yusynth.net
   
 #### Graphics
+  * https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-6-step-into-the-baking-lab/
   * https://bananaft.itch.io/yedomaglobula
   * https://pixelero.wordpress.com/
   * http://realtech-vr.com/admin/glview
