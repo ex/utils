@@ -14,6 +14,7 @@ Links
   * https://math.stackexchange.com/questions/65641/i-need-to-define-a-family-one-parameter-of-monotonic-curves
 
 #### Music
+  * https://djtechtools.com/2014/07/27/harmony-for-dummies-a-quick-guide-to-adding-chords-melodies-and-basslines-in-key/
   * https://tuxdoc.com/queue/randy-felts-reharmonization-techniquespdf_pdf
 
 #### Synths
