@@ -1,6 +1,10 @@
 Utils
 =====
 
+#### Show system info
+
+    cat /var/run/motd.dynamic
+
 #### Adding user to Samba
 
     sudo useradd NewUser
