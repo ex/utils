@@ -1,6 +1,15 @@
 Utils
 =====
 
+#### Compressing folder
+
+    sudo apt-get install zip unzip -y
+    zip -r OUTPUT.zip FOLDER
+
+#### Show system info
+
+    cat /var/run/motd.dynamic
+
 #### Adding user to Samba
 
     sudo useradd NewUser
