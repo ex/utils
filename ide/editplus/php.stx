@@ -1,8 +1,8 @@
 #TITLE=PHP
-; PHP syntax file written by ES-Computing. 2004-02-06
+; PHP syntax file written by ES-Computing.
 ; This file is required for EditPlus to run correctly.
 
-#DELIMITER=,(){}[]-+*%/="'~!&|<>?:;.#@$
+#DELIMITER=,(){}[]-+*%/\="'~!&|<>?:;.#@$
 #QUOTATION1='
 #QUOTATION2="
 #CONTINUE_QUOTE=y
@@ -1487,3 +1487,27 @@ XMLReader
 
 #KEYWORD=Namespaces
 #
+#KEYWORD=Operators
+,
+(
+)
+{
+}
+[
+]
+-
++
+*
+%
+/
+=
+~
+&
+|
+<
+>
+:
+^;
+.
+,
+
