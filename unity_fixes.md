@@ -1,3 +1,128 @@
+## 2018.4.0
+
+    Android: Added support for supplementary Unicode characters for UnitySendMessage. (1059652)
+    
+    Android: Fixed Android Screen.safeArea coordinate system to be in screen space. (1148415)
+    
+    Android: Fixed gradle build failure with Android SDK Build-Tools 29-rc1. (1142929)
+    
+    Animation: Fixed float values not being animated when PPtr references were also in animated bindings. (1143168)
+    
+    Animation: Fixed integer values not being animated when PPtr references were also in animated bindings. (1079856)
+    
+    Asset Import: Fixed .meta files with a "UTF-8" BOM causing the YAML parser to freeze Unity. (1145011)
+    
+    Asset Import: Fixed issue with blendshape normals being recalculated when the blendshape normal import option is set to 'None'. (1140797)
+    
+    Audio: Fixed clip preview autoplay in the object selector. (1126745)
+    
+    Editor: Fixed bug that disabled the availability of having rsp files inside Packages correctly. (1138462)
+    
+    Editor: Fixed crash when creating Presets of AudioManager settings and then modifying AudioManager. (1141203)
+    
+    Editor: Fixed incorrect URL being shown in UV overlap warning message. (1124652)
+    
+    Editor: Fixed the preview pane in the object selector.
+    
+    Facebook: Fixed Facebook GameRoom sometimes faiing when target is Standalone. (1144847)
+    
+    GI: Fixed race condition in Enlighten data loading during additive scene loading that leads to a crash in the standalone player. (1141632)
+    
+    Graphics: Fixed Texture2DMSArray SRV on DX11. (1130212)
+    
+    IL2CPP: Added support for the MethodImplOptions.NoOptimization C# attribute. (1124061)
+    
+    IL2CPP: Fixed a build failure that would occur when targeting UWP w/ il2cpp while using a Managed Stripping Level of High. (1137227)
+    
+    IL2CPP: Fixed an intermittent crash when a managed exception occurs on a back ground thread while the process is shutting down.
+    
+    IL2CPP: Fixed some assemblies missing symbol files after building with the Medium or High Managed Stripping Level. (1142732)
+    
+    IL2CPP: Fixed the overwriting of a copy of a generic by ref argument that uses specifically crafted IL bytecode. (1140509)
+    
+    iOS: Fixed issue where app hangs when synchronously loading asset bundles. (1115979)
+    
+    iOS: Fixed player crash at decode_alpha_selectors_etc when decoding a crunched ETC texture. (1139387)
+    
+    iOS: Fixed plugins not being imported correctly on iOS when "Automatically Add Capabilities" is disabled. (1142626)
+    
+    Mobile: Fixed TargetFPS and vSyncCount has no effect on the actual FPS on Razer phones. (1078663)
+    
+    PS4: Fixed indirect draws occasionally causing a soft hang. (1148617)
+    
+    Testing: Fixed TearDown and UnityTearDown getting called on base class first. (1143077)
+    
+    UI Elements: Fixed script field not editable when script is missing. (1144332)
+    
+    Windows: Fixed maximized Standalone window going to fullscreen. (1137204)
+    
+    XR: Fixed a CPU core configuration issue on Oculus Quest that resulted in too many job threads spinning up. (1150332)
+    
+    XR: Improved performance for WIndows MR by using newer presentation APIs from Microsoft. (1148816)
+
+
+## 2018.3.14
+
+    2D: Fixed sprites referencing both the original Sprite assets and Sprite Atlas resulting in increased memory usage. (1071494, 1138745)
+
+    Android: Adds the ability to opt-out from stopping gradle daemons upon editor exit. (1098578, 1137237)
+
+    Android: Fixed UI mask on older PowerVR devices. (1106269, 1148371)
+
+    Animation: Fixed crash when state has "too many" scripts attached. (1137055, 1147371)
+
+    Animation: Fixed editor crashing on GfxDevice::ApplyBlendShape when playing animation preview. (1131617, 1134640)
+
+    Audio: Fixed user selection not being respected for dsp buffer size in the audio settings. (1129895, 1147370)
+
+    Editor: Fixed cloth component attached to an object disabling the Transform tools. (962773, 1141582)
+
+    Editor: Fixed NullReferenceException when dragging Reorderable list items. (1146538, 1147489)
+
+    Editor: Fixed the issue with GameView Scale's minimum value being dependent on the windows display scaling factor. (1099270, 1138042)
+
+    Editor: Fixed UnityEngine.RectOffset causing GC.Collect() to be called at regular intervals causing noticeable lag spikes when using. (1130308, 1142535)
+
+    Editor: Removed usage of DescriptionAttribute to change the display name of enum values in the inspector has been removed. (1115381, 1130990)
+
+    Facebook: Fixed gameroom build failing with error. (1087728, 1143521)
+
+    Graphics: Fixed Crash when calling Graphics.ExecuteCommandBuffer() if CommandBuffer.SetShadowSamplingMode() is used before it. (1102773, 1141338)
+
+    Graphics: Fixed shadow lights and shadow casters culling when shadows are disabled. (1072624, 1116345)
+
+    Graphics: Optimizes single-colored ambient probe updates. (1115645, 1136077)
+
+    Linux: Fixed multiple identical webcams on not supported on Linux. (1115884, 1123760)
+
+    Package Manager: Fix Closing the 'Reset Packages to Defaults' confirmation window still resets the Packages. (1134754, 1137061)
+
+    Scripting: Fixed the need for a reference on an assembly. Allow empty assembly definition references. (1130125, 1136095)
+
+    Shaders: Fixed shader include path issues with Collab projects including shaders in packages. (1115287, 1146525)
+
+    Shaders: Introduced UNITY_SETUP_STEREO_RENDERING macro and setupStereoEyeIndex()/getStereoMatrixVP(eyeIndex) helper methods to support various stereo rendering methods in GLSL. (990291, 1149405)
+
+    Shadows/Lights: Fixed shadow culling issue with directional light when the light direction is almost orthogonal to the normal. (1064533, 1142578)
+
+    Terrain: Fixed SplatDatabase::CheckConsistency crash when opening a Gaia Scene. (1132798, 1142742)
+
+    Timeline: Fixed notifications crash when instantiating GameObjects. (1129866, 1139321)
+
+    Video: Fixed overflow of texture release command queue for Apple Metal when running headless (1127529, 1138252)
+
+    XR: Fixed XR Settings SDK list custom options drop down collapsing when the user selects anywhere in the list. (1142001, 1147369)
+
+    XR: Fixed XR wireframe shader not working correctly with OpenGL and DirectX. (1022184, 1136652)
+
+    XR: Fixes grip button on knuckles controller under legacy input. (1143824, 1143826)
+
+    XR: Updated OpenVR to 1.0.14. This fixes an issue on Linux where the player may crash if it is built for OpenVR, but SteamVR is not installed on the machine. (985931, 1117578)
+
+#### Improvements
+
+    XR: Update Vuforia to version 8.1.7
+
 ## 2018.3.13
 
     Android: Fixed an issue on Mali GPUs where font textures would occupy 4 times more memory than on other GPUs. (1132219, 1134227)
