@@ -1,6 +1,10 @@
 Utils
 =====
 
+#### Creating svn service Windows
+
+    sc create svnserve binpath="\"C:\TortoiseSVN\bin\svnserve.exe\" --service -r D:\repoPath" displayname="SVN Server" depend=Tcpip start=auto
+
 #### Compressing folder
 
     sudo apt-get install zip unzip -y
