@@ -1,6 +1,15 @@
 Utils
 =====
 
+#### Deleting temporary files in linux
+
+https://serverfault.com/questions/232525/df-in-linux-not-showing-correct-free-space-after-file-removal/232526
+
+    df
+    lsof | grep deleted
+    killall -9 gdrive
+    du -hs * | sort -rh | head -10
+    
 #### Creating svn service in Windows
 
     sc create svnserve binpath="\"C:\pathTo\svnserve.exe\" --service -r D:\repoPath" displayname="SVN Server" depend=Tcpip start=auto
