@@ -1,6 +1,10 @@
 Utils
 =====
 
+#### Ignoring a directory on a checked out SVN repo
+
+    svn update --set-depth exclude folderToIgnore
+
 #### Deleting temporary files in linux
 
 https://serverfault.com/questions/232525/df-in-linux-not-showing-correct-free-space-after-file-removal/232526
