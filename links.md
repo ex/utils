@@ -55,7 +55,8 @@ Links
   * https://jackmott.github.io/programming/2016/09/01/performance-in-the-large.html
   * https://channel9.msdn.com/Shows/Level-Up/Episode-18-Xbox-Dev-Kit-Mode
   * http://www.gamasutra.com/blogs/AAdonaac/20150903/252889/Procedural_Dungeon_Generation_Algorithm.php
-  * http://www.valvesoftware.com/publications/2009/ai_systems_of_l4d_mike_booth.pdf  
+  * http://www.valvesoftware.com/publications/2009/ai_systems_of_l4d_mike_booth.pdf
+  * https://docs.google.com/presentation/d/1M7_7j_9RujHBnJa0l7Sr00HgmcB-d8DEBm7_s8QL4Ic/edit#slide=id.g3ef065be6e_0_12
 
 #### Unity
   * https://forum.unity.com/threads/android-sound-latency-fix.319943/
