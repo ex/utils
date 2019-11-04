@@ -1,6 +1,17 @@
 Utils
 =====
 
+#### Adding mysql super user with remote access
+
+    CREATE USER 'user'@'localhost' IDENTIFIED BY 'pwd';
+    GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost' WITH GRANT OPTION;
+
+    CREATE USER 'user'@'%' IDENTIFIED BY 'pwd';
+    GRANT ALL PRIVILEGES ON *.* TO 'user'@'%' WITH GRANT OPTION;
+
+    SHOW GRANTS FOR user;
+    FLUSH PRIVILEGES;
+
 #### Ignoring a directory on a checked out SVN repo
 
     svn update --set-depth exclude folderToIgnore
