@@ -3,6 +3,8 @@ Utils
 
 #### Adding mysql super user with remote access
 
+https://stackoverflow.com/questions/6239131/how-to-grant-remote-access-permissions-to-mysql-server-for-user/27644973
+
     CREATE USER 'user'@'localhost' IDENTIFIED BY 'pwd';
     GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost' WITH GRANT OPTION;
 
