@@ -1,6 +1,15 @@
 Utils
 =====
 
+#### Testing POST apis with curl
+
+    curl -d "{\"key1\":\"value1\"}" -H "Content-Type: application/json" -X POST http://localhost:8085/echo
+    
+    router.post( '/echo', ( req, res ) => {
+        logger.debug( `echo/ ${JSON.stringify( req.body )}` );
+        res.send( req.body );
+    } );    
+
 #### Adding mysql super user with remote access
 
 https://stackoverflow.com/questions/6239131/how-to-grant-remote-access-permissions-to-mysql-server-for-user/27644973
