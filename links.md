@@ -16,6 +16,7 @@ Links
 #### Music
   * https://djtechtools.com/2014/07/27/harmony-for-dummies-a-quick-guide-to-adding-chords-melodies-and-basslines-in-key/
   * https://tuxdoc.com/queue/randy-felts-reharmonization-techniquespdf_pdf
+  * https://pdfs.semanticscholar.org/2b77/50f5a087b81184ed42c574b5b3725fdb1fc1.pdf
 
 #### Synths
   * http://yusynth.net
@@ -86,11 +87,3 @@ Links
   * http://serverfault.com/questions/321520/ssh-connection-lost-during-server-upgrade-how-to-reconnect-to-process
   * https://www.digitalocean.com/community/tutorials/how-to-upgrade-ubuntu-12-04-lts-to-ubuntu-14-04-lts
   * http://askubuntu.com/questions/511518/fstab-wont-mount-smb-cifs-share-in-ubuntu-14-04-after-upgrade-from-12-04-lts
-
-#### Mobile
-  * http://discuss.cocos2d-x.org/t/a-very-long-story-about-my-optimization-of-cocos2d-x-android-apps-in-size-and-performance/319
-  
-#### Haxe
-  * http://jcward.com/A+Beginners+Guide+To+Hacking+Haxe+Macros?utm_source=haxe.io
-  * https://nadako.github.io/rants/posts/2016-06-21_haxe-next.html?utm_source=haxe.io
-  * https://github.com/grapefrukt/openfl-psm
