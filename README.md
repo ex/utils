@@ -23,9 +23,8 @@ https://askubuntu.com/questions/767504/permissions-problems-with-var-www-html-an
 	sudo chgrp -R apache /var/www/svn
 	sudo find /var/www/svn -type d -exec chmod g+rx {} +
 	sudo find /var/www/svn -type f -exec chmod g+r {} +
-    
-    
-    > sudo htpasswd -m /etc/svn-auth-users newuser
+        
+    sudo htpasswd -m /etc/svn-auth-users newuser
 
 #### Testing POST apis with curl
 
