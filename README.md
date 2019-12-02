@@ -1,6 +1,32 @@
 Utils
 =====
 
+#### HTTP SVN server
+
+http://crazyadmins.com/tag/how-to-install-svn-server-on-amazon-ec2/
+
+	LoadModule dav_svn_module     modules/mod_dav_svn.so
+	LoadModule authz_svn_module   modules/mod_authz_svn.so
+	LoadModule dontdothat_module  modules/mod_dontdothat.so
+	<Location /svn>
+	   DAV svn
+	   SVNParentPath /var/www/svn
+	   AuthType Basic
+	   AuthName "Authorization SVN"
+	   AuthzSVNReposRelativeAccessFile authz
+	   AuthUserFile /etc/svn-auth-users
+	   Require valid-user
+	</Location>
+
+https://askubuntu.com/questions/767504/permissions-problems-with-var-www-html-and-my-own-home-directory-for-a-website
+
+	sudo chgrp -R apache /var/www/svn
+	sudo find /var/www/svn -type d -exec chmod g+rx {} +
+	sudo find /var/www/svn -type f -exec chmod g+r {} +
+    
+    
+    > sudo htpasswd -m /etc/svn-auth-users newuser
+
 #### Testing POST apis with curl
 
     curl -d "{\"key1\":\"value1\"}" -H "Content-Type: application/json" -X POST http://localhost:8085/echo
