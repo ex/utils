@@ -10,10 +10,8 @@ Links
   * https://www.shadertoy.com/view/lsfGzr  
   * https://thebookofshaders.com/
 
-#### Math
-  * https://math.stackexchange.com/questions/65641/i-need-to-define-a-family-one-parameter-of-monotonic-curves
-
 #### Music
+  * https://roberthenke.com/technology/m4l.html
   * https://djtechtools.com/2014/07/27/harmony-for-dummies-a-quick-guide-to-adding-chords-melodies-and-basslines-in-key/
   * https://tuxdoc.com/queue/randy-felts-reharmonization-techniquespdf_pdf
   * https://pdfs.semanticscholar.org/2b77/50f5a087b81184ed42c574b5b3725fdb1fc1.pdf
@@ -31,6 +29,9 @@ Links
   * http://www.kinematicsoup.com/news/2017/5/30/multiplayerprediction
   * https://blog.photonengine.com/2017/09/28/bannermen-a-classic-rts-game-using-lockstep-with-photon-and-unreal-engine/
   * https://blog.forrestthewoods.com/the-tech-of-planetary-annihilation-chronocam-292e3d6b169a
+
+#### Math
+  * https://math.stackexchange.com/questions/65641/i-need-to-define-a-family-one-parameter-of-monotonic-curves
 
 #### Management
   * https://rework.withgoogle.com/
