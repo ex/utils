@@ -138,6 +138,7 @@ http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
 #### Simlinks
 ##### Windows
 
+    mklink [[/d] | [/h] | [/j]] <Link> <Target>
     $ mklink /D C:\xampp\htdocs\www C:\dev\html\project\build
 
 ##### Linux
