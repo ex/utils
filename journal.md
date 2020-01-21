@@ -3,7 +3,7 @@ Journal
 
 ##### 2020
 
-- [nodejs] pm2 process must start from app root directory to find paths!
+- [nodejs] pm2 process must start from app root directory to find paths!  
   https://github.com/Unitech/pm2/issues/96
   
 		cd /var/www/node/myapp; pm2 start myapp.js
