@@ -1,6 +1,53 @@
 Utils
 =====
 
+#### HTTP SVN server
+
+http://crazyadmins.com/tag/how-to-install-svn-server-on-amazon-ec2/
+
+	LoadModule dav_svn_module     modules/mod_dav_svn.so
+	LoadModule authz_svn_module   modules/mod_authz_svn.so
+	LoadModule dontdothat_module  modules/mod_dontdothat.so
+	<Location /svn>
+	   DAV svn
+	   SVNParentPath /var/www/svn
+	   AuthType Basic
+	   AuthName "Authorization SVN"
+	   AuthzSVNReposRelativeAccessFile authz
+	   AuthUserFile /etc/svn-auth-users
+	   Require valid-user
+	</Location>
+
+https://askubuntu.com/questions/767504/permissions-problems-with-var-www-html-and-my-own-home-directory-for-a-website
+
+	sudo chgrp -R apache /var/www/svn
+	sudo find /var/www/svn -type d -exec chmod g+rx {} +
+	sudo find /var/www/svn -type f -exec chmod g+r {} +
+        
+    sudo htpasswd -m /etc/svn-auth-users newuser
+
+#### Testing POST apis with curl
+
+    curl -d "{\"key1\":\"value1\"}" -H "Content-Type: application/json" -X POST http://localhost:8085/echo
+    
+    router.post( '/echo', ( req, res ) => {
+        logger.debug( `echo/ ${JSON.stringify( req.body )}` );
+        res.send( req.body );
+    } );    
+
+#### Adding mysql super user with remote access
+
+https://stackoverflow.com/questions/6239131/how-to-grant-remote-access-permissions-to-mysql-server-for-user/27644973
+
+    CREATE USER 'user'@'localhost' IDENTIFIED BY 'pwd';
+    GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost' WITH GRANT OPTION;
+
+    CREATE USER 'user'@'%' IDENTIFIED BY 'pwd';
+    GRANT ALL PRIVILEGES ON *.* TO 'user'@'%' WITH GRANT OPTION;
+
+    SHOW GRANTS FOR user;
+    FLUSH PRIVILEGES;
+
 #### Ignoring a directory on a checked out SVN repo
 
     svn update --set-depth exclude folderToIgnore
@@ -91,6 +138,7 @@ http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
 #### Simlinks
 ##### Windows
 
+    mklink [[/d] | [/h] | [/j]] <Link> <Target>
     $ mklink /D C:\xampp\htdocs\www C:\dev\html\project\build
 
 ##### Linux
