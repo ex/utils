@@ -1,8 +1,0 @@
-<snippet>
-    <content><![CDATA[
-#[macro_export]
-]]></content>
-    <tabTrigger>macro</tabTrigger>
-    <scope>source.rust</scope>
-    <description>[macro_export]</description>
-</snippet>

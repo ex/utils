@@ -1,8 +1,0 @@
-<snippet>
-	<content><![CDATA[${1:public }function ${2:name}$HX_W_ORB(${3:args})${4:$HX_W_C:$HX_C_W${5:Void}}${6:$HX_W_OCB{
-	${7:$TM_SELECTED_TEXT}$0
-\}}]]></content>
-	<tabTrigger>fun</tabTrigger>
-	<scope>source.haxe.2</scope>
-	<description>function</description>
-</snippet>

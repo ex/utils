@@ -1,9 +1,12 @@
 {
 	"color_scheme": "Packages/Monokai JSON+/Monokai JSON+.tmTheme",
-	"font_size": 13,
+	"draw_white_space": "all",
+	"font_face": "Lucida Console Ex",
+	"font_size": 11,
 	"ignored_packages":
 	[
 		"Vintage"
 	],
-    "draw_white_space": "all"	
+	"theme": "Adaptive.sublime-theme",
+	"trim_trailing_white_space_on_save": true
 }

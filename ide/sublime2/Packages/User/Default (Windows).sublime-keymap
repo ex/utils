@@ -1,3 +1,0 @@
-[
-{ "keys": ["ctrl+q"], "command": "toggle_comment", "args": { "block": false } }
-]
