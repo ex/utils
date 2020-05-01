@@ -1,6 +1,10 @@
 Utils
 =====
 
+#### Disk usage: du
+
+    $ du -h -d1 /usr/svn/
+
 #### HTTP SVN server
 
 http://crazyadmins.com/tag/how-to-install-svn-server-on-amazon-ec2/
@@ -108,12 +112,6 @@ http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
 
     $ chmod +x script.pl
 
-#### Disk usage: du
-
-    $ du -sk /path/* | sort -nr | while read size fname; 
-      do for unit in k M G T P E Z Y; do if [ $size -lt 1024 ]; 
-      then echo -e "${size}${unit}\t${fname}"; break; fi; size=$((size/1024)); done; done
-    
 #### Change user and group owner (recursive)
 
     $ chown -R username:group /path/directory/
@@ -130,10 +128,6 @@ http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/
 #### Download file by FTP
 
     $ curl --user username:password 'ftp://ftp.host.com/file' -o '/path/to/download'
-
-#### Backup
-
-    $ rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/usr/svn","/backup/*","/www/deploy/debug/*" } /* /backup/
 
 #### Simlinks
 ##### Windows
