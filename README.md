@@ -7,6 +7,8 @@ Utils
 
 #### HTTP SVN server
 
+http://northwaygames.com/setting-up-subversion-on-amazon-ec2-for-free/
+
 http://crazyadmins.com/tag/how-to-install-svn-server-on-amazon-ec2/
 
 	LoadModule dav_svn_module     modules/mod_dav_svn.so
