@@ -3,6 +3,14 @@ Utils
 
 #### Disk usage: du
 
+https://gist.github.com/marcesher/7168642
+
+    $ sudo yum-config-manager --enable epel
+    $ sudo yum install -y p7ip
+    $ sudo cp /usr/bin/7za /usr/bin/7z
+
+#### Install 7zip in AWS Linux
+
     $ du -h -d1 /usr/svn/
 
 #### HTTP SVN server
