@@ -1,7 +1,7 @@
 Utils
 =====
 
-#### Disk usage: du
+#### Install 7zip in AWS Linux
 
 https://gist.github.com/marcesher/7168642
 
@@ -9,7 +9,7 @@ https://gist.github.com/marcesher/7168642
     $ sudo yum install -y p7ip
     $ sudo cp /usr/bin/7za /usr/bin/7z
 
-#### Install 7zip in AWS Linux
+#### Disk usage: du
 
     $ du -h -d1 /usr/svn/
 
