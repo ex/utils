@@ -1,6 +1,10 @@
 Utils
 =====
 
+#### Check if a process is running
+
+    $ ps -ef | grep backup
+
 #### Install 7zip in AWS Linux
 
 https://gist.github.com/marcesher/7168642
