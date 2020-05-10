@@ -1,6 +1,12 @@
 Utils
 =====
 
+#### Keep process running after SSH disconnection
+
+    $ nohup long-running-process &
+    to see the log:
+    $ tail -f nohup.out
+
 #### Check if a process is running
 
     $ ps -ef | grep backup
