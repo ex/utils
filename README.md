@@ -3,7 +3,7 @@ Utils
 
 #### Extracting silently protected 7z file
 
-nohup 7z x file.7z -o"/mnt/efs/fs1/" -pPASSWORD -y &
+    $ nohup 7z x file.7z -o"/mnt/efs/fs1/" -pPASSWORD -y &
 
 #### Keep process running after SSH disconnection
 
