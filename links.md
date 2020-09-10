@@ -19,6 +19,10 @@ Links
 #### Synths
   * http://yusynth.net
   
+#### Math
+  * https://math.stackexchange.com/questions/65641/i-need-to-define-a-family-one-parameter-of-monotonic-curves
+  * https://imogeometry.blogspot.com/p/geometry-books-pdf.html?fbclid=IwAR31CvM8cV4-kUEsBoBbsKDJUk9zg3OQ1uyxa03sS5tZXfwDtzVs1yWfrfo
+
 #### Graphics
   * https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-6-step-into-the-baking-lab/
   * https://bananaft.itch.io/yedomaglobula
@@ -29,9 +33,6 @@ Links
   * http://www.kinematicsoup.com/news/2017/5/30/multiplayerprediction
   * https://blog.photonengine.com/2017/09/28/bannermen-a-classic-rts-game-using-lockstep-with-photon-and-unreal-engine/
   * https://blog.forrestthewoods.com/the-tech-of-planetary-annihilation-chronocam-292e3d6b169a
-
-#### Math
-  * https://math.stackexchange.com/questions/65641/i-need-to-define-a-family-one-parameter-of-monotonic-curves
 
 #### Management
   * https://rework.withgoogle.com/
