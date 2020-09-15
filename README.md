@@ -9,7 +9,7 @@ https://stackoverflow.com/questions/25010369/wget-curl-large-file-from-google-dr
     
     $ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=FILEID' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=FILEID" -O FILENAME && rm -rf /tmp/cookies.txt
 
-#### Deleting full directories recursively and forcefully (DON'T USE THIS IN ROOT)
+#### Deleting full directories recursively and forcefully (DON'T USE THIS IN /ROOT)
 
     $ sudo rm -rf dirs_*
 
